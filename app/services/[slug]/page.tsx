@@ -43,10 +43,7 @@ export async function generateMetadata({
 
 // ── Per-service detail content ────────────────────────────────────────────
 const SERVICE_DETAILS: Partial<
-  Record<
-    ServiceSlug,
-    { benefits: string[]; process: string[]; result: string }
-  >
+  Record<ServiceSlug, { benefits: string[]; process: string[]; result: string }>
 > = {
   "digital-marketing": {
     benefits: [

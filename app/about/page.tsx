@@ -245,8 +245,8 @@ export default function AboutPage() {
                 margin: 0,
               }}
             >
-              "To give every South Indian business and professional an
-              unfair advantage in the digital economy."
+              "To give every South Indian business and professional an unfair
+              advantage in the digital economy."
             </blockquote>
             <p
               style={{

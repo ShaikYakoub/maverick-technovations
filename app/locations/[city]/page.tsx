@@ -176,7 +176,9 @@ export default async function LocationPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema),
+        }}
       />
       <script
         type="application/ld+json"
@@ -200,10 +202,7 @@ export default async function LocationPage({
           }}
         >
           {/* Breadcrumb */}
-          <nav
-            aria-label="Breadcrumb"
-            style={{ marginBottom: "32px" }}
-          >
+          <nav aria-label="Breadcrumb" style={{ marginBottom: "32px" }}>
             <ol
               style={{
                 display: "flex",

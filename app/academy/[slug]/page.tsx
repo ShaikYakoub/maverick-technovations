@@ -202,7 +202,7 @@ export default async function AcademyCoursePage({
   };
 
   const whatsappLink = `https://wa.me/91${BUSINESS_DATA.phone}?text=${encodeURIComponent(
-    `Hi, I'm interested in the ${course.title} program at Mavericks Academy.`
+    `Hi, I'm interested in the ${course.title} program at Mavericks Academy.`,
   )}`;
 
   return (

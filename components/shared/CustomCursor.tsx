@@ -58,11 +58,13 @@ export default function CustomCursor() {
       lastT = now;
 
       const scale = Math.min(1 + vel * 0.8, 2.4);
-      if (dotRef.current) dotRef.current.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      if (dotRef.current)
+        dotRef.current.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
       clearTimeout(velTimeout);
       velTimeout = setTimeout(() => {
-        if (dotRef.current) dotRef.current.style.transform = `translate(-50%, -50%) scale(1)`;
+        if (dotRef.current)
+          dotRef.current.style.transform = `translate(-50%, -50%) scale(1)`;
       }, 100);
     }
 
@@ -109,7 +111,9 @@ export default function CustomCursor() {
     function onMouseOver(e: MouseEvent) {
       const target = e.target as HTMLElement;
       const isClickable =
-        target.closest("a, button, [role='button'], input, textarea, select, label, [tabindex]") !== null;
+        target.closest(
+          "a, button, [role='button'], input, textarea, select, label, [tabindex]",
+        ) !== null;
       if (isClickable && !hovering.current) onMouseEnterClickable();
       else if (!isClickable && hovering.current) onMouseLeaveClickable();
     }

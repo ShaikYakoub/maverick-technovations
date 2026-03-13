@@ -250,8 +250,13 @@ export default function Footer() {
                   itemProp="streetAddress"
                 >
                   {BUSINESS_DATA.address.street},{" "}
-                  <span itemProp="addressLocality">{BUSINESS_DATA.address.city}</span>,{" "}
-                  <span itemProp="addressRegion">{BUSINESS_DATA.address.state}</span>
+                  <span itemProp="addressLocality">
+                    {BUSINESS_DATA.address.city}
+                  </span>
+                  ,{" "}
+                  <span itemProp="addressRegion">
+                    {BUSINESS_DATA.address.state}
+                  </span>
                 </span>
               </div>
             </address>
@@ -260,10 +265,19 @@ export default function Footer() {
             <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
               {(
                 [
-                  { href: BUSINESS_DATA.socialLinks.instagram, label: "Instagram" },
-                  { href: BUSINESS_DATA.socialLinks.facebook, label: "Facebook" },
+                  {
+                    href: BUSINESS_DATA.socialLinks.instagram,
+                    label: "Instagram",
+                  },
+                  {
+                    href: BUSINESS_DATA.socialLinks.facebook,
+                    label: "Facebook",
+                  },
                   { href: BUSINESS_DATA.socialLinks.youtube, label: "YouTube" },
-                  { href: BUSINESS_DATA.socialLinks.linkedin, label: "LinkedIn" },
+                  {
+                    href: BUSINESS_DATA.socialLinks.linkedin,
+                    label: "LinkedIn",
+                  },
                 ] as const
               ).map((s) => (
                 <a
@@ -334,11 +348,15 @@ export default function Footer() {
                 }}
               >
                 {SERVICE_COLS.map((s) => {
-                  const service = SERVICES.find((sv) => sv.shortTitle === s || sv.title === s);
+                  const service = SERVICES.find(
+                    (sv) => sv.shortTitle === s || sv.title === s,
+                  );
                   return (
                     <li key={s}>
                       <Link
-                        href={service ? `/services/${service.slug}` : "/services"}
+                        href={
+                          service ? `/services/${service.slug}` : "/services"
+                        }
                         style={{
                           fontFamily: "var(--font-body)",
                           fontSize: "13px",
@@ -542,10 +560,12 @@ export default function Footer() {
           </p>
 
           <div style={{ display: "flex", gap: "20px" }}>
-            {([
-              { label: "Privacy Policy", href: "/privacy" },
-              { label: "Terms of Service", href: "/terms" },
-            ] as const).map((l) => (
+            {(
+              [
+                { label: "Privacy Policy", href: "/privacy" },
+                { label: "Terms of Service", href: "/terms" },
+              ] as const
+            ).map((l) => (
               <Link
                 key={l.href}
                 href={l.href}

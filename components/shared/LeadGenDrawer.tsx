@@ -7,7 +7,13 @@ import {
   useSpring,
   useMotionValue,
 } from "motion/react";
-import { X, ArrowRight, CheckCircle, Loader2, ChevronRight } from "lucide-react";
+import {
+  X,
+  ArrowRight,
+  CheckCircle,
+  Loader2,
+  ChevronRight,
+} from "lucide-react";
 import { submitLead, trackEvent } from "@/actions/lead";
 import type { LeadActionResult } from "@/actions/lead";
 
@@ -28,7 +34,8 @@ const CASE_STUDIES = [
     client: "Retail Brand, Kadapa",
     metric: "312%",
     label: "Revenue Growth",
-    detail: "Ranked #1 on Google Maps within 90 days. 4× qualified lead volume.",
+    detail:
+      "Ranked #1 on Google Maps within 90 days. 4× qualified lead volume.",
     tag: "SEO + GMB",
   },
   {
@@ -42,7 +49,8 @@ const CASE_STUDIES = [
     client: "Local Service Business",
     metric: "1,200+",
     label: "WhatsApp Leads / Month",
-    detail: "Automated WhatsApp funnel converting cold traffic to booked appointments.",
+    detail:
+      "Automated WhatsApp funnel converting cold traffic to booked appointments.",
     tag: "Automation",
   },
 ] as const;
@@ -59,7 +67,11 @@ function MetricCard({
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.1 + index * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      transition={{
+        delay: 0.1 + index * 0.08,
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       style={{
         padding: "20px",
         borderRadius: "12px",
@@ -168,7 +180,9 @@ function FormField({
           fontWeight: 600,
           letterSpacing: "0.08em",
           textTransform: "uppercase",
-          color: error ? "var(--color-brand-red)" : "var(--color-text-secondary)",
+          color: error
+            ? "var(--color-brand-red)"
+            : "var(--color-text-secondary)",
         }}
       >
         {label}
@@ -222,7 +236,9 @@ function FormField({
             color: "var(--color-text-primary)",
             cursor: "none",
           }}
-          autoComplete={type === "email" ? "email" : type === "tel" ? "tel" : "name"}
+          autoComplete={
+            type === "email" ? "email" : type === "tel" ? "tel" : "name"
+          }
         />
       </div>
       {error && (
@@ -259,7 +275,9 @@ export default function LeadGenDrawer({
     email: "",
     intent: null,
   });
-  const [fieldErrors, setFieldErrors] = useState<Partial<Record<string, string[]>>>({});
+  const [fieldErrors, setFieldErrors] = useState<
+    Partial<Record<string, string[]>>
+  >({});
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<LeadActionResult | null>(null);
 
@@ -314,7 +332,11 @@ export default function LeadGenDrawer({
 
     if (res.success) {
       setStep("success");
-      trackEvent("lead_submitted", { intent: form.intent, sourcePage, sourceCity });
+      trackEvent("lead_submitted", {
+        intent: form.intent,
+        sourcePage,
+        sourceCity,
+      });
     } else if (!res.success && res.fieldErrors) {
       setFieldErrors(res.fieldErrors);
     }
@@ -397,13 +419,18 @@ export default function LeadGenDrawer({
               }}
             >
               {/* Step progress */}
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
                 {(["proof", "intent", "form"] as const).map((s, i) => (
                   <div
                     key={s}
                     aria-hidden="true"
                     style={{
-                      width: step === s || (step === "success" && i <= 2) ? "24px" : "6px",
+                      width:
+                        step === s || (step === "success" && i <= 2)
+                          ? "24px"
+                          : "6px",
                       height: "6px",
                       borderRadius: "3px",
                       background:
@@ -411,7 +438,7 @@ export default function LeadGenDrawer({
                           ? "var(--color-brand-orange)"
                           : (["proof", "intent", "form"] as const).indexOf(s) <
                               (["proof", "intent", "form"] as const).indexOf(
-                                step as Exclude<FunnelStep, "success">
+                                step as Exclude<FunnelStep, "success">,
                               )
                             ? "var(--color-brand-orange)"
                             : "var(--color-border-bright)",
@@ -503,7 +530,8 @@ export default function LeadGenDrawer({
                         marginBottom: "28px",
                       }}
                     >
-                      Every result below was delivered from the exact same region you're in.
+                      Every result below was delivered from the exact same
+                      region you're in.
                     </p>
 
                     <div
@@ -597,7 +625,13 @@ export default function LeadGenDrawer({
                       We'll personalise your experience based on your goal.
                     </p>
 
-                    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "16px",
+                      }}
+                    >
                       {(
                         [
                           {
@@ -638,21 +672,29 @@ export default function LeadGenDrawer({
                             transition: "border-color 0.2s, background 0.2s",
                           }}
                           onMouseEnter={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.borderColor =
-                              "var(--color-brand-orange)";
-                            (e.currentTarget as HTMLButtonElement).style.background =
-                              "rgba(255,85,0,0.06)";
+                            (
+                              e.currentTarget as HTMLButtonElement
+                            ).style.borderColor = "var(--color-brand-orange)";
+                            (
+                              e.currentTarget as HTMLButtonElement
+                            ).style.background = "rgba(255,85,0,0.06)";
                           }}
                           onMouseLeave={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.borderColor =
-                              "var(--color-border)";
-                            (e.currentTarget as HTMLButtonElement).style.background =
-                              "var(--color-dark-elevated)";
+                            (
+                              e.currentTarget as HTMLButtonElement
+                            ).style.borderColor = "var(--color-border)";
+                            (
+                              e.currentTarget as HTMLButtonElement
+                            ).style.background = "var(--color-dark-elevated)";
                           }}
                         >
                           <span
                             aria-hidden="true"
-                            style={{ fontSize: "28px", lineHeight: 1, flexShrink: 0 }}
+                            style={{
+                              fontSize: "28px",
+                              lineHeight: 1,
+                              flexShrink: 0,
+                            }}
                           >
                             {opt.icon}
                           </span>
@@ -681,7 +723,10 @@ export default function LeadGenDrawer({
                           <ChevronRight
                             size={16}
                             strokeWidth={1.5}
-                            style={{ color: "var(--color-text-muted)", flexShrink: 0 }}
+                            style={{
+                              color: "var(--color-text-muted)",
+                              flexShrink: 0,
+                            }}
                           />
                         </motion.button>
                       ))}
@@ -744,7 +789,11 @@ export default function LeadGenDrawer({
                     <form
                       onSubmit={handleSubmit}
                       noValidate
-                      style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "16px",
+                      }}
                     >
                       <FormField
                         label="Full Name"
@@ -758,7 +807,10 @@ export default function LeadGenDrawer({
                         type="tel"
                         value={form.whatsapp}
                         onChange={(v) =>
-                          setForm((f) => ({ ...f, whatsapp: v.replace(/\D/g, "").slice(0, 10) }))
+                          setForm((f) => ({
+                            ...f,
+                            whatsapp: v.replace(/\D/g, "").slice(0, 10),
+                          }))
                         }
                         placeholder="10-digit mobile number"
                         prefix="+91"
@@ -850,7 +902,9 @@ export default function LeadGenDrawer({
                           background: submitting
                             ? "var(--color-dark-elevated)"
                             : "var(--color-brand-orange)",
-                          color: submitting ? "var(--color-text-muted)" : "#000",
+                          color: submitting
+                            ? "var(--color-text-muted)"
+                            : "#000",
                           fontFamily: "var(--font-display)",
                           fontWeight: 800,
                           fontSize: "14px",
@@ -869,7 +923,11 @@ export default function LeadGenDrawer({
                       >
                         {submitting ? (
                           <>
-                            <Loader2 size={16} strokeWidth={1.5} className="animate-spin" />
+                            <Loader2
+                              size={16}
+                              strokeWidth={1.5}
+                              className="animate-spin"
+                            />
                             Sending...
                           </>
                         ) : (

@@ -2,7 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { Menu, X } from "lucide-react";
 import { BUSINESS_DATA } from "@/lib/constants";
 
@@ -91,9 +97,7 @@ export default function FloatingNavbar({
           zIndex: 50,
           borderRadius: "12px",
           border: `1px solid ${scrolled ? "rgba(255,85,0,0.25)" : "rgba(38,38,38,0.8)"}`,
-          background: scrolled
-            ? "rgba(10,10,10,0.92)"
-            : "rgba(10,10,10,0.6)",
+          background: scrolled ? "rgba(10,10,10,0.92)" : "rgba(10,10,10,0.6)",
           backdropFilter: "blur(20px) saturate(180%)",
           WebkitBackdropFilter: "blur(20px) saturate(180%)",
           padding: "0 24px",
@@ -190,9 +194,7 @@ export default function FloatingNavbar({
           </ul>
 
           {/* ── CTA + Hamburger ────────────────────────────────── */}
-          <div
-            style={{ display: "flex", alignItems: "center", gap: "16px" }}
-          >
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div className="nav-cta-desktop">
               <MagneticCTA onClick={onOpenDrawer} />
             </div>
@@ -270,7 +272,10 @@ export default function FloatingNavbar({
               padding: "24px",
             }}
           >
-            <ul role="list" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+            <ul
+              role="list"
+              style={{ listStyle: "none", margin: 0, padding: 0 }}
+            >
               {NAV_LINKS.map((link, i) => (
                 <motion.li
                   key={link.href}

@@ -130,6 +130,7 @@ export default function LocationsPage() {
               <Link
                 key={city}
                 href={`/locations/${city}`}
+                className="server-hover-card-orange"
                 style={{
                   textDecoration: "none",
                   border: "1px solid var(--color-border)",
@@ -140,14 +141,6 @@ export default function LocationsPage() {
                   flexDirection: "column",
                   gap: "10px",
                   transition: "border-color 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                    "rgba(255,85,0,0.35)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                    "var(--color-border)";
                 }}
               >
                 <div

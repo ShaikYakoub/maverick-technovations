@@ -91,7 +91,7 @@ export default function FloatingNavbar({
           position: "fixed",
           top: "16px",
           left: "50%",
-          transform: "translateX(-50%)",
+          x: "-50%",
           width: "calc(100% - 48px)",
           maxWidth: "1280px",
           zIndex: 50,

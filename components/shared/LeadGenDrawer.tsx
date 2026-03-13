@@ -312,6 +312,17 @@ export default function LeadGenDrawer({
     return () => window.removeEventListener("keydown", handler);
   }, [isOpen, onClose]);
 
+  // Prevent background page from scrolling while drawer is open
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!form.intent) return;
@@ -387,13 +398,16 @@ export default function LeadGenDrawer({
               top: 0,
               right: 0,
               bottom: 0,
+              height: "100dvh",
               width: "min(520px, 100vw)",
               zIndex: 61,
               background: "var(--color-dark-surface)",
               borderLeft: "1px solid var(--color-border)",
               display: "flex",
               flexDirection: "column",
-              overflowY: "auto",
+              overflow: "hidden",
+              overscrollBehavior: "contain",
+              touchAction: "pan-y",
             }}
           >
             {/* Top accent bar */}
@@ -480,7 +494,17 @@ export default function LeadGenDrawer({
             </div>
 
             {/* Content area */}
-            <div style={{ flex: 1, padding: "28px" }}>
+            <div
+              style={{
+                flex: 1,
+                minHeight: 0,
+                overflowY: "auto",
+                overscrollBehavior: "contain",
+                WebkitOverflowScrolling: "touch",
+                touchAction: "pan-y",
+                padding: "28px",
+              }}
+            >
               <AnimatePresence mode="wait">
                 {/* ── STEP 1: Proof ──────────────────────────── */}
                 {step === "proof" && (
@@ -572,7 +596,7 @@ export default function LeadGenDrawer({
                         gap: "8px",
                       }}
                     >
-                      Get This For My Business
+                      Continue to Personalize
                       <ArrowRight size={16} strokeWidth={2} />
                     </motion.button>
                   </motion.div>
@@ -827,8 +851,12 @@ export default function LeadGenDrawer({
 
                       {/* Intent badge */}
                       {form.intent && (
-                        <div
+                        <button
+                          type="button"
+                          onClick={() => setStep("intent")}
+                          className="btn-animated"
                           style={{
+                            width: "100%",
                             padding: "12px 14px",
                             borderRadius: "8px",
                             background: "rgba(255,85,0,0.08)",
@@ -836,6 +864,8 @@ export default function LeadGenDrawer({
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
+                            cursor: "none",
+                            textAlign: "left",
                           }}
                         >
                           <span
@@ -857,13 +887,8 @@ export default function LeadGenDrawer({
                                 : "Academy Training"}
                             </span>
                           </span>
-                          <button
-                            type="button"
-                            onClick={() => setStep("intent")}
+                          <span
                             style={{
-                              background: "none",
-                              border: "none",
-                              cursor: "none",
                               fontFamily: "var(--font-body)",
                               fontSize: "12px",
                               color: "var(--color-text-muted)",
@@ -871,8 +896,8 @@ export default function LeadGenDrawer({
                             }}
                           >
                             Change
-                          </button>
-                        </div>
+                          </span>
+                        </button>
                       )}
 
                       {/* Server-level error */}

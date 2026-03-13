@@ -357,6 +357,7 @@ export default async function LocationPage({
               <Link
                 key={service.slug}
                 href={`/services/${service.slug}`}
+                className="server-hover-card-orange"
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -368,14 +369,6 @@ export default async function LocationPage({
                   textDecoration: "none",
                   transition: "border-color 0.2s",
                 }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.borderColor =
-                    "rgba(255,85,0,0.35)")
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.borderColor =
-                    "var(--color-border)")
-                }
               >
                 <h3
                   style={{
@@ -605,6 +598,7 @@ export default async function LocationPage({
               <Link
                 key={c}
                 href={`/locations/${c}`}
+                className="server-hover-pill-bright"
                 style={{
                   padding: "8px 16px",
                   borderRadius: "100px",
@@ -614,16 +608,6 @@ export default async function LocationPage({
                   color: "var(--color-text-muted)",
                   textDecoration: "none",
                   transition: "color 0.2s, border-color 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.color = "var(--color-text-primary)";
-                  el.style.borderColor = "var(--color-border-bright)";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.color = "var(--color-text-muted)";
-                  el.style.borderColor = "var(--color-border)";
                 }}
               >
                 {CITY_LABELS[c]}

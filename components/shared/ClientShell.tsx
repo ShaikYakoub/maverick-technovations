@@ -5,6 +5,7 @@ import FloatingNavbar from "@/components/shared/FloatingNavbar";
 import CustomCursor from "@/components/shared/CustomCursor";
 import LeadGenDrawer from "@/components/shared/LeadGenDrawer";
 import Footer from "@/components/shared/Footer";
+import WhatsAppBubble from "@/components/shared/WhatsAppBubble";
 import DrawerContext from "@/context/drawer";
 
 interface ClientShellProps {
@@ -20,6 +21,7 @@ export default function ClientShell({ children }: ClientShellProps) {
       <CustomCursor />
       <FloatingNavbar onOpenDrawer={openDrawer} />
       <main>{children}</main>
+      <WhatsAppBubble />
       <Footer />
       <LeadGenDrawer
         isOpen={isDrawerOpen}

@@ -297,16 +297,20 @@ export default function AboutPage() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
               gap: "24px",
+              alignItems: "stretch",
             }}
           >
             {VALUES.map((v, i) => (
               <div
                 key={v.title}
                 style={{
+                  display: "flex",
+                  flexDirection: "column",
                   padding: "32px",
                   borderRadius: "16px",
                   border: "1px solid var(--color-border)",
                   background: "var(--color-dark-elevated)",
+                  height: "100%",
                 }}
               >
                 <p
@@ -374,16 +378,20 @@ export default function AboutPage() {
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
                 gap: "24px",
+                alignItems: "stretch",
               }}
             >
               {TEAM.map((member) => (
                 <div
                   key={member.name}
                   style={{
+                      display: "flex",
+                      flexDirection: "column",
                     padding: "32px",
                     borderRadius: "16px",
                     border: "1px solid var(--color-border)",
                     background: "var(--color-dark-elevated)",
+                      height: "100%",
                   }}
                 >
                   <div
@@ -465,11 +473,12 @@ export default function AboutPage() {
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
             <Link
               href="/services"
+              className="btn-animated"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 padding: "14px 28px",
-                background: "var(--color-brand-orange)",
+                background: "var(--gradient-brand-orange)",
                 color: "#fff",
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,
@@ -484,6 +493,7 @@ export default function AboutPage() {
             </Link>
             <a
               href={`tel:+91${BUSINESS_DATA.phone}`}
+              className="btn-animated"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

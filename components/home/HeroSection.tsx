@@ -78,6 +78,7 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        paddingTop: "36px",
         overflow: "hidden",
         background: "var(--color-dark-base)",
       }}

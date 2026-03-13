@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
 import ContactLeadForm from "@/components/contact/ContactLeadForm";
+import FaqAccordion from "@/components/shared/FaqAccordion";
 import { BUSINESS_DATA } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 
@@ -161,6 +162,7 @@ export default function ContactPage() {
             <div style={{ display: "grid", gap: "12px" }}>
               <a
                 href={`tel:+91${BUSINESS_DATA.phone}`}
+                className="btn-animated"
                 style={contactItemStyle}
               >
                 <Phone size={15} strokeWidth={1.5} />
@@ -234,33 +236,7 @@ export default function ContactPage() {
             >
               FAQ
             </h2>
-            <div style={{ display: "grid", gap: "18px" }}>
-              {CONTACT_FAQ.map((item) => (
-                <article key={item.question}>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 700,
-                      fontSize: "16px",
-                      color: "var(--color-text-primary)",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    {item.question}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "14px",
-                      lineHeight: 1.7,
-                      color: "var(--color-text-secondary)",
-                    }}
-                  >
-                    {item.answer}
-                  </p>
-                </article>
-              ))}
-            </div>
+            <FaqAccordion items={CONTACT_FAQ} defaultOpenIndex={0} />
           </div>
         </section>
       </div>

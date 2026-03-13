@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Phone, Clock, Wifi, Award } from "lucide-react";
 import { ACADEMY_COURSES, BUSINESS_DATA } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
+import FaqAccordion from "@/components/shared/FaqAccordion";
 
 export const metadata: Metadata = {
   title: "Tech Academy — Medical Coding & Digital Marketing Courses",
@@ -167,12 +168,13 @@ export default function AcademyPage() {
           </p>
           <a
             href={`tel:+91${BUSINESS_DATA.phone}`}
+            className="btn-animated"
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "10px",
               padding: "14px 28px",
-              background: "var(--color-brand-red)",
+              background: "var(--gradient-brand-red)",
               color: "#fff",
               fontFamily: "var(--font-display)",
               fontWeight: 800,
@@ -222,6 +224,7 @@ export default function AcademyPage() {
               <Link
                 key={course.slug}
                 href={`/academy/${course.slug}`}
+                className="server-hover-card-red"
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -233,14 +236,6 @@ export default function AcademyPage() {
                   textDecoration: "none",
                   transition: "border-color 0.2s",
                 }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.borderColor =
-                    "rgba(232,0,45,0.4)")
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.borderColor =
-                    "var(--color-border)")
-                }
               >
                 <div>
                   <p
@@ -381,16 +376,20 @@ export default function AcademyPage() {
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
                 gap: "24px",
+                alignItems: "stretch",
               }}
             >
               {WHY_POINTS.map((p) => (
                 <div
                   key={p.title}
                   style={{
+                      display: "flex",
+                      flexDirection: "column",
                     padding: "28px",
                     borderRadius: "14px",
                     border: "1px solid var(--color-border)",
                     background: "var(--color-dark-elevated)",
+                      height: "100%",
                   }}
                 >
                   <h3
@@ -450,33 +449,7 @@ export default function AcademyPage() {
             >
               Frequently Asked Questions
             </h2>
-            <div style={{ display: "grid", gap: "18px" }}>
-              {ACADEMY_FAQ.map((item) => (
-                <article key={item.question}>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 700,
-                      fontSize: "16px",
-                      color: "var(--color-text-primary)",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    {item.question}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "14px",
-                      lineHeight: 1.7,
-                      color: "var(--color-text-secondary)",
-                    }}
-                  >
-                    {item.answer}
-                  </p>
-                </article>
-              ))}
-            </div>
+            <FaqAccordion items={ACADEMY_FAQ} defaultOpenIndex={0} />
           </div>
         </section>
       </div>

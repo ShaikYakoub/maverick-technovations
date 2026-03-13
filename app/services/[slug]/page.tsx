@@ -496,6 +496,7 @@ export default async function ServicePage({
                 <Link
                   key={city}
                   href={`/locations/${city}`}
+                  className="server-hover-pill-orange"
                   style={{
                     padding: "6px 14px",
                     borderRadius: "100px",
@@ -505,18 +506,6 @@ export default async function ServicePage({
                     color: "var(--color-text-secondary)",
                     textDecoration: "none",
                     transition: "border-color 0.2s, color 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "var(--color-brand-orange)";
-                    (e.currentTarget as HTMLAnchorElement).style.color =
-                      "var(--color-brand-orange)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "var(--color-border)";
-                    (e.currentTarget as HTMLAnchorElement).style.color =
-                      "var(--color-text-secondary)";
                   }}
                 >
                   {CITY_LABELS[city]}

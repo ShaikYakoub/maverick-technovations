@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { SERVICES, BUSINESS_DATA } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
+import FaqAccordion from "@/components/shared/FaqAccordion";
 
 const SERVICES_FAQ = [
   {
@@ -208,6 +209,7 @@ export default function ServicesPage() {
                 <Link
                   key={service.slug}
                   href={`/services/${service.slug}`}
+                  className="server-hover-card-orange-lift"
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -218,18 +220,6 @@ export default function ServicesPage() {
                     background: "var(--color-dark-elevated)",
                     textDecoration: "none",
                     transition: "border-color 0.2s, transform 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "rgba(255,85,0,0.45)";
-                    (e.currentTarget as HTMLAnchorElement).style.transform =
-                      "translateY(-3px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "var(--color-border)";
-                    (e.currentTarget as HTMLAnchorElement).style.transform =
-                      "translateY(0)";
                   }}
                 >
                   <div
@@ -327,33 +317,7 @@ export default function ServicesPage() {
             >
               Frequently Asked Questions
             </h2>
-            <div style={{ display: "grid", gap: "18px" }}>
-              {SERVICES_FAQ.map((item) => (
-                <article key={item.question}>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 700,
-                      fontSize: "16px",
-                      color: "var(--color-text-primary)",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    {item.question}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "14px",
-                      lineHeight: 1.7,
-                      color: "var(--color-text-secondary)",
-                    }}
-                  >
-                    {item.answer}
-                  </p>
-                </article>
-              ))}
-            </div>
+            <FaqAccordion items={SERVICES_FAQ} defaultOpenIndex={0} />
           </div>
         </section>
       </div>

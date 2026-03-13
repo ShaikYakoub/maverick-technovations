@@ -1,22 +1,22 @@
 export const MEDIA_ASSETS = {
   homepage: {
     heroVideo: "/media/videos/home-hero-loop.mp4",
-    heroFallbackImage: "/media/images/home-hero-fallback.jpg",
+    heroFallbackImage: "/media/images/Homepage-Hero-Background.avif",
   },
   services: {
-    heroImage: "/media/images/services-hero.jpg",
+    heroImage: "/media/images/Services-Index-Banner.avif",
   },
   academy: {
-    heroImage: "/media/images/academy-hero.jpg",
+    heroImage: "/media/images/Academy-Overview-Banner.avif",
   },
   about: {
-    heroImage: "/media/images/about-hero.jpg",
+    heroImage: "/media/images/About-Page-Story-Visual.avif",
   },
   locations: {
-    heroImage: "/media/images/locations-hero.jpg",
+    heroImage: "/media/images/Locations-Index-Visual.avif",
   },
   contact: {
-    heroImage: "/media/images/contact-hero.jpg",
+    heroImage: "/media/images/Contact-Page-Visual.avif",
   },
 } as const;
 

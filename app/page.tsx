@@ -12,5 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <HomepageClient />;
+  return (
+    <div style={{ marginTop: "44px" }}>
+      <HomepageClient />
+    </div>
+  );
 }

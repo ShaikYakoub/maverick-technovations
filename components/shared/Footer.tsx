@@ -1,5 +1,11 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaWhatsapp,
+} from "react-icons/fa";
 import { BUSINESS_DATA, SERVICES, ACADEMY_COURSES } from "@/lib/constants";
 
 const SERVICE_COLS = [
@@ -32,7 +38,7 @@ export default function Footer() {
         padding: "80px 24px 40px",
       }}
     >
-      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+      <div className="section-shell">
         {/* ── Top CTA Bar ───────────────────────────────────────── */}
         <div
           style={{
@@ -61,7 +67,7 @@ export default function Footer() {
               height: "300px",
               borderRadius: "50%",
               background:
-                "radial-gradient(circle, rgba(255,85,0,0.12) 0%, transparent 65%)",
+                "radial-gradient(circle, rgba(239,89,36,0.16) 0%, transparent 65%)",
               pointerEvents: "none",
             }}
           />
@@ -157,9 +163,8 @@ export default function Footer() {
 
         {/* ── Main Footer Grid ────────────────────────────────────── */}
         <div
+          className="grid-balance-4"
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
             gap: "48px",
             marginBottom: "64px",
           }}
@@ -182,7 +187,7 @@ export default function Footer() {
                   borderRadius: "50%",
                   background: "var(--color-brand-orange)",
                   boxShadow:
-                    "0 0 0 3px rgba(255,85,0,0.25), 0 0 12px rgba(255,85,0,0.6)",
+                    "0 0 0 3px rgba(239,89,36,0.25), 0 0 12px rgba(239,89,36,0.6)",
                   flexShrink: 0,
                   display: "inline-block",
                 }}
@@ -268,15 +273,26 @@ export default function Footer() {
                   {
                     href: BUSINESS_DATA.socialLinks.instagram,
                     label: "Instagram",
+                    color: "#ef5924",
+                    icon: FaInstagram,
                   },
                   {
                     href: BUSINESS_DATA.socialLinks.facebook,
                     label: "Facebook",
+                    color: "#ef5924",
+                    icon: FaFacebookF,
                   },
-                  { href: BUSINESS_DATA.socialLinks.youtube, label: "YouTube" },
+                  {
+                    href: `https://wa.me/91${BUSINESS_DATA.phone}`,
+                    label: "WhatsApp",
+                    color: "#ef5924",
+                    icon: FaWhatsapp,
+                  },
                   {
                     href: BUSINESS_DATA.socialLinks.linkedin,
                     label: "LinkedIn",
+                    color: "#ef5924",
+                    icon: FaLinkedinIn,
                   },
                 ] as const
               ).map((s) => (
@@ -295,17 +311,14 @@ export default function Footer() {
                     alignItems: "center",
                     justifyContent: "center",
                     color: "var(--color-text-muted)",
-                    fontFamily: "var(--font-body)",
-                    fontSize: "10px",
-                    fontWeight: 700,
                     textDecoration: "none",
                     transition: "border-color 0.2s, color 0.2s",
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "var(--color-brand-orange)";
+                      s.color;
                     (e.currentTarget as HTMLAnchorElement).style.color =
-                      "var(--color-brand-orange)";
+                      s.color;
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.borderColor =
@@ -314,7 +327,7 @@ export default function Footer() {
                       "var(--color-text-muted)";
                   }}
                 >
-                  {s.label.charAt(0)}
+                  <s.icon size={14} />
                 </a>
               ))}
             </div>

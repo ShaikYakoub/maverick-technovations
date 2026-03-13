@@ -73,7 +73,7 @@ export default function CustomCursor() {
       if (dotRef.current) {
         dotRef.current.style.background = "var(--color-brand-red)";
         dotRef.current.style.boxShadow =
-          "0 0 0 4px rgba(232,0,45,0.25), 0 0 16px rgba(232,0,45,0.5)";
+          "0 0 0 4px rgba(211,32,39,0.25), 0 0 16px rgba(211,32,39,0.5)";
         dotRef.current.style.width = "10px";
         dotRef.current.style.height = "10px";
       }
@@ -90,14 +90,14 @@ export default function CustomCursor() {
       if (dotRef.current) {
         dotRef.current.style.background = "var(--color-brand-orange)";
         dotRef.current.style.boxShadow =
-          "0 0 0 3px rgba(255,85,0,0.2), 0 0 12px rgba(255,85,0,0.5)";
+          "0 0 0 3px rgba(239,89,36,0.2), 0 0 12px rgba(239,89,36,0.5)";
         dotRef.current.style.width = "8px";
         dotRef.current.style.height = "8px";
       }
       if (ringRef.current) {
         ringRef.current.style.width = "32px";
         ringRef.current.style.height = "32px";
-        ringRef.current.style.borderColor = "rgba(255,85,0,0.5)";
+        ringRef.current.style.borderColor = "rgba(239,89,36,0.5)";
         ringRef.current.style.opacity = "0.7";
       }
     }
@@ -153,7 +153,7 @@ export default function CustomCursor() {
             width: "32px",
             height: "32px",
             borderRadius: "50%",
-            border: "1px solid rgba(255,85,0,0.5)",
+            border: "1px solid rgba(239,89,36,0.5)",
             opacity: 0.7,
             transition:
               "width 0.25s ease, height 0.25s ease, border-color 0.25s ease, opacity 0.25s ease",
@@ -184,7 +184,7 @@ export default function CustomCursor() {
             borderRadius: "50%",
             background: "var(--color-brand-orange)",
             boxShadow:
-              "0 0 0 3px rgba(255,85,0,0.2), 0 0 12px rgba(255,85,0,0.5)",
+              "0 0 0 3px rgba(239,89,36,0.2), 0 0 12px rgba(239,89,36,0.5)",
             transition:
               "background 0.2s ease, box-shadow 0.2s ease, width 0.2s ease, height 0.2s ease",
             willChange: "transform",

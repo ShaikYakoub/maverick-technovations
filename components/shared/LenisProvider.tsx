@@ -1,7 +1,7 @@
 "use client";
 
 import Lenis from "lenis";
-import { createContext, useContext, useEffect, useRef } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useMotionValue, type MotionValue } from "motion/react";
 
 // ── Context ────────────────────────────────────────────────────────────────
@@ -30,6 +30,7 @@ export default function LenisProvider({
   children: React.ReactNode;
 }) {
   const lenisRef = useRef<Lenis | null>(null);
+  const [lenis, setLenis] = useState<Lenis | null>(null);
   const scrollY = useMotionValue(0);
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function LenisProvider({
     });
 
     lenisRef.current = lenis;
+    setLenis(lenis);
 
     // Sync virtual scroll position → MotionValue so Framer Motion
     // scroll-linked animations read from the Lenis position, not native scroll.
@@ -65,11 +67,12 @@ export default function LenisProvider({
       cancelAnimationFrame(rafId);
       lenis.destroy();
       lenisRef.current = null;
+      setLenis(null);
     };
   }, [scrollY]);
 
   return (
-    <LenisContext.Provider value={{ scrollY, lenis: lenisRef.current }}>
+    <LenisContext.Provider value={{ scrollY, lenis }}>
       {children}
     </LenisContext.Provider>
   );

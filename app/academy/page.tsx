@@ -62,6 +62,21 @@ const ACADEMY_FAQ = [
     answer:
       "Yes. We start with fundamentals and progressively move to live tools, practical projects, and certification readiness.",
   },
+  {
+    question: "Do you teach resume building and interview handling?",
+    answer:
+      "Yes. Every learner gets resume-building support, mock interview rounds, and recruiter-facing profile optimisation.",
+  },
+  {
+    question: "Can I pay course fees in flexible options?",
+    answer:
+      "Yes. We provide multiple fee plans so learners and business owners can choose the right learning depth and support level.",
+  },
+  {
+    question: "Will I get practical project work?",
+    answer:
+      "Yes. Programs include live projects, tool-based tasks, and capstone submissions to build real hiring-ready portfolios.",
+  },
 ] as const;
 
 export default function AcademyPage() {
@@ -110,9 +125,8 @@ export default function AcademyPage() {
       >
         {/* Hero */}
         <section
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
             padding: "60px 24px 80px",
             borderBottom: "1px solid var(--color-border)",
             backgroundImage: `linear-gradient(120deg, rgba(10,10,10,0.9), rgba(10,10,10,0.72)), url(${MEDIA_ASSETS.academy.heroImage})`,
@@ -193,9 +207,8 @@ export default function AcademyPage() {
         {/* Course cards */}
         <section
           aria-labelledby="courses-heading"
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
             padding: "72px 24px",
           }}
         >
@@ -214,9 +227,8 @@ export default function AcademyPage() {
           </h2>
 
           <div
+            className="grid-card-2"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
               gap: "20px",
             }}
           >
@@ -358,7 +370,7 @@ export default function AcademyPage() {
             padding: "80px 24px 56px",
           }}
         >
-          <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+          <div className="section-shell">
             <h2
               style={{
                 fontFamily: "var(--font-display)",
@@ -372,24 +384,22 @@ export default function AcademyPage() {
               Why Mavericks Academy?
             </h2>
             <div
+              className="grid-card-4"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
                 gap: "24px",
-                alignItems: "stretch",
               }}
             >
               {WHY_POINTS.map((p) => (
                 <div
                   key={p.title}
                   style={{
-                      display: "flex",
-                      flexDirection: "column",
+                    display: "flex",
+                    flexDirection: "column",
                     padding: "28px",
                     borderRadius: "14px",
                     border: "1px solid var(--color-border)",
                     background: "var(--color-dark-elevated)",
-                      height: "100%",
+                    height: "100%",
                   }}
                 >
                   <h3
@@ -427,9 +437,8 @@ export default function AcademyPage() {
           }}
         >
           <div
+            className="section-shell"
             style={{
-              maxWidth: "1280px",
-              margin: "0 auto",
               border: "1px solid var(--color-border)",
               borderRadius: "16px",
               background: "var(--color-dark-elevated)",

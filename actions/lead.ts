@@ -160,15 +160,15 @@ export async function submitLead(formData: unknown): Promise<LeadActionResult> {
         subject: `New Lead: ${lead.name} — ${intentLabel}`,
         html: `
           <div style="font-family:sans-serif;max-width:600px;background:#0a0a0a;color:#f5f5f5;padding:32px;border-radius:8px;border:1px solid #262626;">
-            <div style="border-top:3px solid #FF5500;padding-top:20px;margin-bottom:24px;">
-              <h2 style="color:#FF5500;margin:0 0 4px;font-size:20px;">New Lead Received</h2>
+            <div style="border-top:3px solid #EF5924;padding-top:20px;margin-bottom:24px;">
+              <h2 style="color:#EF5924;margin:0 0 4px;font-size:20px;">New Lead Received</h2>
               <p style="color:#a3a3a3;margin:0;font-size:14px;">Mavericks Technovations CRM</p>
             </div>
             <table style="width:100%;border-collapse:collapse;">
               <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;width:120px;">Name</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.name}</td></tr>
               <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">WhatsApp</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.whatsapp}</td></tr>
               <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Email</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.email}</td></tr>
-              <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Intent</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;color:#FF5500;font-weight:600;">${intentLabel}</td></tr>
+              <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Intent</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;color:#EF5924;font-weight:600;">${intentLabel}</td></tr>
               <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Source</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.sourcePage ?? "website"}</td></tr>
               ${lead.sourceCity ? `<tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">City</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.sourceCity}</td></tr>` : ""}
               <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Saved to DB</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${dbSuccess ? "✓ Yes" : "✗ No (check Supabase)"}</td></tr>

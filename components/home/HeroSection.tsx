@@ -78,7 +78,8 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        paddingTop: "36px",
+        paddingTop: "clamp(20px, 4vw, 36px)",
+        paddingBottom: "clamp(20px, 4vw, 32px)",
         overflow: "hidden",
         background: "var(--color-dark-base)",
       }}
@@ -132,8 +133,8 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
             gap: "6px",
             padding: "6px 14px",
             borderRadius: "100px",
-            border: "1px solid rgba(255,85,0,0.3)",
-            background: "rgba(255,85,0,0.08)",
+            border: "1px solid rgba(239,89,36,0.32)",
+            background: "rgba(239,89,36,0.1)",
             marginBottom: "28px",
           }}
         >
@@ -171,10 +172,10 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 800,
-            fontSize: "clamp(52px, 10vw, 120px)",
+            fontSize: "clamp(44px, 10vw, 120px)",
             lineHeight: 0.95,
             letterSpacing: "-0.04em",
-            margin: "0 0 24px",
+            margin: "0 0 20px",
           }}
         >
           {words.map((word, wi) => (
@@ -190,10 +191,11 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
               style={{
                 display: "inline-block",
                 marginRight: wi < words.length - 1 ? "0.22em" : 0,
-                color:
-                  wi === 2
-                    ? "var(--color-brand-orange)"
-                    : "var(--color-text-primary)",
+                color: wi === 0 ? "transparent" : "var(--color-text-primary)",
+                backgroundImage:
+                  wi === 0 ? "var(--gradient-brand-premium)" : undefined,
+                backgroundClip: wi === 0 ? "text" : undefined,
+                WebkitBackgroundClip: wi === 0 ? "text" : undefined,
               }}
             >
               {word}
@@ -212,7 +214,7 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
             lineHeight: 1.65,
             color: "var(--color-text-secondary)",
             maxWidth: "560px",
-            margin: "0 auto 40px",
+            margin: "0 auto 32px",
           }}
         >
           Digital marketing campaigns that compound. Tech training that places.
@@ -238,8 +240,7 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
               alignItems: "center",
               gap: "8px",
               padding: "15px 32px",
-              background:
-                "linear-gradient(135deg, var(--color-brand-orange) 0%, var(--color-brand-red) 100%)",
+              background: "var(--gradient-brand-premium)",
               color: "#fff",
               fontFamily: "var(--font-display)",
               fontWeight: 800,
@@ -249,7 +250,7 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
               borderRadius: "8px",
               border: "none",
               cursor: "none",
-              boxShadow: "0 0 32px rgba(255,85,0,0.4)",
+              boxShadow: "0 0 32px rgba(239,89,36,0.32)",
             }}
           >
             Unlock Pricing
@@ -290,8 +291,8 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
             gap: "40px",
             flexWrap: "wrap",
             justifyContent: "center",
-            marginTop: "64px",
-            paddingTop: "32px",
+            marginTop: "clamp(40px, 8vw, 64px)",
+            paddingTop: "clamp(20px, 5vw, 32px)",
             borderTop: "1px solid var(--color-border)",
             width: "100%",
           }}

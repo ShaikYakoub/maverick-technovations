@@ -6,6 +6,7 @@ import CustomCursor from "@/components/shared/CustomCursor";
 import LeadGenDrawer from "@/components/shared/LeadGenDrawer";
 import Footer from "@/components/shared/Footer";
 import WhatsAppBubble from "@/components/shared/WhatsAppBubble";
+import RouteExperience from "@/components/shared/RouteExperience";
 import DrawerContext from "@/context/drawer";
 
 interface ClientShellProps {
@@ -18,6 +19,7 @@ export default function ClientShell({ children }: ClientShellProps) {
 
   return (
     <DrawerContext.Provider value={openDrawer}>
+      <RouteExperience />
       <CustomCursor />
       <FloatingNavbar onOpenDrawer={openDrawer} />
       <main>{children}</main>

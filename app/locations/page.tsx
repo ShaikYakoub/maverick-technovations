@@ -196,7 +196,7 @@ export default function LocationsPage() {
             padding: "72px 24px",
             textAlign: "center",
             background:
-              "linear-gradient(135deg, rgba(255,85,0,0.08) 0%, rgba(232,0,45,0.04) 100%)",
+              "linear-gradient(135deg, rgba(249,160,27,0.08) 0%, rgba(211,32,39,0.05) 100%)",
           }}
         >
           <h2

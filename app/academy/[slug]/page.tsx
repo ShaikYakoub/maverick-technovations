@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, CheckCircle, ArrowLeft } from "lucide-react";
+import FaqAccordion from "@/components/shared/FaqAccordion";
 import { ACADEMY_COURSES, BUSINESS_DATA } from "@/lib/constants";
 
 type CourseSlug = (typeof ACADEMY_COURSES)[number]["slug"];
@@ -12,8 +13,15 @@ interface CourseDetail {
   whoFor: string[];
   modules: { title: string; topics: string[] }[];
   outcomes: string[];
-  fee: string;
-  feeNote: string;
+  feeTiers: {
+    name: string;
+    price: string;
+    feeNote: string;
+    benefits: string[];
+    featured?: boolean;
+  }[];
+  careerSupport: string[];
+  businessImpact: string;
 }
 
 const COURSE_DETAILS: Record<CourseSlug, CourseDetail> = {
@@ -66,8 +74,47 @@ const COURSE_DETAILS: Record<CourseSlug, CourseDetail> = {
       "Ability to work with US-based healthcare providers remotely",
       "Starting packages: ₹3–5 LPA freshers, ₹6–10 LPA with 1 year experience",
     ],
-    fee: "₹35,000",
-    feeNote: "EMI available — ₹6,000/mo × 6",
+    feeTiers: [
+      {
+        name: "Foundation",
+        price: "₹24,000",
+        feeNote: "EMI available — ₹4,500/mo × 6",
+        benefits: [
+          "Core coding fundamentals",
+          "Recorded revision library",
+          "Basic assignment evaluations",
+        ],
+      },
+      {
+        name: "Professional",
+        price: "₹35,000",
+        feeNote: "EMI available — ₹6,000/mo × 6",
+        benefits: [
+          "Full curriculum + live projects",
+          "Resume + LinkedIn optimisation",
+          "Mock interviews + certification prep",
+        ],
+        featured: true,
+      },
+      {
+        name: "Elite Placement",
+        price: "₹49,000",
+        feeNote: "EMI available — ₹8,500/mo × 6",
+        benefits: [
+          "Everything in Professional",
+          "Priority mentor office hours",
+          "Placement acceleration with hiring referrals",
+        ],
+      },
+    ],
+    careerSupport: [
+      "ATS-ready resume building workshops",
+      "LinkedIn profile positioning for recruiters",
+      "Structured mock interviews and feedback loops",
+      "Placement referral guidance with partner network",
+    ],
+    businessImpact:
+      "Without this capability, healthcare outsourcing opportunities stay inaccessible and salary growth remains slower than market demand.",
   },
   "digital-marketing-training": {
     tagline: "Run ads. Rank on Google. Build brands.",
@@ -118,8 +165,47 @@ const COURSE_DETAILS: Record<CourseSlug, CourseDetail> = {
       "Portfolio of 2 live campaigns to show employers",
       "Starting packages: ₹2.5–4.5 LPA freshers",
     ],
-    fee: "₹20,000",
-    feeNote: "EMI available — ₹7,000/mo × 3",
+    feeTiers: [
+      {
+        name: "Starter",
+        price: "₹14,000",
+        feeNote: "EMI available — ₹5,000/mo × 3",
+        benefits: [
+          "Digital foundations + SEO basics",
+          "Guided practical assignments",
+          "Template-based campaign planning",
+        ],
+      },
+      {
+        name: "Growth Pro",
+        price: "₹20,000",
+        feeNote: "EMI available — ₹7,000/mo × 3",
+        benefits: [
+          "Full channel training (SEO + Ads + Social)",
+          "Live campaign execution",
+          "Resume + interview coaching",
+        ],
+        featured: true,
+      },
+      {
+        name: "Performance Elite",
+        price: "₹29,000",
+        feeNote: "EMI available — ₹10,000/mo × 3",
+        benefits: [
+          "Everything in Growth Pro",
+          "Advanced analytics + automation workflows",
+          "Freelance/client acquisition mentorship",
+        ],
+      },
+    ],
+    careerSupport: [
+      "Portfolio project reviews with mentors",
+      "Client pitch deck and proposal training",
+      "Interview simulation for agency roles",
+      "Career pathway planning for jobs or freelancing",
+    ],
+    businessImpact:
+      "Without digital capability, brands lose visibility, pay more for poor leads, and struggle to compete in performance-driven markets.",
   },
 };
 
@@ -165,6 +251,30 @@ export default async function AcademyCoursePage({
   if (!course) notFound();
 
   const detail = COURSE_DETAILS[course.slug as CourseSlug];
+  const featuredTier =
+    detail.feeTiers.find((tier) => tier.featured) ?? detail.feeTiers[0];
+  const courseFaq = [
+    {
+      question: "Do I need prior experience to join this program?",
+      answer:
+        "No. The curriculum starts from fundamentals and progressively builds toward advanced execution.",
+    },
+    {
+      question: "Are classes available online and offline?",
+      answer:
+        "Yes. Programs are delivered in blended mode with practical assignments and mentor guidance.",
+    },
+    {
+      question: "Will I get resume and interview support?",
+      answer:
+        "Yes. Career support includes resume optimisation, interview simulation, and placement guidance.",
+    },
+    {
+      question: "Can I pay through EMI options?",
+      answer:
+        "Yes. Flexible EMI plans are available based on the selected tier and current batch policies.",
+    },
+  ] as const;
 
   const courseSchema = {
     "@context": "https://schema.org",
@@ -181,7 +291,7 @@ export default async function AcademyCoursePage({
     timeRequired: course.duration,
     offers: {
       "@type": "Offer",
-      price: detail.fee.replace(/[^\d]/g, ""),
+      price: featuredTier.price.replace(/[^\d]/g, ""),
       priceCurrency: "INR",
       availability: "https://schema.org/InStock",
     },
@@ -201,6 +311,19 @@ export default async function AcademyCoursePage({
     },
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: courseFaq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   const whatsappLink = `https://wa.me/91${BUSINESS_DATA.phone}?text=${encodeURIComponent(
     `Hi, I'm interested in the ${course.title} program at Mavericks Academy.`,
   )}`;
@@ -210,6 +333,10 @@ export default async function AcademyCoursePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <div
@@ -304,51 +431,88 @@ export default async function AcademyCoursePage({
             {detail.heroBody}
           </p>
 
-          {/* Fee callout */}
           <div
+            className="grid-card-4"
             style={{
-              display: "inline-flex",
-              flexDirection: "column",
-              gap: "4px",
-              padding: "20px 28px",
-              borderRadius: "14px",
-              border: "1px solid rgba(232,0,45,0.3)",
-              background: "rgba(232,0,45,0.06)",
+              gap: "12px",
               marginBottom: "32px",
+              maxWidth: "980px",
             }}
           >
-            <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "10px",
-                fontWeight: 700,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--color-brand-red)",
-              }}
-            >
-              Program Fee
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 800,
-                fontSize: "28px",
-                letterSpacing: "-0.03em",
-                color: "var(--color-text-primary)",
-              }}
-            >
-              {detail.fee}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "12px",
-                color: "var(--color-text-muted)",
-              }}
-            >
-              {detail.feeNote}
-            </span>
+            {detail.feeTiers.map((tier) => (
+              <div
+                key={tier.name}
+                style={{
+                  borderRadius: "14px",
+                  border: tier.featured
+                    ? "1px solid rgba(239,89,36,0.45)"
+                    : "1px solid var(--color-border)",
+                  background: tier.featured
+                    ? "linear-gradient(165deg, rgba(239,89,36,0.14), rgba(211,32,39,0.08))"
+                    : "var(--color-dark-elevated)",
+                  padding: "18px",
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: "var(--color-brand-orange)",
+                    marginBottom: "6px",
+                  }}
+                >
+                  {tier.name}
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 800,
+                    fontSize: "clamp(20px, 3vw, 28px)",
+                    color: "var(--color-text-primary)",
+                    letterSpacing: "-0.03em",
+                    marginBottom: "4px",
+                  }}
+                >
+                  {tier.price}
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "12px",
+                    color: "var(--color-text-muted)",
+                    marginBottom: "10px",
+                  }}
+                >
+                  {tier.feeNote}
+                </p>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                    display: "grid",
+                    gap: "6px",
+                  }}
+                >
+                  {tier.benefits.map((benefit) => (
+                    <li
+                      key={benefit}
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "12px",
+                        color: "var(--color-text-secondary)",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      • {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
 
           {/* CTAs */}
@@ -362,7 +526,7 @@ export default async function AcademyCoursePage({
                 alignItems: "center",
                 gap: "8px",
                 padding: "14px 24px",
-                background: "#25D366",
+                background: "var(--gradient-brand-premium)",
                 color: "#fff",
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,
@@ -480,9 +644,8 @@ export default async function AcademyCoursePage({
               Curriculum
             </h2>
             <div
+              className="grid-card-4"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
                 gap: "20px",
               }}
             >
@@ -622,90 +785,185 @@ export default async function AcademyCoursePage({
               </li>
             ))}
           </ul>
+
+          <div
+            style={{
+              marginTop: "28px",
+              padding: "20px",
+              borderRadius: "14px",
+              border: "1px solid var(--color-border)",
+              background: "var(--color-dark-elevated)",
+              maxWidth: "700px",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "var(--color-brand-orange)",
+                marginBottom: "10px",
+              }}
+            >
+              Career Support
+            </p>
+            <ul
+              style={{
+                listStyle: "none",
+                padding: 0,
+                margin: 0,
+                display: "grid",
+                gap: "8px",
+              }}
+            >
+              {detail.careerSupport.map((item) => (
+                <li
+                  key={item}
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "13px",
+                    color: "var(--color-text-secondary)",
+                  }}
+                >
+                  • {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="academy-detail-faq-heading"
+          style={{
+            maxWidth: "1280px",
+            margin: "0 auto",
+            padding: "0 24px 64px",
+          }}
+        >
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-surface)",
+              padding: "24px",
+            }}
+          >
+            <h2
+              id="academy-detail-faq-heading"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(22px, 3vw, 30px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+                marginBottom: "18px",
+              }}
+            >
+              Program FAQ
+            </h2>
+            <FaqAccordion items={courseFaq} defaultOpenIndex={0} />
+          </div>
         </section>
 
         {/* Bottom CTA */}
         <section
           style={{
             background:
-              "linear-gradient(135deg, rgba(232,0,45,0.08) 0%, rgba(255,85,0,0.04) 100%)",
+              "linear-gradient(135deg, rgba(249,160,27,0.12) 0%, rgba(239,89,36,0.08) 50%, rgba(211,32,39,0.08) 100%)",
             padding: "72px 24px",
             textAlign: "center",
           }}
         >
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(26px, 4vw, 44px)",
-              letterSpacing: "-0.03em",
-              color: "var(--color-text-primary)",
-              marginBottom: "12px",
-            }}
-          >
-            Ready to enrol?
-          </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "15px",
-              color: "var(--color-text-muted)",
-              marginBottom: "32px",
-            }}
-          >
-            Batches fill fast. Reach out on WhatsApp or call us directly.
-          </p>
           <div
+            className="section-shell"
             style={{
-              display: "flex",
-              gap: "12px",
-              justifyContent: "center",
-              flexWrap: "wrap",
+              border: "1px solid var(--color-border)",
+              borderRadius: "18px",
+              background: "rgba(10,10,10,0.35)",
+              padding: "clamp(24px, 4vw, 40px)",
             }}
           >
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <h2
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "16px 32px",
-                background: "#25D366",
-                color: "#fff",
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,
-                fontSize: "13px",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                borderRadius: "8px",
-                textDecoration: "none",
-              }}
-            >
-              WhatsApp Us
-            </a>
-            <a
-              href={`tel:+91${BUSINESS_DATA.phone}`}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "16px 32px",
-                border: "1px solid var(--color-border-bright)",
+                fontSize: "clamp(26px, 4vw, 44px)",
+                letterSpacing: "-0.03em",
                 color: "var(--color-text-primary)",
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                fontSize: "13px",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                borderRadius: "8px",
-                textDecoration: "none",
+                marginBottom: "12px",
               }}
             >
-              <Phone size={15} strokeWidth={2} />
-              +91 {BUSINESS_DATA.phone}
-            </a>
+              Ready to enrol?
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "clamp(13px, 2.8vw, 15px)",
+                color: "var(--color-text-muted)",
+                marginBottom: "12px",
+              }}
+            >
+              Batches fill fast. Reach out on WhatsApp or call us directly.
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "13px",
+                color: "var(--color-text-secondary)",
+                marginBottom: "28px",
+                maxWidth: "760px",
+                marginInline: "auto",
+              }}
+            >
+              {detail.businessImpact}
+            </p>
+            <div className="cta-row-mobile">
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "16px 32px",
+                  background: "var(--gradient-brand-premium)",
+                  color: "#fff",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: "13px",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                }}
+              >
+                WhatsApp Us
+              </a>
+              <a
+                href={`tel:+91${BUSINESS_DATA.phone}`}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "16px 32px",
+                  border: "1px solid var(--color-border-bright)",
+                  color: "var(--color-text-primary)",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  fontSize: "13px",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                }}
+              >
+                <Phone size={15} strokeWidth={2} />
+                +91 {BUSINESS_DATA.phone}
+              </a>
+            </div>
           </div>
         </section>
       </div>

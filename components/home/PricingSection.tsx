@@ -81,14 +81,13 @@ function PricingCard({
         flexDirection: "column",
         padding: "36px 32px",
         borderRadius: "20px",
-        border: `1px solid ${isFeatured ? "rgba(255,85,0,0.4)" : "var(--color-border)"}`,
+        border: `1px solid ${isFeatured ? "rgba(239,89,36,0.4)" : "var(--color-border)"}`,
         background: isFeatured
-          ? "linear-gradient(160deg, rgba(255,85,0,0.07) 0%, var(--color-dark-elevated) 40%)"
+          ? "linear-gradient(160deg, rgba(249,160,27,0.08) 0%, rgba(239,89,36,0.07) 40%, var(--color-dark-elevated) 85%)"
           : "var(--color-dark-elevated)",
         position: "relative",
         overflow: "hidden",
-        transform: isFeatured ? "scale(1.03)" : "none",
-        boxShadow: isFeatured ? "0 0 48px rgba(255,85,0,0.12)" : "none",
+        boxShadow: isFeatured ? "0 0 48px rgba(239,89,36,0.12)" : "none",
       }}
     >
       {/* Featured badge */}
@@ -251,12 +250,12 @@ function PricingCard({
           background: isFeatured
             ? "var(--color-brand-orange)"
             : isLocked
-              ? "rgba(232,0,45,0.12)"
+              ? "rgba(211,32,39,0.12)"
               : "transparent",
           border: isFeatured
             ? "none"
             : isLocked
-              ? "1px solid rgba(232,0,45,0.4)"
+              ? "1px solid rgba(211,32,39,0.4)"
               : "1px solid var(--color-border)",
           color: isFeatured
             ? "#000"
@@ -294,10 +293,9 @@ export default function PricingSection({ onOpenDrawer }: PricingSectionProps) {
   return (
     <section
       aria-labelledby="pricing-heading"
+      className="section-shell"
       style={{
         padding: "100px 24px 120px",
-        maxWidth: "1280px",
-        margin: "0 auto",
       }}
     >
       {/* Header */}
@@ -353,12 +351,9 @@ export default function PricingSection({ onOpenDrawer }: PricingSectionProps) {
 
       {/* Cards */}
       <div
+        className="grid-balance-2"
         style={{
-          display: "flex",
-          gap: "16px",
-          flexWrap: "wrap",
-          alignItems: "stretch",
-          justifyContent: "center",
+          gap: "20px",
         }}
       >
         {PRICING_TIERS.map((tier, i) => (

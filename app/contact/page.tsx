@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import ContactLeadForm from "@/components/contact/ContactLeadForm";
 import FaqAccordion from "@/components/shared/FaqAccordion";
@@ -20,6 +21,21 @@ const CONTACT_FAQ = [
     question: "Can I enquire for both services and training?",
     answer:
       "Yes. Select your primary intent in the form and our team can guide you through both options if needed.",
+  },
+  {
+    question: "Do you support startups and small businesses?",
+    answer:
+      "Yes. We support both small businesses and scaling brands with package options that match stage and budget.",
+  },
+  {
+    question: "Can I schedule a callback instead of calling now?",
+    answer:
+      "Yes. Submit the form with your preferred callback window and our team will call you at the requested time.",
+  },
+  {
+    question: "Do you provide onsite meetings in Kadapa?",
+    answer:
+      "Yes. You can visit our Kadapa office for strategic consultations, onboarding, and academy counselling.",
   },
 ] as const;
 
@@ -99,13 +115,10 @@ export default function ContactPage() {
         }}
       >
         <section
+          className="section-shell grid-balance-2"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
-            padding: "60px 24px 48px",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: "32px",
+            padding: "44px 24px 44px",
+            gap: "clamp(20px, 4vw, 32px)",
           }}
         >
           <div
@@ -115,7 +128,7 @@ export default function ContactPage() {
               backgroundImage: `linear-gradient(120deg, rgba(10,10,10,0.92), rgba(10,10,10,0.75)), url(${MEDIA_ASSETS.contact.heroImage})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              padding: "32px",
+              padding: "clamp(22px, 4vw, 32px)",
               height: "fit-content",
             }}
           >
@@ -159,27 +172,33 @@ export default function ContactPage() {
               hours.
             </p>
 
-            <div style={{ display: "grid", gap: "12px" }}>
+            <div className="cta-row-mobile" style={{ width: "100%" }}>
               <a
                 href={`tel:+91${BUSINESS_DATA.phone}`}
                 className="btn-animated"
                 style={contactItemStyle}
               >
                 <Phone size={15} strokeWidth={1.5} />
-                +91 {BUSINESS_DATA.phone}
+                <span className="mobile-contact-text">
+                  +91 {BUSINESS_DATA.phone}
+                </span>
               </a>
               <a
                 href={`mailto:${BUSINESS_DATA.email}`}
                 style={contactItemStyle}
               >
                 <Mail size={15} strokeWidth={1.5} />
-                {BUSINESS_DATA.email}
+                <span className="mobile-contact-text">
+                  {BUSINESS_DATA.email}
+                </span>
               </a>
-              <p style={{ ...contactItemStyle, margin: 0 }}>
+              <div style={{ ...contactItemStyle, margin: 0 }}>
                 <MapPin size={15} strokeWidth={1.5} />
-                {BUSINESS_DATA.address.street}, {BUSINESS_DATA.address.city},{" "}
-                {BUSINESS_DATA.address.state}
-              </p>
+                <span className="mobile-contact-text">
+                  {BUSINESS_DATA.address.street}, {BUSINESS_DATA.address.city},{" "}
+                  {BUSINESS_DATA.address.state}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -188,7 +207,7 @@ export default function ContactPage() {
               border: "1px solid var(--color-border)",
               borderRadius: "16px",
               background: "var(--color-dark-surface)",
-              padding: "32px",
+              padding: "clamp(22px, 4vw, 32px)",
             }}
           >
             <h2
@@ -209,10 +228,9 @@ export default function ContactPage() {
 
         <section
           aria-labelledby="contact-faq-heading"
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
-            padding: "0 24px 90px",
+            padding: "0 24px 72px",
           }}
         >
           <div
@@ -220,7 +238,7 @@ export default function ContactPage() {
               border: "1px solid var(--color-border)",
               borderRadius: "16px",
               background: "var(--color-dark-surface)",
-              padding: "32px",
+              padding: "clamp(22px, 4vw, 32px)",
             }}
           >
             <h2
@@ -244,12 +262,13 @@ export default function ContactPage() {
   );
 }
 
-const contactItemStyle: React.CSSProperties = {
-  display: "inline-flex",
+const contactItemStyle: CSSProperties = {
+  display: "flex",
   alignItems: "flex-start",
   gap: "10px",
+  minWidth: 0,
   fontFamily: "var(--font-body)",
-  fontSize: "14px",
+  fontSize: "clamp(12px, 2.8vw, 14px)",
   color: "var(--color-text-muted)",
   textDecoration: "none",
   lineHeight: 1.6,

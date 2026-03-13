@@ -42,7 +42,8 @@ export async function GET(request: NextRequest) {
           left: 0,
           right: 0,
           height: "5px",
-          background: "linear-gradient(90deg, #FF5500 0%, #E8002D 100%)",
+          background:
+            "linear-gradient(90deg, #F9A01B 0%, #EF5924 50%, #D32027 100%)",
         }}
       />
 
@@ -56,7 +57,7 @@ export async function GET(request: NextRequest) {
           height: "500px",
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(255,85,0,0.18) 0%, transparent 65%)",
+            "radial-gradient(circle, rgba(239,89,36,0.18) 0%, transparent 65%)",
         }}
       />
 
@@ -86,14 +87,14 @@ export async function GET(request: NextRequest) {
             width: "12px",
             height: "12px",
             borderRadius: "50%",
-            background: "#FF5500",
+            background: "#EF5924",
             boxShadow:
-              "0 0 0 4px rgba(255,85,0,0.3), 0 0 20px rgba(255,85,0,0.6)",
+              "0 0 0 4px rgba(239,89,36,0.3), 0 0 20px rgba(239,89,36,0.6)",
           }}
         />
         <span
           style={{
-            color: "#FF5500",
+            color: "#EF5924",
             fontSize: "16px",
             fontWeight: 700,
             letterSpacing: "0.15em",

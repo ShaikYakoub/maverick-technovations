@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { submitLead, trackEvent } from "@/actions/lead";
 import type { LeadActionResult } from "@/actions/lead";
+import { useLenisScroll } from "@/components/shared/LenisProvider";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 type Intent = "marketing" | "training";
@@ -93,7 +94,7 @@ function MetricCard({
           letterSpacing: "0.1em",
           textTransform: "uppercase",
           color: "var(--color-brand-orange)",
-          background: "rgba(255,85,0,0.1)",
+          background: "rgba(239,89,36,0.1)",
           padding: "3px 8px",
           borderRadius: "100px",
         }}
@@ -195,13 +196,13 @@ function FormField({
             error
               ? "var(--color-brand-red)"
               : focused
-                ? "rgba(255,85,0,0.6)"
+                ? "rgba(239,89,36,0.6)"
                 : "var(--color-border)"
           }`,
           borderRadius: "8px",
           background: "var(--color-dark-elevated)",
           transition: "border-color 0.2s ease",
-          boxShadow: focused ? "0 0 0 3px rgba(255,85,0,0.08)" : "none",
+          boxShadow: focused ? "0 0 0 3px rgba(239,89,36,0.08)" : "none",
         }}
       >
         {prefix && (
@@ -268,6 +269,7 @@ export default function LeadGenDrawer({
   sourcePage?: string;
   sourceCity?: string;
 }) {
+  const { lenis } = useLenisScroll();
   const [step, setStep] = useState<FunnelStep>("proof");
   const [form, setForm] = useState<FormState>({
     name: "",
@@ -317,11 +319,13 @@ export default function LeadGenDrawer({
     if (!isOpen) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    lenis?.stop();
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      lenis?.start();
     };
-  }, [isOpen]);
+  }, [isOpen, lenis]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -389,6 +393,9 @@ export default function LeadGenDrawer({
             role="dialog"
             aria-modal="true"
             aria-label={stepTitles[step]}
+            data-lenis-prevent
+            data-lenis-prevent-wheel
+            data-lenis-prevent-touch
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -701,7 +708,7 @@ export default function LeadGenDrawer({
                             ).style.borderColor = "var(--color-brand-orange)";
                             (
                               e.currentTarget as HTMLButtonElement
-                            ).style.background = "rgba(255,85,0,0.06)";
+                            ).style.background = "rgba(239,89,36,0.06)";
                           }}
                           onMouseLeave={(e) => {
                             (
@@ -859,8 +866,8 @@ export default function LeadGenDrawer({
                             width: "100%",
                             padding: "12px 14px",
                             borderRadius: "8px",
-                            background: "rgba(255,85,0,0.08)",
-                            border: "1px solid rgba(255,85,0,0.2)",
+                            background: "rgba(239,89,36,0.08)",
+                            border: "1px solid rgba(239,89,36,0.2)",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
@@ -909,8 +916,8 @@ export default function LeadGenDrawer({
                             color: "var(--color-brand-red)",
                             padding: "12px",
                             borderRadius: "8px",
-                            background: "rgba(232,0,45,0.08)",
-                            border: "1px solid rgba(232,0,45,0.2)",
+                            background: "rgba(211,32,39,0.08)",
+                            border: "1px solid rgba(211,32,39,0.2)",
                           }}
                         >
                           {result.error}

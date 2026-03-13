@@ -24,10 +24,10 @@ export default function WhatsAppBubble() {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #25d366, #1ea952)",
+        background: "var(--gradient-brand-premium)",
         color: "#fff",
         border: "1px solid rgba(255,255,255,0.25)",
-        boxShadow: "0 10px 30px rgba(37,211,102,0.35)",
+        boxShadow: "0 10px 30px rgba(239,89,36,0.35)",
         textDecoration: "none",
       }}
     >

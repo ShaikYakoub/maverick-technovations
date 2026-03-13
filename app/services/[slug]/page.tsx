@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Phone, ArrowRight, CheckCircle } from "lucide-react";
+import FaqAccordion from "@/components/shared/FaqAccordion";
 import { SERVICES, BUSINESS_DATA, CITIES, CITY_LABELS } from "@/lib/constants";
 import type { ServiceSlug } from "@/lib/constants";
 
@@ -43,7 +44,21 @@ export async function generateMetadata({
 
 // ── Per-service detail content ────────────────────────────────────────────
 const SERVICE_DETAILS: Partial<
-  Record<ServiceSlug, { benefits: string[]; process: string[]; result: string }>
+  Record<
+    ServiceSlug,
+    {
+      benefits: string[];
+      process: string[];
+      result: string;
+      lossIfIgnored: string;
+      packages: {
+        name: string;
+        price: string;
+        benefits: string[];
+        featured?: boolean;
+      }[];
+    }
+  >
 > = {
   "digital-marketing": {
     benefits: [
@@ -59,6 +74,38 @@ const SERVICE_DETAILS: Partial<
       "Weekly optimisation & scaling",
     ],
     result: "Brands we manage see an average 3× revenue lift within 6 months.",
+    lossIfIgnored:
+      "Without integrated marketing systems, brands leak budget across disconnected channels and miss compounding revenue growth.",
+    packages: [
+      {
+        name: "Starter",
+        price: "₹18,000/mo",
+        benefits: [
+          "2-channel setup",
+          "Monthly reporting",
+          "Basic optimisation",
+        ],
+      },
+      {
+        name: "Growth",
+        price: "₹35,000/mo",
+        benefits: [
+          "Multi-channel campaigns",
+          "Weekly optimisation",
+          "Creative + funnel support",
+        ],
+        featured: true,
+      },
+      {
+        name: "Dominance",
+        price: "₹58,000/mo",
+        benefits: [
+          "Advanced attribution",
+          "Dedicated strategist",
+          "Scaling automation",
+        ],
+      },
+    ],
   },
   seo: {
     benefits: [
@@ -74,6 +121,38 @@ const SERVICE_DETAILS: Partial<
       "Link building & monthly reporting",
     ],
     result: "Clients rank on page 1 for target keywords within 90 days.",
+    lossIfIgnored:
+      "Without SEO authority, your business depends only on paid reach while high-intent customers choose competitors ranking above you.",
+    packages: [
+      {
+        name: "Local Launch",
+        price: "₹15,000/mo",
+        benefits: [
+          "Technical fixes",
+          "Local SEO setup",
+          "Monthly keyword tracking",
+        ],
+      },
+      {
+        name: "Authority Growth",
+        price: "₹29,000/mo",
+        benefits: [
+          "Content strategy",
+          "On-page + off-page SEO",
+          "Weekly ranking improvements",
+        ],
+        featured: true,
+      },
+      {
+        name: "Market Leader",
+        price: "₹49,000/mo",
+        benefits: [
+          "Aggressive authority building",
+          "High-volume content engine",
+          "CRO + SEO integration",
+        ],
+      },
+    ],
   },
   "social-media-marketing": {
     benefits: [
@@ -90,6 +169,34 @@ const SERVICE_DETAILS: Partial<
     ],
     result:
       "Average 40% follower growth and 5× engagement rate within 60 days.",
+    lossIfIgnored:
+      "Without social systems, brand trust erodes and inbound demand drops while competitors capture audience attention daily.",
+    packages: [
+      {
+        name: "Brand Start",
+        price: "₹14,000/mo",
+        benefits: ["Content calendar", "Basic creatives", "Monthly analytics"],
+      },
+      {
+        name: "Engagement Pro",
+        price: "₹28,000/mo",
+        benefits: [
+          "Reels strategy",
+          "Community management",
+          "Paid boost support",
+        ],
+        featured: true,
+      },
+      {
+        name: "Influence Scale",
+        price: "₹45,000/mo",
+        benefits: [
+          "Influencer mapping",
+          "Advanced creative testing",
+          "Funnel-linked social growth",
+        ],
+      },
+    ],
   },
   "google-ads": {
     benefits: [
@@ -105,6 +212,38 @@ const SERVICE_DETAILS: Partial<
       "Bid optimisation and weekly scaling",
     ],
     result: "First qualified leads typically arrive within 72 hours of launch.",
+    lossIfIgnored:
+      "Without high-intent paid acquisition, revenue growth slows and your competitors capture customers already searching for your offer.",
+    packages: [
+      {
+        name: "Lead Starter",
+        price: "₹20,000/mo",
+        benefits: [
+          "Search ads setup",
+          "Keyword structuring",
+          "Basic landing review",
+        ],
+      },
+      {
+        name: "Performance Pro",
+        price: "₹38,000/mo",
+        benefits: [
+          "Search + YouTube campaigns",
+          "A/B ad testing",
+          "Weekly bid optimisation",
+        ],
+        featured: true,
+      },
+      {
+        name: "Scale Max",
+        price: "₹62,000/mo",
+        benefits: [
+          "Advanced audience strategy",
+          "Conversion architecture",
+          "Cross-channel retargeting",
+        ],
+      },
+    ],
   },
   "website-design": {
     benefits: [
@@ -120,6 +259,38 @@ const SERVICE_DETAILS: Partial<
       "Launch, handover, and 30-day support",
     ],
     result: "Websites we build convert at 2–4× the industry average.",
+    lossIfIgnored:
+      "Without a conversion-focused website, businesses lose trust, leads, and measurable revenue from every traffic source.",
+    packages: [
+      {
+        name: "Launch Site",
+        price: "₹30,000",
+        benefits: [
+          "Business site build",
+          "Responsive pages",
+          "Basic SEO setup",
+        ],
+      },
+      {
+        name: "Growth Site",
+        price: "₹65,000",
+        benefits: [
+          "Conversion-first UX",
+          "Lead automation",
+          "Performance optimization",
+        ],
+        featured: true,
+      },
+      {
+        name: "Scale Platform",
+        price: "₹1,10,000",
+        benefits: [
+          "Advanced funnels",
+          "Custom integrations",
+          "Full analytics stack",
+        ],
+      },
+    ],
   },
   ecommerce: {
     benefits: [
@@ -135,6 +306,34 @@ const SERVICE_DETAILS: Partial<
       "Launch + performance marketing activation",
     ],
     result: "E-commerce stores we build average ₹50 lakh in revenue year 1.",
+    lossIfIgnored:
+      "Without structured e-commerce systems, ad spend rises while conversion rates and repeat purchases stay low.",
+    packages: [
+      {
+        name: "Store Starter",
+        price: "₹45,000",
+        benefits: ["Core store build", "Product setup", "Payment integration"],
+      },
+      {
+        name: "Conversion Pro",
+        price: "₹85,000",
+        benefits: [
+          "Optimized checkout",
+          "Marketing automation",
+          "SEO catalog setup",
+        ],
+        featured: true,
+      },
+      {
+        name: "Scale Commerce",
+        price: "₹1,40,000",
+        benefits: [
+          "Retention flows",
+          "Advanced analytics",
+          "Growth infrastructure",
+        ],
+      },
+    ],
   },
 };
 
@@ -153,6 +352,30 @@ const DEFAULT_DETAIL = {
   ],
   result:
     "Every client engagement is backed by our 30-day performance guarantee.",
+  lossIfIgnored:
+    "Without strategic execution, businesses overpay for weak lead quality and lose compounding growth opportunities.",
+  packages: [
+    {
+      name: "Starter",
+      price: "₹15,000/mo",
+      benefits: ["Core execution", "Monthly reviews", "Essential support"],
+    },
+    {
+      name: "Growth",
+      price: "₹32,000/mo",
+      benefits: [
+        "Expanded channels",
+        "Weekly optimisation",
+        "Priority strategy",
+      ],
+      featured: true,
+    },
+    {
+      name: "Premium",
+      price: "₹55,000/mo",
+      benefits: ["Scale systems", "Advanced analytics", "Dedicated growth pod"],
+    },
+  ],
 };
 
 // ── Page ──────────────────────────────────────────────────────────────────
@@ -166,6 +389,28 @@ export default async function ServicePage({
   if (!service) notFound();
 
   const detail = SERVICE_DETAILS[service.slug as ServiceSlug] ?? DEFAULT_DETAIL;
+  const serviceFaq = [
+    {
+      question: `How soon can ${service.title} campaigns start?`,
+      answer:
+        "Most engagements start within 3 to 5 working days after strategy alignment and onboarding.",
+    },
+    {
+      question: "Do you work only with Kadapa businesses?",
+      answer:
+        "No. We support brands across South India with remote execution and city-specific strategy adaptations.",
+    },
+    {
+      question: "Will I get transparent reporting?",
+      answer:
+        "Yes. You receive clear performance tracking with practical action points, not vanity-only metrics.",
+    },
+    {
+      question: "Can I upgrade package tiers later?",
+      answer:
+        "Yes. As volume grows, plans can be upgraded with expanded scope and deeper optimisation layers.",
+    },
+  ] as const;
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -185,11 +430,28 @@ export default async function ServicePage({
     url: `${BUSINESS_DATA.url}/services/${service.slug}`,
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: serviceFaq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <div
@@ -201,9 +463,8 @@ export default async function ServicePage({
       >
         {/* Breadcrumb */}
         <div
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
             padding: "24px 24px 0",
           }}
         >
@@ -226,14 +487,9 @@ export default async function ServicePage({
 
         {/* Hero */}
         <section
+          className="section-shell grid-detail-hero"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
-            padding: "40px 24px 72px",
-            display: "grid",
-            gridTemplateColumns: "1fr auto",
-            gap: "40px",
-            alignItems: "start",
+            padding: "32px 24px 64px",
             borderBottom: "1px solid var(--color-border)",
           }}
         >
@@ -267,11 +523,11 @@ export default async function ServicePage({
             <p
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "17px",
+                fontSize: "clamp(15px, 2vw, 17px)",
                 lineHeight: 1.7,
                 color: "var(--color-text-secondary)",
                 maxWidth: "520px",
-                marginBottom: "36px",
+                marginBottom: "28px",
               }}
             >
               {service.description}
@@ -303,11 +559,13 @@ export default async function ServicePage({
           {/* Result callout */}
           <div
             style={{
-              padding: "28px",
+              padding: "clamp(20px, 3.4vw, 28px)",
               borderRadius: "16px",
-              border: "1px solid rgba(255,85,0,0.3)",
-              background: "rgba(255,85,0,0.06)",
-              maxWidth: "300px",
+              border: "1px solid rgba(239,89,36,0.3)",
+              background:
+                "linear-gradient(160deg, rgba(249,160,27,0.12), rgba(239,89,36,0.08) 55%, rgba(211,32,39,0.08))",
+              maxWidth: "360px",
+              width: "100%",
               flexShrink: 0,
             }}
           >
@@ -338,15 +596,119 @@ export default async function ServicePage({
           </div>
         </section>
 
+        <section
+          className="section-shell"
+          style={{
+            padding: "0 24px 64px",
+          }}
+        >
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-elevated)",
+              padding: "28px",
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(22px, 3vw, 30px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+                marginBottom: "18px",
+              }}
+            >
+              Pricing Packages
+            </h2>
+            <div className="grid-card-4" style={{ gap: "14px" }}>
+              {detail.packages.map((pkg) => (
+                <div
+                  key={pkg.name}
+                  style={{
+                    borderRadius: "14px",
+                    border: pkg.featured
+                      ? "1px solid rgba(239,89,36,0.45)"
+                      : "1px solid var(--color-border)",
+                    background: pkg.featured
+                      ? "linear-gradient(160deg, rgba(249,160,27,0.14), rgba(211,32,39,0.08))"
+                      : "var(--color-dark-surface)",
+                    padding: "16px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "10px",
+                      fontWeight: 700,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: "var(--color-brand-orange)",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    {pkg.name}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 800,
+                      fontSize: "clamp(20px, 3vw, 28px)",
+                      color: "var(--color-text-primary)",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {pkg.price}
+                  </p>
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      margin: 0,
+                      padding: 0,
+                      display: "grid",
+                      gap: "6px",
+                    }}
+                  >
+                    {pkg.benefits.map((benefit) => (
+                      <li
+                        key={benefit}
+                        style={{
+                          fontFamily: "var(--font-body)",
+                          fontSize: "12px",
+                          color: "var(--color-text-secondary)",
+                        }}
+                      >
+                        • {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p
+              style={{
+                marginTop: "16px",
+                fontFamily: "var(--font-body)",
+                fontSize: "13px",
+                color: "var(--color-text-secondary)",
+                lineHeight: 1.7,
+              }}
+            >
+              <strong style={{ color: "var(--color-text-primary)" }}>
+                If ignored:
+              </strong>{" "}
+              {detail.lossIfIgnored}
+            </p>
+          </div>
+        </section>
+
         {/* Benefits + Process */}
         <section
+          className="section-shell grid-balance-2"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
-            padding: "72px 24px",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "48px",
+            padding: "64px 24px",
+            gap: "clamp(28px, 5vw, 48px)",
           }}
         >
           {/* Benefits */}
@@ -442,8 +804,8 @@ export default async function ServicePage({
                       width: "26px",
                       height: "26px",
                       borderRadius: "50%",
-                      border: "1px solid rgba(255,85,0,0.4)",
-                      background: "rgba(255,85,0,0.08)",
+                      border: "1px solid rgba(239,89,36,0.4)",
+                      background: "rgba(239,89,36,0.08)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -473,6 +835,38 @@ export default async function ServicePage({
           </div>
         </section>
 
+        <section
+          aria-labelledby="service-detail-faq-heading"
+          className="section-shell"
+          style={{
+            padding: "0 24px 64px",
+          }}
+        >
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-surface)",
+              padding: "24px",
+            }}
+          >
+            <h2
+              id="service-detail-faq-heading"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(22px, 3vw, 30px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+                marginBottom: "18px",
+              }}
+            >
+              Service FAQ
+            </h2>
+            <FaqAccordion items={serviceFaq} defaultOpenIndex={0} />
+          </div>
+        </section>
+
         {/* City links for pSEO interlinking */}
         <section
           style={{
@@ -480,7 +874,7 @@ export default async function ServicePage({
             padding: "60px 24px",
           }}
         >
-          <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+          <div className="section-shell">
             <p
               style={{
                 fontFamily: "var(--font-body)",
@@ -517,8 +911,9 @@ export default async function ServicePage({
 
         {/* CTA bar */}
         <section
+          className="section-shell"
           style={{
-            padding: "80px 24px",
+            padding: "64px 24px",
             textAlign: "center",
           }}
         >
@@ -553,11 +948,10 @@ export default async function ServicePage({
               just a clear plan for your growth.
             </p>
             <div
+              className="cta-row-mobile"
               style={{
-                display: "flex",
-                gap: "12px",
-                justifyContent: "center",
-                flexWrap: "wrap",
+                margin: "0 auto",
+                maxWidth: "560px",
               }}
             >
               <a

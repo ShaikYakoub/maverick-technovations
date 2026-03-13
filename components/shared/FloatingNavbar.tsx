@@ -66,6 +66,7 @@ export default function FloatingNavbar({
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -79,6 +80,32 @@ export default function FloatingNavbar({
     window.addEventListener("resize", close);
     return () => window.removeEventListener("resize", close);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const onDocClick = (event: MouseEvent) => {
+      if (!mobileMenuRef.current) return;
+      const target = event.target as Node;
+      if (!mobileMenuRef.current.contains(target)) {
+        setMobileOpen(false);
+      }
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [mobileOpen]);
 
   return (
     <>
@@ -96,14 +123,14 @@ export default function FloatingNavbar({
           maxWidth: "1280px",
           zIndex: 50,
           borderRadius: "12px",
-          border: `1px solid ${scrolled ? "rgba(255,85,0,0.25)" : "rgba(38,38,38,0.8)"}`,
+          border: `1px solid ${scrolled ? "rgba(239,89,36,0.32)" : "rgba(38,38,38,0.8)"}`,
           background: scrolled ? "rgba(10,10,10,0.92)" : "rgba(10,10,10,0.6)",
           backdropFilter: "blur(20px) saturate(180%)",
           WebkitBackdropFilter: "blur(20px) saturate(180%)",
           padding: "0 24px",
           transition: "border-color 0.4s ease, background 0.4s ease",
           boxShadow: scrolled
-            ? "0 0 0 1px rgba(255,85,0,0.1), 0 8px 32px rgba(0,0,0,0.5)"
+            ? "0 0 0 1px rgba(239,89,36,0.16), 0 8px 32px rgba(0,0,0,0.5)"
             : "0 8px 32px rgba(0,0,0,0.3)",
         }}
       >
@@ -141,7 +168,7 @@ export default function FloatingNavbar({
                 borderRadius: "50%",
                 background: "var(--color-brand-orange)",
                 boxShadow:
-                  "0 0 0 3px rgba(255,85,0,0.25), 0 0 12px rgba(255,85,0,0.6)",
+                  "0 0 0 3px rgba(239,89,36,0.25), 0 0 12px rgba(239,89,36,0.6)",
                 flexShrink: 0,
               }}
             />
@@ -250,6 +277,7 @@ export default function FloatingNavbar({
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            ref={mobileMenuRef}
             id="mobile-nav"
             role="dialog"
             aria-label="Mobile navigation"
@@ -334,11 +362,13 @@ export default function FloatingNavbar({
             </div>
 
             <div
+              className="mobile-nav-contact"
               style={{
                 marginTop: "20px",
                 display: "flex",
                 gap: "16px",
                 alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <a
@@ -348,11 +378,17 @@ export default function FloatingNavbar({
                   fontSize: "13px",
                   color: "var(--color-text-muted)",
                   textDecoration: "none",
+                  wordBreak: "break-word",
                 }}
               >
                 +91 {BUSINESS_DATA.phone}
               </a>
-              <span style={{ color: "var(--color-border-bright)" }}>·</span>
+              <span
+                className="mobile-nav-divider"
+                style={{ color: "var(--color-border-bright)" }}
+              >
+                ·
+              </span>
               <a
                 href={`mailto:${BUSINESS_DATA.email}`}
                 style={{
@@ -360,6 +396,7 @@ export default function FloatingNavbar({
                   fontSize: "13px",
                   color: "var(--color-text-muted)",
                   textDecoration: "none",
+                  wordBreak: "break-word",
                 }}
               >
                 {BUSINESS_DATA.email}
@@ -394,7 +431,7 @@ export default function FloatingNavbar({
         .magnetic-cta__glow {
           position: absolute;
           inset: 0;
-          background: var(--color-brand-orange);
+          background: var(--gradient-brand-premium);
           opacity: 0;
           transition: opacity 0.3s ease;
           pointer-events: none;

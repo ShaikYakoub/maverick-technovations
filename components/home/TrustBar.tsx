@@ -98,14 +98,13 @@ export default function TrustBar() {
   return (
     <section
       aria-label="Trust and social proof"
-      style={{ padding: "80px 0", overflow: "hidden" }}
+      style={{ padding: "72px 0", overflow: "hidden" }}
     >
       {/* Trust pillars */}
       <div
+        className="section-shell"
         style={{
-          maxWidth: "1280px",
-          margin: "0 auto 56px",
-          padding: "0 24px",
+          margin: "0 auto 52px",
           display: "flex",
           flexWrap: "wrap",
           gap: "20px",

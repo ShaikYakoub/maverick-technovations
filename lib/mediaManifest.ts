@@ -5,6 +5,56 @@ export const MEDIA_ASSETS = {
   },
   services: {
     heroImage: "/media/images/Services-Index-Banner.avif",
+    cards: {
+      "digital-marketing": {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      seo: {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      "social-media-marketing": {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      "google-ads": {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      "website-design": {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      ecommerce: {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      "google-my-business": {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      "email-marketing": {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      "graphic-designing": {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      "whatsapp-marketing": {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      "influencer-marketing": {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+      "video-shooting": {
+        poster: "/media/images/Services-Index-Banner.avif",
+        hoverVideo: "",
+      },
+    },
   },
   academy: {
     heroImage: "/media/images/Academy-Overview-Banner.avif",
@@ -34,6 +84,8 @@ export const MEDIA_PROMPTS = {
       "South India regional growth map abstraction, connected city nodes, subtle topographic lines, dark background with orange route highlights, no text labels, 16:9",
     "contact-hero.jpg":
       "Modern business consultation setup, desk with laptop and phone, elegant office mood, warm directional light, premium and welcoming, no text, 16:9",
+    "service-card-posters":
+      "Generate 12 cinematic service-card poster images (one per service) in dark premium style with maverick brand accents (#F9A01B, #EF5924, #D32027), no text, no logos, strong subject clarity for small cards, 16:9.",
   },
   videos: {
     "home-hero-loop.mp4":
@@ -44,5 +96,7 @@ export const MEDIA_PROMPTS = {
       "Minimal animated metric lines and rising graph light trails, abstract finance-tech style, restrained and premium, dark palette, seamless loop, 21:9",
     "locations-map-loop.mp4":
       "Abstract city map with illuminated paths connecting major South India hubs, dark textured background, orange motion trails, slow elegant animation, seamless loop, 16:9",
+    "service-card-hover-videos":
+      "Create 12 short .webm hover loops (6-8s) for service cards: cinematic motion, subtle business action, premium dark palette, maverick orange glow accents, no text/logos, seamless loop, lightweight for web.",
   },
 } as const;

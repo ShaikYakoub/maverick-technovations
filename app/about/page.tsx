@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, Phone, Sparkles } from "lucide-react";
 import { BUSINESS_DATA } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
+import FaqAccordion from "@/components/shared/FaqAccordion";
 
 export const metadata: Metadata = {
   title: "About Mavericks Technovations | Agency & Academy in Kadapa",
@@ -64,6 +66,34 @@ const TEAM = [
   },
 ];
 
+const ABOUT_FAQ = [
+  {
+    question: "How is Mavericks different from a typical agency?",
+    answer:
+      "We operate as an execution partner and growth advisor. You get campaign delivery, clear attribution, and weekly optimisation decisions tied to business outcomes.",
+  },
+  {
+    question: "Do you support startups and small businesses?",
+    answer:
+      "Yes. We work with startup founders, local businesses, and scaling brands through tiered growth roadmaps that match cash flow and stage.",
+  },
+  {
+    question: "Can your academy team help build in-house marketing teams?",
+    answer:
+      "Yes. We support hiring, intern-to-exec training paths, and practical onboarding systems so internal teams can execute consistently.",
+  },
+  {
+    question: "What reporting visibility do clients get?",
+    answer:
+      "You get transparent reporting with lead quality tracking, spend vs return visibility, and clear action plans on what we improve next.",
+  },
+  {
+    question: "Do you work only in Kadapa?",
+    answer:
+      "Kadapa is our home base, but we actively support businesses across South India through remote-first campaign systems and hybrid support.",
+  },
+] as const;
+
 export default function AboutPage() {
   const orgSchema = {
     "@context": "https://schema.org",
@@ -99,6 +129,23 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: ABOUT_FAQ.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+              },
+            })),
+          }),
+        }}
+      />
 
       <div
         style={{
@@ -109,9 +156,8 @@ export default function AboutPage() {
       >
         {/* Hero */}
         <section
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
             padding: "60px 24px 80px",
             borderBottom: "1px solid var(--color-border)",
             backgroundImage: `linear-gradient(120deg, rgba(10,10,10,0.9), rgba(10,10,10,0.72)), url(${MEDIA_ASSETS.about.heroImage})`,
@@ -171,32 +217,38 @@ export default function AboutPage() {
 
         {/* Stats */}
         <section
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
             padding: "72px 24px",
             borderBottom: "1px solid var(--color-border)",
           }}
           aria-label="Key metrics"
         >
           <div
+            className="about-stats-grid"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-              gap: "32px",
+              gap: "18px",
             }}
           >
             {STATS.map((s) => (
-              <div key={s.label}>
+              <div
+                key={s.label}
+                style={{
+                  border: "1px solid var(--color-border)",
+                  borderRadius: "12px",
+                  background: "var(--color-dark-elevated)",
+                  padding: "18px 16px",
+                }}
+              >
                 <p
                   style={{
                     fontFamily: "var(--font-display)",
                     fontWeight: 800,
-                    fontSize: "clamp(40px, 5vw, 56px)",
+                    fontSize: "clamp(28px, 4vw, 48px)",
                     letterSpacing: "-0.04em",
                     lineHeight: 1,
                     color: "var(--color-text-primary)",
-                    marginBottom: "6px",
+                    marginBottom: "8px",
                   }}
                 >
                   {s.value}
@@ -222,7 +274,7 @@ export default function AboutPage() {
             padding: "80px 24px",
           }}
         >
-          <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+          <div className="section-shell">
             <p
               style={{
                 fontFamily: "var(--font-body)",
@@ -273,9 +325,8 @@ export default function AboutPage() {
 
         {/* Values */}
         <section
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
             padding: "80px 24px",
             borderBottom: "1px solid var(--color-border)",
           }}
@@ -293,11 +344,9 @@ export default function AboutPage() {
             How we operate
           </h2>
           <div
+            className="grid-card-4"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
               gap: "24px",
-              alignItems: "stretch",
             }}
           >
             {VALUES.map((v, i) => (
@@ -360,7 +409,7 @@ export default function AboutPage() {
             padding: "80px 24px",
           }}
         >
-          <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+          <div className="section-shell">
             <h2
               style={{
                 fontFamily: "var(--font-display)",
@@ -374,24 +423,22 @@ export default function AboutPage() {
               The team
             </h2>
             <div
+              className="grid-card-2"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
                 gap: "24px",
-                alignItems: "stretch",
               }}
             >
               {TEAM.map((member) => (
                 <div
                   key={member.name}
                   style={{
-                      display: "flex",
-                      flexDirection: "column",
+                    display: "flex",
+                    flexDirection: "column",
                     padding: "32px",
                     borderRadius: "16px",
                     border: "1px solid var(--color-border)",
                     background: "var(--color-dark-elevated)",
-                      height: "100%",
+                    height: "100%",
                   }}
                 >
                   <div
@@ -448,69 +495,171 @@ export default function AboutPage() {
 
         {/* CTA */}
         <section
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
-            padding: "80px 24px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "28px",
+            padding: "80px 24px 64px",
           }}
         >
-          <h2
+          <div
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(26px, 4vw, 44px)",
-              letterSpacing: "-0.03em",
-              color: "var(--color-text-primary)",
-              maxWidth: "520px",
+              border: "1px solid var(--color-border)",
+              borderRadius: "18px",
+              background:
+                "linear-gradient(125deg, rgba(249,160,27,0.12), rgba(211,32,39,0.06))",
+              padding: "clamp(24px, 4vw, 40px)",
+              display: "grid",
+              gap: "22px",
             }}
           >
-            Ready to work together?
-          </h2>
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-            <Link
-              href="/services"
-              className="btn-animated"
+            <p
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                padding: "14px 28px",
-                background: "var(--gradient-brand-orange)",
-                color: "#fff",
+                gap: "8px",
+                fontFamily: "var(--font-body)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "var(--color-brand-orange)",
+              }}
+            >
+              <Sparkles size={14} />
+              Ready to work together?
+            </p>
+            <h2
+              style={{
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,
-                fontSize: "13px",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                borderRadius: "8px",
-                textDecoration: "none",
-              }}
-            >
-              Explore Services
-            </Link>
-            <a
-              href={`tel:+91${BUSINESS_DATA.phone}`}
-              className="btn-animated"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                padding: "14px 28px",
-                border: "1px solid var(--color-border-bright)",
+                fontSize: "clamp(24px, 4vw, 42px)",
+                letterSpacing: "-0.03em",
                 color: "var(--color-text-primary)",
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                fontSize: "13px",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                borderRadius: "8px",
-                textDecoration: "none",
+                maxWidth: "700px",
+                lineHeight: 1.1,
               }}
             >
-              +91 {BUSINESS_DATA.phone}
-            </a>
+              Let&apos;s build a predictable revenue system for your business.
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "15px",
+                color: "var(--color-text-secondary)",
+                maxWidth: "640px",
+                lineHeight: 1.65,
+              }}
+            >
+              Strategy, execution, and reporting under one roof. We help you
+              scale faster without wasting budget on guesswork.
+            </p>
+            <div
+              className="grid-card-4"
+              style={{
+                gap: "10px",
+              }}
+            >
+              {[
+                "Weekly optimisation cycles",
+                "Transparent performance reporting",
+                "South India market intelligence",
+                "Agency + Academy capability",
+              ].map((point) => (
+                <p
+                  key={point}
+                  style={{
+                    border: "1px solid var(--color-border)",
+                    borderRadius: "10px",
+                    padding: "10px 12px",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "12px",
+                    color: "var(--color-text-secondary)",
+                    background: "rgba(10,10,10,0.25)",
+                  }}
+                >
+                  {point}
+                </p>
+              ))}
+            </div>
+            <div className="cta-row-mobile">
+              <Link
+                href="/services"
+                className="btn-animated"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "14px 28px",
+                  background: "var(--gradient-brand-premium)",
+                  color: "#fff",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: "13px",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                }}
+              >
+                Explore Services
+                <ArrowRight size={14} strokeWidth={2} />
+              </Link>
+              <a
+                href={`tel:+91${BUSINESS_DATA.phone}`}
+                className="btn-animated"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "14px 28px",
+                  border: "1px solid var(--color-border-bright)",
+                  color: "var(--color-text-primary)",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  fontSize: "13px",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                }}
+              >
+                <Phone size={14} strokeWidth={2} />
+                +91 {BUSINESS_DATA.phone}
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="about-faq-heading"
+          className="section-shell"
+          style={{
+            padding: "0 24px 88px",
+          }}
+        >
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-elevated)",
+              padding: "32px",
+            }}
+          >
+            <h2
+              id="about-faq-heading"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(24px, 3.2vw, 34px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+                marginBottom: "20px",
+              }}
+            >
+              Frequently Asked Questions
+            </h2>
+            <div style={{ maxWidth: "960px" }}>
+              <FaqAccordion items={ABOUT_FAQ} defaultOpenIndex={0} />
+            </div>
           </div>
         </section>
       </div>

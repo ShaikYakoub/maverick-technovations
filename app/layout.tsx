@@ -1,24 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Syne } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/shared/LenisProvider";
 import ClientShell from "@/components/shared/ClientShell";
 import { BUSINESS_DATA } from "@/lib/constants";
 
 // ── Fonts ──────────────────────────────────────────────────────────────────
-// Syne: geometric, heavy display font (swap Clash Display woff2 files here
-// once downloaded from https://www.fontshare.com/fonts/clash-display)
-const syne = Syne({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-syne",
-  display: "swap",
-  preload: true,
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-jakarta",
   display: "swap",
   preload: true,
 });
@@ -188,11 +179,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${syne.variable} ${inter.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={jakarta.variable} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"

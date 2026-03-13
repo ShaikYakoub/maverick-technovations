@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ComponentType, CSSProperties } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import {
@@ -35,6 +36,57 @@ const SERVICES_FAQ = [
     answer:
       "Paid campaigns can produce leads in days, while SEO usually shows strong momentum in 8-12 weeks depending on competition.",
   },
+  {
+    question: "Do you offer flexible package options?",
+    answer:
+      "Yes. We offer structured packages so businesses can start lean and scale into premium growth systems as revenue improves.",
+  },
+  {
+    question: "Can you handle both strategy and execution?",
+    answer:
+      "Yes. Our team handles full-funnel strategy, campaign setup, creative production, optimisation, and reporting.",
+  },
+  {
+    question: "Will I get transparent reporting?",
+    answer:
+      "Absolutely. We provide clear performance reports with spend, lead quality, conversion trends, and next-step recommendations.",
+  },
+] as const;
+
+const SERVICE_PACKAGES: Array<{
+  name: string;
+  price: string;
+  benefits: string[];
+  featured?: boolean;
+}> = [
+  {
+    name: "Starter",
+    price: "₹15,000/mo",
+    benefits: [
+      "Core channel setup",
+      "Monthly optimization review",
+      "Basic reporting dashboard",
+    ],
+  },
+  {
+    name: "Growth Pro",
+    price: "₹35,000/mo",
+    benefits: [
+      "Multi-channel execution",
+      "Weekly campaign optimization",
+      "Creative + conversion support",
+    ],
+    featured: true,
+  },
+  {
+    name: "Market Dominance",
+    price: "₹58,000/mo",
+    benefits: [
+      "Dedicated strategist",
+      "Advanced attribution stack",
+      "Scale playbooks + automation",
+    ],
+  },
 ] as const;
 
 export const metadata: Metadata = {
@@ -61,10 +113,10 @@ export const metadata: Metadata = {
 
 const ICON_MAP: Record<
   string,
-  React.ComponentType<{
+  ComponentType<{
     size?: number;
     strokeWidth?: number;
-    style?: React.CSSProperties;
+    style?: CSSProperties;
   }>
 > = {
   TrendingUp,
@@ -130,9 +182,8 @@ export default function ServicesPage() {
       >
         {/* Hero */}
         <section
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
             padding: "60px 24px 80px",
             borderBottom: "1px solid var(--color-border)",
             backgroundImage: `linear-gradient(120deg, rgba(10,10,10,0.9), rgba(10,10,10,0.72)), url(${MEDIA_ASSETS.services.heroImage})`,
@@ -190,16 +241,14 @@ export default function ServicesPage() {
         {/* Services Grid */}
         <section
           aria-label="Services list"
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
             padding: "64px 24px 72px",
           }}
         >
           <div
+            className="grid-card-4"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
               gap: "20px",
             }}
           >
@@ -227,8 +276,8 @@ export default function ServicesPage() {
                       width: "44px",
                       height: "44px",
                       borderRadius: "10px",
-                      border: "1px solid rgba(255,85,0,0.25)",
-                      background: "rgba(255,85,0,0.08)",
+                      border: "1px solid rgba(239,89,36,0.28)",
+                      background: "rgba(239,89,36,0.1)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -289,10 +338,113 @@ export default function ServicesPage() {
         </section>
 
         <section
-          aria-labelledby="services-faq-heading"
+          className="section-shell"
           style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
+            padding: "0 24px 72px",
+          }}
+        >
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-elevated)",
+              padding: "28px",
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(24px, 3.2vw, 34px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+                marginBottom: "10px",
+              }}
+            >
+              Service Packages
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "14px",
+                color: "var(--color-text-secondary)",
+                marginBottom: "18px",
+              }}
+            >
+              Start lean, scale confidently. Higher packages unlock deeper
+              growth systems and stronger performance controls.
+            </p>
+            <div className="grid-card-4" style={{ gap: "14px" }}>
+              {SERVICE_PACKAGES.map((pkg) => (
+                <div
+                  key={pkg.name}
+                  style={{
+                    borderRadius: "14px",
+                    border: pkg.featured
+                      ? "1px solid rgba(239,89,36,0.45)"
+                      : "1px solid var(--color-border)",
+                    background: pkg.featured
+                      ? "linear-gradient(160deg, rgba(249,160,27,0.14), rgba(211,32,39,0.08))"
+                      : "var(--color-dark-surface)",
+                    padding: "16px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "10px",
+                      fontWeight: 700,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: "var(--color-brand-orange)",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    {pkg.name}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 800,
+                      fontSize: "clamp(20px, 3vw, 28px)",
+                      color: "var(--color-text-primary)",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    {pkg.price}
+                  </p>
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      margin: 0,
+                      padding: 0,
+                      display: "grid",
+                      gap: "6px",
+                    }}
+                  >
+                    {pkg.benefits.map((benefit) => (
+                      <li
+                        key={benefit}
+                        style={{
+                          fontFamily: "var(--font-body)",
+                          fontSize: "12px",
+                          color: "var(--color-text-secondary)",
+                        }}
+                      >
+                        • {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="services-faq-heading"
+          className="section-shell"
+          style={{
             padding: "0 24px 120px",
           }}
         >

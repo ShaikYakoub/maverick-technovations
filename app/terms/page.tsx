@@ -144,9 +144,9 @@ export default function TermsPage() {
         <div
           style={{
             marginTop: "28px",
-            border: "1px solid rgba(255,85,0,0.25)",
+            border: "1px solid rgba(239,89,36,0.25)",
             borderRadius: "12px",
-            background: "rgba(255,85,0,0.06)",
+            background: "rgba(239,89,36,0.06)",
             padding: "18px 20px",
           }}
         >

@@ -57,7 +57,7 @@ function Panel({ side, onOpenDrawer }: PanelProps) {
       style={{
         flex: "1 1 440px",
         minWidth: 0,
-        padding: "52px 44px",
+        padding: "clamp(30px, 5vw, 52px) clamp(22px, 4vw, 44px)",
         borderRadius: "20px",
         border: "1px solid var(--color-border)",
         background: "var(--color-dark-elevated)",
@@ -249,10 +249,9 @@ export default function SplitEcosystem({ onOpenDrawer }: SplitEcosystemProps) {
   return (
     <section
       aria-labelledby="ecosystem-heading"
+      className="section-shell"
       style={{
         padding: "120px 24px",
-        maxWidth: "1280px",
-        margin: "0 auto",
       }}
     >
       {/* Section label */}
@@ -294,11 +293,9 @@ export default function SplitEcosystem({ onOpenDrawer }: SplitEcosystemProps) {
 
       {/* Panels */}
       <div
+        className="grid-balance-2"
         style={{
-          display: "flex",
           gap: "20px",
-          flexWrap: "wrap",
-          alignItems: "stretch",
         }}
       >
         <Panel side="agency" onOpenDrawer={onOpenDrawer} />

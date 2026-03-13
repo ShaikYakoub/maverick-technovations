@@ -47,7 +47,7 @@ function ParticleNetwork({ mouseRef }: ParticleNetworkProps) {
             pos[i * 3 + 2],
             pos[j * 3],
             pos[j * 3 + 1],
-            pos[j * 3 + 2]
+            pos[j * 3 + 2],
           );
           const alpha = 1 - d / CONNECTION_DIST;
           // orange → red gradient based on x position
@@ -104,8 +104,7 @@ function ParticleNetwork({ mouseRef }: ParticleNetworkProps) {
 
       // Soft bounce at bounds
       if (Math.abs(pos[i * 3]) > SPREAD) velocities[i * 3] *= -1;
-      if (Math.abs(pos[i * 3 + 1]) > SPREAD * 0.45)
-        velocities[i * 3 + 1] *= -1;
+      if (Math.abs(pos[i * 3 + 1]) > SPREAD * 0.45) velocities[i * 3 + 1] *= -1;
       if (Math.abs(pos[i * 3 + 2]) > SPREAD * 0.6) velocities[i * 3 + 2] *= -1;
     }
     pointsRef.current.geometry.attributes.position.needsUpdate = true;
@@ -122,10 +121,7 @@ function ParticleNetwork({ mouseRef }: ParticleNetworkProps) {
       {/* Particles */}
       <points ref={pointsRef}>
         <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[positions, 3]}
-          />
+          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
           <bufferAttribute
             attach="attributes-color"
             args={[particleColors, 3]}
@@ -148,10 +144,7 @@ function ParticleNetwork({ mouseRef }: ParticleNetworkProps) {
             attach="attributes-position"
             args={[linePositions, 3]}
           />
-          <bufferAttribute
-            attach="attributes-color"
-            args={[lineColors, 4]}
-          />
+          <bufferAttribute attach="attributes-color" args={[lineColors, 4]} />
         </bufferGeometry>
         <lineBasicMaterial
           vertexColors

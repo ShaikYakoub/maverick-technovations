@@ -19,7 +19,14 @@ import {
 } from "lucide-react";
 import { SERVICES } from "@/lib/constants";
 
-const ICON_MAP: Record<string, React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }>> = {
+const ICON_MAP: Record<
+  string,
+  React.ComponentType<{
+    size?: number;
+    strokeWidth?: number;
+    style?: React.CSSProperties;
+  }>
+> = {
   TrendingUp,
   Search,
   Share2,
@@ -38,7 +45,11 @@ const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.55, delay, ease: [0.25, 0.46, 0.45, 0.94] as const },
+  transition: {
+    duration: 0.55,
+    delay,
+    ease: [0.25, 0.46, 0.45, 0.94] as const,
+  },
 });
 
 interface ServiceCardProps {
@@ -49,7 +60,13 @@ interface ServiceCardProps {
   delay: number;
 }
 
-function ServiceCard({ slug, title, icon, description, delay }: ServiceCardProps) {
+function ServiceCard({
+  slug,
+  title,
+  icon,
+  description,
+  delay,
+}: ServiceCardProps) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -57,7 +74,7 @@ function ServiceCard({ slug, title, icon, description, delay }: ServiceCardProps
   const radialBg = useTransform(
     [mouseX, mouseY],
     ([x, y]) =>
-      `radial-gradient(300px circle at ${x as number}px ${y as number}px, rgba(255,85,0,0.09) 0%, transparent 65%)`
+      `radial-gradient(300px circle at ${x as number}px ${y as number}px, rgba(255,85,0,0.09) 0%, transparent 65%)`,
   );
 
   const onMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -116,7 +133,11 @@ function ServiceCard({ slug, title, icon, description, delay }: ServiceCardProps
           flexShrink: 0,
         }}
       >
-        <Icon size={20} strokeWidth={1.5} style={{ color: "var(--color-brand-orange)" }} />
+        <Icon
+          size={20}
+          strokeWidth={1.5}
+          style={{ color: "var(--color-brand-orange)" }}
+        />
       </div>
 
       {/* Text */}

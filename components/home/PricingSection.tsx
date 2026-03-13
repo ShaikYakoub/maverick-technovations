@@ -57,13 +57,19 @@ interface PricingCardProps {
   onUnlock: () => void;
 }
 
-function PricingCard({ tier, features, delay, isLocked, onUnlock }: PricingCardProps) {
+function PricingCard({
+  tier,
+  features,
+  delay,
+  isLocked,
+  onUnlock,
+}: PricingCardProps) {
   const isFeatured = "featured" in tier && tier.featured;
   const accent = isFeatured
     ? "var(--color-brand-orange)"
     : isLocked
-    ? "var(--color-brand-red)"
-    : "var(--color-border-bright)";
+      ? "var(--color-brand-red)"
+      : "var(--color-border-bright)";
 
   return (
     <motion.div
@@ -245,14 +251,18 @@ function PricingCard({ tier, features, delay, isLocked, onUnlock }: PricingCardP
           background: isFeatured
             ? "var(--color-brand-orange)"
             : isLocked
-            ? "rgba(232,0,45,0.12)"
-            : "transparent",
+              ? "rgba(232,0,45,0.12)"
+              : "transparent",
           border: isFeatured
             ? "none"
             : isLocked
-            ? "1px solid rgba(232,0,45,0.4)"
-            : "1px solid var(--color-border)",
-          color: isFeatured ? "#000" : isLocked ? "var(--color-brand-red)" : "var(--color-text-secondary)",
+              ? "1px solid rgba(232,0,45,0.4)"
+              : "1px solid var(--color-border)",
+          color: isFeatured
+            ? "#000"
+            : isLocked
+              ? "var(--color-brand-red)"
+              : "var(--color-text-secondary)",
           fontFamily: "var(--font-display)",
           fontWeight: 800,
           fontSize: "13px",

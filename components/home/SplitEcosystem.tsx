@@ -26,7 +26,11 @@ const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 32 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.65, delay, ease: [0.25, 0.46, 0.45, 0.94] as const },
+  transition: {
+    duration: 0.65,
+    delay,
+    ease: [0.25, 0.46, 0.45, 0.94] as const,
+  },
 });
 
 interface PanelProps {
@@ -40,7 +44,9 @@ function Panel({ side, onOpenDrawer }: PanelProps) {
   const tagline = isAgency
     ? "We run ads, dominate SEO, and grow your revenue — while you do the work you love."
     : "Certified programs with real-world projects and guaranteed placement support.";
-  const accent = isAgency ? "var(--color-brand-orange)" : "var(--color-brand-red)";
+  const accent = isAgency
+    ? "var(--color-brand-orange)"
+    : "var(--color-brand-red)";
   const features = isAgency ? AGENCY_FEATURES : ACADEMY_FEATURES;
   const ctaLabel = isAgency ? "Scale My Business" : "Enroll Now";
   const ctaHref = isAgency ? undefined : "/academy";
@@ -250,7 +256,10 @@ export default function SplitEcosystem({ onOpenDrawer }: SplitEcosystemProps) {
       }}
     >
       {/* Section label */}
-      <motion.div {...fadeUp()} style={{ textAlign: "center", marginBottom: "64px" }}>
+      <motion.div
+        {...fadeUp()}
+        style={{ textAlign: "center", marginBottom: "64px" }}
+      >
         <p
           style={{
             fontFamily: "var(--font-body)",
@@ -277,7 +286,9 @@ export default function SplitEcosystem({ onOpenDrawer }: SplitEcosystemProps) {
         >
           Built for growth,
           <br />
-          <span style={{ color: "var(--color-brand-orange)" }}>in every direction.</span>
+          <span style={{ color: "var(--color-brand-orange)" }}>
+            in every direction.
+          </span>
         </h2>
       </motion.div>
 

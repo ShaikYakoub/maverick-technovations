@@ -223,7 +223,12 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}
+          style={{
+            display: "flex",
+            gap: "12px",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
         >
           <button
             onClick={onOpenDrawer}
@@ -291,10 +296,7 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
           }}
         >
           {STATS.map((s) => (
-            <div
-              key={s.value}
-              style={{ textAlign: "center" }}
-            >
+            <div key={s.value} style={{ textAlign: "center" }}>
               <div
                 style={{
                   fontFamily: "var(--font-display)",

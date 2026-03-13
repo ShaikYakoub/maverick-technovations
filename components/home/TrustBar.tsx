@@ -4,7 +4,14 @@ import { motion } from "motion/react";
 import { TRUST_PILLARS } from "@/lib/constants";
 import { Award, Eye, BarChart2, Shield } from "lucide-react";
 
-const ICON_MAP: Record<string, React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }>> = {
+const ICON_MAP: Record<
+  string,
+  React.ComponentType<{
+    size?: number;
+    strokeWidth?: number;
+    style?: React.CSSProperties;
+  }>
+> = {
   Award,
   Eye,
   BarChart2,

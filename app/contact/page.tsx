@@ -4,6 +4,24 @@ import ContactLeadForm from "@/components/contact/ContactLeadForm";
 import { BUSINESS_DATA } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 
+const CONTACT_FAQ = [
+  {
+    question: "How quickly will your team respond?",
+    answer:
+      "We usually respond within 30 minutes during business hours, and within 24 hours outside business hours.",
+  },
+  {
+    question: "Is the strategy call free?",
+    answer:
+      "Yes. The first strategy consultation is completely free and includes practical next-step recommendations.",
+  },
+  {
+    question: "Can I enquire for both services and training?",
+    answer:
+      "Yes. Select your primary intent in the form and our team can guide you through both options if needed.",
+  },
+] as const;
+
 export const metadata: Metadata = {
   title: "Contact Mavericks Technovations | Strategy Call",
   description:
@@ -48,11 +66,28 @@ export default function ContactPage() {
     },
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: CONTACT_FAQ.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <div
@@ -66,7 +101,7 @@ export default function ContactPage() {
           style={{
             maxWidth: "1280px",
             margin: "0 auto",
-            padding: "60px 24px 90px",
+            padding: "60px 24px 48px",
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
             gap: "32px",
@@ -167,6 +202,65 @@ export default function ContactPage() {
               Quick Enquiry Form
             </h2>
             <ContactLeadForm />
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="contact-faq-heading"
+          style={{
+            maxWidth: "1280px",
+            margin: "0 auto",
+            padding: "0 24px 90px",
+          }}
+        >
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-surface)",
+              padding: "32px",
+            }}
+          >
+            <h2
+              id="contact-faq-heading"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(24px, 3.2vw, 34px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+                marginBottom: "20px",
+              }}
+            >
+              FAQ
+            </h2>
+            <div style={{ display: "grid", gap: "18px" }}>
+              {CONTACT_FAQ.map((item) => (
+                <article key={item.question}>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: "16px",
+                      color: "var(--color-text-primary)",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    {item.question}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "14px",
+                      lineHeight: 1.7,
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    {item.answer}
+                  </p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
       </div>

@@ -18,6 +18,24 @@ import {
 import { SERVICES, BUSINESS_DATA } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 
+const SERVICES_FAQ = [
+  {
+    question: "Which service should I start with?",
+    answer:
+      "Most brands start with SEO + Google Ads for immediate and compounding growth. We finalize the mix after a quick strategy audit.",
+  },
+  {
+    question: "Do you work only with businesses in Kadapa?",
+    answer:
+      "No. We support businesses across South India, including Bangalore, Hyderabad, Chennai, Vizag, Tirupati, Nellore, Kurnool, Guntur, and Vijayawada.",
+  },
+  {
+    question: "How quickly can I expect results?",
+    answer:
+      "Paid campaigns can produce leads in days, while SEO usually shows strong momentum in 8-12 weeks depending on competition.",
+  },
+] as const;
+
 export const metadata: Metadata = {
   title: "Digital Marketing Services",
   description:
@@ -80,6 +98,23 @@ export default function ServicesPage() {
               position: i + 1,
               name: s.title,
               url: `${BUSINESS_DATA.url}/services/${s.slug}`,
+            })),
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: SERVICES_FAQ.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+              },
             })),
           }),
         }}
@@ -157,7 +192,7 @@ export default function ServicesPage() {
           style={{
             maxWidth: "1280px",
             margin: "0 auto",
-            padding: "64px 24px 120px",
+            padding: "64px 24px 72px",
           }}
         >
           <div
@@ -260,6 +295,65 @@ export default function ServicesPage() {
                 </Link>
               );
             })}
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="services-faq-heading"
+          style={{
+            maxWidth: "1280px",
+            margin: "0 auto",
+            padding: "0 24px 120px",
+          }}
+        >
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-elevated)",
+              padding: "32px",
+            }}
+          >
+            <h2
+              id="services-faq-heading"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(24px, 3.2vw, 34px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+                marginBottom: "20px",
+              }}
+            >
+              Frequently Asked Questions
+            </h2>
+            <div style={{ display: "grid", gap: "18px" }}>
+              {SERVICES_FAQ.map((item) => (
+                <article key={item.question}>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: "16px",
+                      color: "var(--color-text-primary)",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    {item.question}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "14px",
+                      lineHeight: 1.7,
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    {item.answer}
+                  </p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
       </div>

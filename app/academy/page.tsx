@@ -45,6 +45,24 @@ const WHY_POINTS = [
   },
 ];
 
+const ACADEMY_FAQ = [
+  {
+    question: "Do you offer placement support after training?",
+    answer:
+      "Yes. We provide resume prep, mock interviews, portfolio support, and referrals through our hiring partner network.",
+  },
+  {
+    question: "Can working professionals join these courses?",
+    answer:
+      "Yes. Both courses support flexible batches with offline and live online options.",
+  },
+  {
+    question: "Are these beginner-friendly programs?",
+    answer:
+      "Yes. We start with fundamentals and progressively move to live tools, practical projects, and certification readiness.",
+  },
+] as const;
+
 export default function AcademyPage() {
   const courseSchema = {
     "@context": "https://schema.org",
@@ -63,6 +81,23 @@ export default function AcademyPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: ACADEMY_FAQ.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+              },
+            })),
+          }),
+        }}
       />
 
       <div
@@ -325,7 +360,7 @@ export default function AcademyPage() {
         <section
           style={{
             background: "var(--color-dark-surface)",
-            padding: "80px 24px",
+            padding: "80px 24px 56px",
           }}
         >
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
@@ -380,6 +415,66 @@ export default function AcademyPage() {
                     {p.body}
                   </p>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="academy-faq-heading"
+          style={{
+            background: "var(--color-dark-surface)",
+            padding: "0 24px 80px",
+          }}
+        >
+          <div
+            style={{
+              maxWidth: "1280px",
+              margin: "0 auto",
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-elevated)",
+              padding: "32px",
+            }}
+          >
+            <h2
+              id="academy-faq-heading"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(24px, 3.2vw, 34px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+                marginBottom: "20px",
+              }}
+            >
+              Frequently Asked Questions
+            </h2>
+            <div style={{ display: "grid", gap: "18px" }}>
+              {ACADEMY_FAQ.map((item) => (
+                <article key={item.question}>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: "16px",
+                      color: "var(--color-text-primary)",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    {item.question}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "14px",
+                      lineHeight: 1.7,
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    {item.answer}
+                  </p>
+                </article>
               ))}
             </div>
           </div>

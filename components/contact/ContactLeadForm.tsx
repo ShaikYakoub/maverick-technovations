@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { submitLead, trackEvent } from "@/actions/lead";
 
@@ -10,7 +10,20 @@ interface FormState {
   name: string;
   whatsapp: string;
   email: string;
-  intent: Intent;
+  intent: "marketing" | "training";
+}
+
+interface AttributionState {
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  utmTerm: string;
+  utmContent: string;
+  gclid: string;
+  fbclid: string;
+  msclkid: string;
+  landingPath: string;
+  referrer: string;
 }
 
 export default function ContactLeadForm() {
@@ -26,6 +39,64 @@ export default function ContactLeadForm() {
   >({});
   const [message, setMessage] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [attribution, setAttribution] = useState<AttributionState>({
+    utmSource: "",
+    utmMedium: "",
+    utmCampaign: "",
+    utmTerm: "",
+    utmContent: "",
+    gclid: "",
+    fbclid: "",
+    msclkid: "",
+    landingPath: "",
+    referrer: "",
+  });
+
+  const intentCopy =
+    form.intent === "marketing"
+      ? {
+          button: "Request Free Strategy Call",
+          success:
+            "Thanks! Our growth team will contact you shortly with next steps.",
+        }
+      : {
+          button: "Request Course Counselling",
+          success:
+            "Thanks! Our academy counsellor will contact you shortly with batch and fee details.",
+        };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const routeIntent = params.get("intent");
+    if (routeIntent === "training") {
+      setForm((prev) => ({ ...prev, intent: "training" }));
+    }
+
+    setAttribution({
+      utmSource: params.get("utm_source") ?? "",
+      utmMedium: params.get("utm_medium") ?? "",
+      utmCampaign: params.get("utm_campaign") ?? "",
+      utmTerm: params.get("utm_term") ?? "",
+      utmContent: params.get("utm_content") ?? "",
+      gclid: params.get("gclid") ?? "",
+      fbclid: params.get("fbclid") ?? "",
+      msclkid: params.get("msclkid") ?? "",
+      landingPath: `${window.location.pathname}${window.location.search}`,
+      referrer: document.referrer || "direct",
+    });
+  }, []);
+
+  const attributionSource = [
+    `contact-${form.intent}`,
+    attribution.utmSource ? `utm_source=${attribution.utmSource}` : "",
+    attribution.utmMedium ? `utm_medium=${attribution.utmMedium}` : "",
+    attribution.utmCampaign ? `utm_campaign=${attribution.utmCampaign}` : "",
+    attribution.gclid ? `gclid=${attribution.gclid}` : "",
+    attribution.fbclid ? `fbclid=${attribution.fbclid}` : "",
+    attribution.msclkid ? `msclkid=${attribution.msclkid}` : "",
+  ]
+    .filter(Boolean)
+    .join("|");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,16 +107,40 @@ export default function ContactLeadForm() {
 
     const result = await submitLead({
       ...form,
-      sourcePage: "contact",
+      sourcePage: attributionSource,
+      utmSource: attribution.utmSource || undefined,
+      utmMedium: attribution.utmMedium || undefined,
+      utmCampaign: attribution.utmCampaign || undefined,
+      utmTerm: attribution.utmTerm || undefined,
+      utmContent: attribution.utmContent || undefined,
+      gclid: attribution.gclid || undefined,
+      fbclid: attribution.fbclid || undefined,
+      msclkid: attribution.msclkid || undefined,
+      landingPath: attribution.landingPath || undefined,
+      referrer: attribution.referrer || undefined,
     });
 
     setSubmitting(false);
 
     if (result.success) {
       setSuccess(true);
-      setMessage("Thanks! Our team will contact you shortly.");
+      setMessage(intentCopy.success);
       setForm({ name: "", whatsapp: "", email: "", intent: form.intent });
       await trackEvent("contact_form_submitted", { intent: form.intent });
+      await trackEvent(`contact_form_submitted_${form.intent}`, {
+        intent: form.intent,
+        sourcePage: attributionSource,
+        utmSource: attribution.utmSource || "",
+        utmMedium: attribution.utmMedium || "",
+        utmCampaign: attribution.utmCampaign || "",
+        utmTerm: attribution.utmTerm || "",
+        utmContent: attribution.utmContent || "",
+        gclid: attribution.gclid || "",
+        fbclid: attribution.fbclid || "",
+        msclkid: attribution.msclkid || "",
+        landingPath: attribution.landingPath || "",
+        referrer: attribution.referrer || "",
+      });
       return;
     }
 
@@ -209,7 +304,7 @@ export default function ContactLeadForm() {
           padding: "15px 20px",
           borderRadius: "8px",
           border: "none",
-          background: "var(--color-brand-orange)",
+          background: "var(--gradient-brand-premium)",
           color: "#fff",
           fontFamily: "var(--font-display)",
           fontWeight: 800,
@@ -226,7 +321,7 @@ export default function ContactLeadForm() {
             Sending...
           </>
         ) : (
-          "Request Free Strategy Call"
+          intentCopy.button
         )}
       </button>
 

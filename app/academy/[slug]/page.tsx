@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, CheckCircle, ArrowLeft } from "lucide-react";
 import FaqAccordion from "@/components/shared/FaqAccordion";
+import CourseFeeSelector from "@/components/academy/CourseFeeSelector";
 import { ACADEMY_COURSES, BUSINESS_DATA } from "@/lib/constants";
 
 type CourseSlug = (typeof ACADEMY_COURSES)[number]["slug"];
@@ -13,6 +14,11 @@ interface CourseDetail {
   whoFor: string[];
   modules: { title: string; topics: string[] }[];
   outcomes: string[];
+  proofStats: { label: string; value: string }[];
+  portfolioProof: string[];
+  tools: string[];
+  hiringRoles: string[];
+  salarySignals: string[];
   feeTiers: {
     name: string;
     price: string;
@@ -73,6 +79,34 @@ const COURSE_DETAILS: Record<CourseSlug, CourseDetail> = {
       "CPC certification readiness (AAPC)",
       "Ability to work with US-based healthcare providers remotely",
       "Starting packages: ₹3–5 LPA freshers, ₹6–10 LPA with 1 year experience",
+    ],
+    proofStats: [
+      { label: "Mock assessments", value: "20+" },
+      { label: "Case scenarios", value: "120+" },
+      { label: "Mentor checkpoints", value: "Weekly" },
+      { label: "Placement support window", value: "180 days" },
+    ],
+    portfolioProof: [
+      "Coded clinical case sheets with audit comments",
+      "AAPC-style mock exam performance tracker",
+      "Interview-ready documentation portfolio",
+    ],
+    tools: [
+      "ICD-10-CM codebooks",
+      "CPT and HCPCS references",
+      "EHR-style documentation workflows",
+      "Medical coding audit checklists",
+    ],
+    hiringRoles: [
+      "Medical Coder",
+      "Revenue Cycle Associate",
+      "Quality Coding Analyst",
+      "Claims Documentation Specialist",
+    ],
+    salarySignals: [
+      "Entry roles: ₹3-5 LPA",
+      "With CPC + experience: ₹6-10 LPA",
+      "Remote healthcare process roles grow faster with specialty coding",
     ],
     feeTiers: [
       {
@@ -165,6 +199,34 @@ const COURSE_DETAILS: Record<CourseSlug, CourseDetail> = {
       "Portfolio of 2 live campaigns to show employers",
       "Starting packages: ₹2.5–4.5 LPA freshers",
     ],
+    proofStats: [
+      { label: "Live campaigns", value: "2-4" },
+      { label: "Ad creatives shipped", value: "40+" },
+      { label: "Reporting cadences", value: "Weekly" },
+      { label: "Placement support window", value: "120 days" },
+    ],
+    portfolioProof: [
+      "Campaign setup and optimisation snapshots",
+      "Looker Studio reporting dashboard",
+      "Channel strategy and budget allocation sheet",
+    ],
+    tools: [
+      "Google Ads",
+      "Meta Ads Manager",
+      "GA4 and Search Console",
+      "Looker Studio dashboards",
+    ],
+    hiringRoles: [
+      "Performance Marketing Executive",
+      "SEO Associate",
+      "Social Media Strategist",
+      "Paid Ads Analyst",
+    ],
+    salarySignals: [
+      "Entry roles: ₹2.5-4.5 LPA",
+      "Performance specialists can reach ₹5-8 LPA in 18-24 months",
+      "Freelance retainers often begin after portfolio proof",
+    ],
     feeTiers: [
       {
         name: "Starter",
@@ -206,6 +268,462 @@ const COURSE_DETAILS: Record<CourseSlug, CourseDetail> = {
     ],
     businessImpact:
       "Without digital capability, brands lose visibility, pay more for poor leads, and struggle to compete in performance-driven markets.",
+  },
+  "ai-ml-engineering": {
+    tagline: "Build models. Deploy intelligence.",
+    heroBody:
+      "A practical AI and ML track focused on Python workflows, model building, deployment pipelines, and portfolio-ready use cases for modern teams.",
+    whoFor: [
+      "Engineering and science graduates",
+      "Developers moving into AI product roles",
+      "Data-curious professionals shifting into ML",
+      "Students targeting high-growth technology roles",
+    ],
+    modules: [
+      {
+        title: "Python and Data Foundations",
+        topics: [
+          "Python for data workflows",
+          "Pandas, NumPy, and data wrangling",
+          "Statistical intuition for ML",
+        ],
+      },
+      {
+        title: "Machine Learning Core",
+        topics: [
+          "Supervised and unsupervised models",
+          "Model validation and performance metrics",
+          "Feature engineering strategies",
+        ],
+      },
+      {
+        title: "Deep Learning and LLM Basics",
+        topics: [
+          "Neural network fundamentals",
+          "Computer vision and NLP intro",
+          "Prompting and LLM application design",
+        ],
+      },
+      {
+        title: "Deployment and Portfolio",
+        topics: [
+          "Model serving with APIs",
+          "MLOps overview and monitoring",
+          "Capstone: end-to-end AI product",
+        ],
+      },
+    ],
+    outcomes: [
+      "Build and deploy applied ML solutions",
+      "Portfolio with 2 production-style projects",
+      "Starting packages: ₹4-7 LPA depending on stack depth",
+    ],
+    proofStats: [
+      { label: "Capstone projects", value: "2" },
+      { label: "Model experiments", value: "25+" },
+      { label: "Code review cycles", value: "Weekly" },
+      { label: "Placement support window", value: "150 days" },
+    ],
+    portfolioProof: [
+      "End-to-end ML pipeline project",
+      "Inference API deployment walkthrough",
+      "Evaluation and model comparison report",
+    ],
+    tools: ["Python", "scikit-learn", "TensorFlow/PyTorch", "FastAPI"],
+    hiringRoles: [
+      "ML Engineer - Junior",
+      "AI Application Developer",
+      "Data Science Analyst",
+      "Prompt Engineer",
+    ],
+    salarySignals: [
+      "Entry AI roles: ₹4-7 LPA",
+      "Product + deployment skills can accelerate growth to ₹8-12 LPA",
+      "AI portfolio quality heavily influences interview conversion",
+    ],
+    feeTiers: [
+      {
+        name: "Core",
+        price: "₹32,000",
+        feeNote: "EMI available - ₹8,500/mo x 4",
+        benefits: [
+          "Python + ML fundamentals",
+          "Assignments and mentor reviews",
+          "One mini project",
+        ],
+      },
+      {
+        name: "Applied Pro",
+        price: "₹46,000",
+        feeNote: "EMI available - ₹12,000/mo x 4",
+        benefits: [
+          "Full curriculum + guided capstone",
+          "Interview prep and profile optimisation",
+          "Deployment and API workflows",
+        ],
+        featured: true,
+      },
+      {
+        name: "AI Career Elite",
+        price: "₹59,000",
+        feeNote: "EMI available - ₹15,500/mo x 4",
+        benefits: [
+          "Everything in Applied Pro",
+          "Advanced portfolio coaching",
+          "Priority placement support",
+        ],
+      },
+    ],
+    careerSupport: [
+      "Github project review sessions",
+      "Mock technical rounds for AI roles",
+      "Portfolio storytelling for recruiters",
+      "Referral support through partner network",
+    ],
+    businessImpact:
+      "Without AI capability, teams automate slower, learn slower, and lose competitive velocity in data-driven markets.",
+  },
+  "ui-ux-design": {
+    tagline: "Design experiences users trust.",
+    heroBody:
+      "A modern UI/UX program covering research, user flows, wireframing, design systems, and usability testing for product and service teams.",
+    whoFor: [
+      "Creative graduates entering product design",
+      "Developers improving product thinking",
+      "Freelancers offering UI/UX services",
+      "Founders improving product conversion",
+    ],
+    modules: [
+      {
+        title: "UX Foundations",
+        topics: [
+          "User research basics",
+          "Information architecture",
+          "User journey mapping",
+        ],
+      },
+      {
+        title: "Wireframing and Interaction",
+        topics: [
+          "Low and high fidelity wireframes",
+          "Interaction and layout patterns",
+          "Accessibility-first principles",
+        ],
+      },
+      {
+        title: "Visual Systems",
+        topics: [
+          "Typography and color systems",
+          "Component libraries in Figma",
+          "Responsive interface design",
+        ],
+      },
+      {
+        title: "Testing and Portfolio",
+        topics: [
+          "Usability testing workflows",
+          "Iteration from user feedback",
+          "Case-study portfolio building",
+        ],
+      },
+    ],
+    outcomes: [
+      "Portfolio with product-grade case studies",
+      "Strong UI system and prototyping confidence",
+      "Starting packages: ₹3-6 LPA across design roles",
+    ],
+    proofStats: [
+      { label: "Case studies", value: "2-3" },
+      { label: "User tests", value: "10+" },
+      { label: "Design critiques", value: "Weekly" },
+      { label: "Placement support window", value: "120 days" },
+    ],
+    portfolioProof: [
+      "Research-backed design case studies",
+      "Component system in Figma",
+      "Usability findings and iteration log",
+    ],
+    tools: ["Figma", "FigJam", "Miro", "Notion"],
+    hiringRoles: [
+      "UI Designer",
+      "UX Designer",
+      "Product Design Associate",
+      "Design System Intern",
+    ],
+    salarySignals: [
+      "Entry UI/UX roles: ₹3-6 LPA",
+      "Case-study quality drives compensation and hiring speed",
+      "Cross-skill designers (UX + motion) command premium roles",
+    ],
+    feeTiers: [
+      {
+        name: "Foundation",
+        price: "₹22,000",
+        feeNote: "EMI available - ₹7,500/mo x 3",
+        benefits: [
+          "UX and interface fundamentals",
+          "Design exercises and reviews",
+          "One guided case study",
+        ],
+      },
+      {
+        name: "Studio Pro",
+        price: "₹31,000",
+        feeNote: "EMI available - ₹10,500/mo x 3",
+        benefits: [
+          "Full UI/UX curriculum",
+          "2 end-to-end case studies",
+          "Interview and portfolio coaching",
+        ],
+        featured: true,
+      },
+      {
+        name: "Product Elite",
+        price: "₹42,000",
+        feeNote: "EMI available - ₹14,500/mo x 3",
+        benefits: [
+          "Everything in Studio Pro",
+          "Mentor-led portfolio overhaul",
+          "Priority placement support",
+        ],
+      },
+    ],
+    careerSupport: [
+      "Case study storytelling workshops",
+      "Portfolio and Dribbble profile feedback",
+      "Mock design challenge rounds",
+      "Interview prep with product scenarios",
+    ],
+    businessImpact:
+      "Without UX maturity, products bleed conversion, increase churn, and force higher acquisition spend.",
+  },
+  "cloud-devops": {
+    tagline: "Ship reliably. Scale confidently.",
+    heroBody:
+      "An operations-first track for cloud infrastructure, CI/CD, containerization, and deployment automation used by modern engineering teams.",
+    whoFor: [
+      "CS and IT graduates",
+      "Developers transitioning to DevOps",
+      "Support engineers moving to cloud roles",
+      "Professionals preparing for platform engineering paths",
+    ],
+    modules: [
+      {
+        title: "Cloud Basics",
+        topics: [
+          "Compute, storage, networking fundamentals",
+          "IAM and security principles",
+          "Cloud architecture patterns",
+        ],
+      },
+      {
+        title: "DevOps Foundations",
+        topics: [
+          "Linux and shell workflows",
+          "Version control and branching strategies",
+          "CI/CD pipelines",
+        ],
+      },
+      {
+        title: "Containers and Orchestration",
+        topics: [
+          "Docker image lifecycle",
+          "Kubernetes basics",
+          "Environment configuration management",
+        ],
+      },
+      {
+        title: "Monitoring and Reliability",
+        topics: [
+          "Observability and logs",
+          "Deployment rollback patterns",
+          "Capstone: automated cloud deployment",
+        ],
+      },
+    ],
+    outcomes: [
+      "Ability to automate deployment and release workflows",
+      "Cloud project portfolio with CI/CD and containerized stacks",
+      "Starting packages: ₹4-7 LPA for junior cloud/devops roles",
+    ],
+    proofStats: [
+      { label: "Deployment labs", value: "30+" },
+      { label: "CI/CD pipelines", value: "6+" },
+      { label: "Infra reviews", value: "Weekly" },
+      { label: "Placement support window", value: "150 days" },
+    ],
+    portfolioProof: [
+      "Containerized service deployment project",
+      "CI/CD pipeline with rollback strategy",
+      "Cloud architecture and monitoring playbook",
+    ],
+    tools: ["AWS", "Docker", "Kubernetes", "GitHub Actions"],
+    hiringRoles: [
+      "Cloud Support Engineer",
+      "DevOps Associate",
+      "Site Reliability Associate",
+      "Platform Operations Analyst",
+    ],
+    salarySignals: [
+      "Entry cloud/devops roles: ₹4-7 LPA",
+      "Automation depth can move compensation to ₹8-12 LPA",
+      "Production reliability skills are highly valued in hiring loops",
+    ],
+    feeTiers: [
+      {
+        name: "Starter",
+        price: "₹30,000",
+        feeNote: "EMI available - ₹8,000/mo x 4",
+        benefits: [
+          "Cloud and DevOps fundamentals",
+          "Lab environments and assignments",
+          "One deployment project",
+        ],
+      },
+      {
+        name: "Scale Pro",
+        price: "₹44,000",
+        feeNote: "EMI available - ₹11,500/mo x 4",
+        benefits: [
+          "Full cloud + CI/CD + container stack",
+          "2 capstone deployments",
+          "Interview and resume support",
+        ],
+        featured: true,
+      },
+      {
+        name: "Reliability Elite",
+        price: "₹56,000",
+        feeNote: "EMI available - ₹14,500/mo x 4",
+        benefits: [
+          "Everything in Scale Pro",
+          "Advanced reliability playbooks",
+          "Priority placement support",
+        ],
+      },
+    ],
+    careerSupport: [
+      "Real-world deployment simulation rounds",
+      "Debugging and incident interview preparation",
+      "Cloud resume keyword optimisation",
+      "Job referral readiness checks",
+    ],
+    businessImpact:
+      "Without cloud and delivery automation, teams ship slower, recover slower, and spend more on operational friction.",
+  },
+  cybersecurity: {
+    tagline: "Defend systems before threats scale.",
+    heroBody:
+      "A practical cybersecurity track built around network security, SOC workflows, vulnerability management, and incident response readiness.",
+    whoFor: [
+      "IT graduates and system admins",
+      "Network professionals moving to security",
+      "Beginners targeting SOC analyst roles",
+      "Professionals preparing for security certifications",
+    ],
+    modules: [
+      {
+        title: "Security Foundations",
+        topics: [
+          "Threat landscape and attack lifecycle",
+          "Network and endpoint security basics",
+          "Security policies and compliance overview",
+        ],
+      },
+      {
+        title: "SOC Operations",
+        topics: [
+          "Log analysis and SIEM workflows",
+          "Alert triage and escalation",
+          "Threat hunting basics",
+        ],
+      },
+      {
+        title: "Vulnerability and Defense",
+        topics: [
+          "Vulnerability assessment cycles",
+          "Hardening and patch management",
+          "Blue-team defensive playbooks",
+        ],
+      },
+      {
+        title: "Incident Readiness",
+        topics: [
+          "Incident response process",
+          "Forensics fundamentals",
+          "Capstone: security response simulation",
+        ],
+      },
+    ],
+    outcomes: [
+      "SOC-ready operational skillset",
+      "Portfolio with security lab reports and response plans",
+      "Starting packages: ₹3.5-6.5 LPA for security entry roles",
+    ],
+    proofStats: [
+      { label: "Security labs", value: "35+" },
+      { label: "Incident drills", value: "12+" },
+      { label: "SOC simulations", value: "Weekly" },
+      { label: "Placement support window", value: "150 days" },
+    ],
+    portfolioProof: [
+      "Threat analysis and incident report samples",
+      "Vulnerability assessment documentation",
+      "Defensive hardening checklist portfolio",
+    ],
+    tools: ["Wireshark", "SIEM basics", "Nmap", "Burp Suite"],
+    hiringRoles: [
+      "SOC Analyst - L1",
+      "Security Operations Associate",
+      "Vulnerability Assessment Associate",
+      "Incident Response Trainee",
+    ],
+    salarySignals: [
+      "Entry cybersecurity roles: ₹3.5-6.5 LPA",
+      "Analysts with incident handling depth can reach ₹7-11 LPA",
+      "Security certifications and labs improve shortlist rates",
+    ],
+    feeTiers: [
+      {
+        name: "Core Defense",
+        price: "₹28,000",
+        feeNote: "EMI available - ₹7,500/mo x 4",
+        benefits: [
+          "Cybersecurity fundamentals",
+          "Guided security labs",
+          "One incident-response assignment",
+        ],
+      },
+      {
+        name: "SOC Pro",
+        price: "₹39,000",
+        feeNote: "EMI available - ₹10,500/mo x 4",
+        benefits: [
+          "Full SOC and vulnerability curriculum",
+          "Live simulation exercises",
+          "Interview prep and resume support",
+        ],
+        featured: true,
+      },
+      {
+        name: "Security Elite",
+        price: "₹52,000",
+        feeNote: "EMI available - ₹14,000/mo x 4",
+        benefits: [
+          "Everything in SOC Pro",
+          "Advanced threat hunting mentorship",
+          "Priority placement support",
+        ],
+      },
+    ],
+    careerSupport: [
+      "Security interview scenario practice",
+      "SOC analyst profile optimisation",
+      "Lab portfolio review sessions",
+      "Referral readiness and hiring guidance",
+    ],
+    businessImpact:
+      "Without cyber readiness, organizations risk outages, data exposure, and trust damage that is expensive to recover.",
   },
 };
 
@@ -287,6 +805,10 @@ export default async function AcademyCoursePage({
       sameAs: BUSINESS_DATA.url,
     },
     educationalCredentialAwarded: course.credential,
+    learningResourceType: "Blended training program",
+    keywords: [...detail.hiringRoles, ...detail.tools].join(", "),
+    teaches: detail.modules.flatMap((module) => module.topics),
+    occupationalCategory: detail.hiringRoles,
     courseMode: ["onsite", "online"],
     timeRequired: course.duration,
     offers: {
@@ -431,89 +953,7 @@ export default async function AcademyCoursePage({
             {detail.heroBody}
           </p>
 
-          <div
-            className="grid-card-4"
-            style={{
-              gap: "12px",
-              marginBottom: "32px",
-              maxWidth: "980px",
-            }}
-          >
-            {detail.feeTiers.map((tier) => (
-              <div
-                key={tier.name}
-                style={{
-                  borderRadius: "14px",
-                  border: tier.featured
-                    ? "1px solid rgba(239,89,36,0.45)"
-                    : "1px solid var(--color-border)",
-                  background: tier.featured
-                    ? "linear-gradient(165deg, rgba(239,89,36,0.14), rgba(211,32,39,0.08))"
-                    : "var(--color-dark-elevated)",
-                  padding: "18px",
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    letterSpacing: "0.16em",
-                    textTransform: "uppercase",
-                    color: "var(--color-brand-orange)",
-                    marginBottom: "6px",
-                  }}
-                >
-                  {tier.name}
-                </p>
-                <p
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 800,
-                    fontSize: "clamp(20px, 3vw, 28px)",
-                    color: "var(--color-text-primary)",
-                    letterSpacing: "-0.03em",
-                    marginBottom: "4px",
-                  }}
-                >
-                  {tier.price}
-                </p>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "12px",
-                    color: "var(--color-text-muted)",
-                    marginBottom: "10px",
-                  }}
-                >
-                  {tier.feeNote}
-                </p>
-                <ul
-                  style={{
-                    listStyle: "none",
-                    padding: 0,
-                    margin: 0,
-                    display: "grid",
-                    gap: "6px",
-                  }}
-                >
-                  {tier.benefits.map((benefit) => (
-                    <li
-                      key={benefit}
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "12px",
-                        color: "var(--color-text-secondary)",
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      • {benefit}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <CourseFeeSelector tiers={detail.feeTiers} />
 
           {/* CTAs */}
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
@@ -839,9 +1279,271 @@ export default async function AcademyCoursePage({
           style={{
             maxWidth: "1280px",
             margin: "0 auto",
-            padding: "0 24px 64px",
+            padding: "0 24px 40px",
           }}
         >
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-elevated)",
+              padding: "24px",
+              marginBottom: "24px",
+              display: "grid",
+              gap: "16px",
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(22px, 3vw, 30px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+              }}
+            >
+              Outcome proof you can show recruiters
+            </h2>
+            <div className="grid-card-4" style={{ gap: "12px" }}>
+              {detail.proofStats.map((stat) => (
+                <div
+                  key={stat.label}
+                  style={{
+                    border: "1px solid var(--color-border)",
+                    borderRadius: "12px",
+                    background: "var(--color-dark-surface)",
+                    padding: "14px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 800,
+                      fontSize: "clamp(20px, 3vw, 28px)",
+                      color: "var(--color-text-primary)",
+                    }}
+                  >
+                    {stat.value}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "12px",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div
+              style={{
+                borderRadius: "12px",
+                border: "1px solid rgba(239,89,36,0.35)",
+                background: "rgba(239,89,36,0.08)",
+                padding: "14px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "var(--color-brand-orange)",
+                  marginBottom: "8px",
+                }}
+              >
+                Portfolio Proof Stack
+              </p>
+              <ul
+                style={{
+                  listStyle: "none",
+                  padding: 0,
+                  margin: 0,
+                  display: "grid",
+                  gap: "6px",
+                }}
+              >
+                {detail.portfolioProof.map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "13px",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    • {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-elevated)",
+              padding: "24px",
+              marginBottom: "24px",
+              display: "grid",
+              gap: "16px",
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(22px, 3vw, 30px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+              }}
+            >
+              Tools and roles you build toward
+            </h2>
+            <div className="grid-card-2" style={{ gap: "14px" }}>
+              <div
+                style={{
+                  border: "1px solid var(--color-border)",
+                  borderRadius: "12px",
+                  background: "var(--color-dark-surface)",
+                  padding: "14px",
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "var(--color-brand-orange)",
+                    marginBottom: "8px",
+                  }}
+                >
+                  Tools You Practice
+                </p>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                    display: "grid",
+                    gap: "6px",
+                  }}
+                >
+                  {detail.tools.map((item) => (
+                    <li
+                      key={item}
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "13px",
+                        color: "var(--color-text-secondary)",
+                      }}
+                    >
+                      • {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div
+                style={{
+                  border: "1px solid var(--color-border)",
+                  borderRadius: "12px",
+                  background: "var(--color-dark-surface)",
+                  padding: "14px",
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "var(--color-brand-orange)",
+                    marginBottom: "8px",
+                  }}
+                >
+                  Hiring Roles
+                </p>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                    display: "grid",
+                    gap: "6px",
+                  }}
+                >
+                  {detail.hiringRoles.map((item) => (
+                    <li
+                      key={item}
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "13px",
+                        color: "var(--color-text-secondary)",
+                      }}
+                    >
+                      • {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div
+              style={{
+                borderRadius: "12px",
+                border: "1px solid rgba(239,89,36,0.35)",
+                background: "rgba(239,89,36,0.08)",
+                padding: "14px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "var(--color-brand-red)",
+                  marginBottom: "8px",
+                }}
+              >
+                Salary Signals
+              </p>
+              <ul
+                style={{
+                  listStyle: "none",
+                  padding: 0,
+                  margin: 0,
+                  display: "grid",
+                  gap: "6px",
+                }}
+              >
+                {detail.salarySignals.map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "13px",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    • {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           <div
             style={{
               border: "1px solid var(--color-border)",

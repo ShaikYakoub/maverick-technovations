@@ -1,10 +1,37 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Clock3, Mail, MapPin, Phone, ShieldCheck, Timer } from "lucide-react";
 import ContactLeadForm from "@/components/contact/ContactLeadForm";
 import FaqAccordion from "@/components/shared/FaqAccordion";
 import { BUSINESS_DATA } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
+
+const RESPONSE_TIMELINE = [
+  {
+    title: "Step 1: Enquiry Review",
+    body: "We review your business context, market, and current bottlenecks.",
+  },
+  {
+    title: "Step 2: Strategy Call",
+    body: "You get a practical call focused on lead flow, positioning, and next actions.",
+  },
+  {
+    title: "Step 3: Execution Blueprint",
+    body: "We share a channel mix and rollout sequence tailored to your stage.",
+  },
+] as const;
+
+const TRUST_SIGNALS = [
+  "Transparent reporting and weekly optimisation cadence",
+  "Dedicated support for both services and academy admissions",
+  "Local execution context for Kadapa and South India markets",
+] as const;
+
+const OFFICE_HOURS = [
+  "Mon-Sat: 9:30 AM - 8:00 PM",
+  "Sun: Counselling by prior appointment",
+  "Response SLA: under 30 minutes during business hours",
+] as const;
 
 const CONTACT_FAQ = [
   {
@@ -62,6 +89,11 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  const mapEmbedSrc = `https://maps.google.com/maps?q=${BUSINESS_DATA.geo.latitude},${BUSINESS_DATA.geo.longitude}&z=15&output=embed`;
+  const mapDirectionsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    `${BUSINESS_DATA.geo.latitude},${BUSINESS_DATA.geo.longitude}`,
+  )}`;
+
   const contactSchema = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
@@ -222,7 +254,295 @@ export default function ContactPage() {
             >
               Quick Enquiry Form
             </h2>
+            <div
+              style={{
+                display: "flex",
+                gap: "8px",
+                flexWrap: "wrap",
+                marginBottom: "14px",
+              }}
+            >
+              <a
+                href="/contact?intent=marketing"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  padding: "8px 12px",
+                  borderRadius: "999px",
+                  border: "1px solid var(--color-border)",
+                  background: "transparent",
+                  color: "var(--color-text-secondary)",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                }}
+              >
+                Service Enquiry
+              </a>
+              <a
+                href="/contact?intent=training"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  padding: "8px 12px",
+                  borderRadius: "999px",
+                  border: "1px solid var(--color-border)",
+                  background: "transparent",
+                  color: "var(--color-text-secondary)",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                }}
+              >
+                Academy Enquiry
+              </a>
+            </div>
             <ContactLeadForm />
+          </div>
+        </section>
+
+        <section
+          className="section-shell"
+          style={{
+            padding: "0 24px 24px",
+          }}
+        >
+          <div className="grid-balance-2" style={{ gap: "14px" }}>
+            <div
+              style={{
+                border: "1px solid var(--color-border)",
+                borderRadius: "16px",
+                background: "var(--color-dark-surface)",
+                overflow: "hidden",
+                minHeight: "320px",
+              }}
+            >
+              <iframe
+                title="Mavericks Technovations location map"
+                src={mapEmbedSrc}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                style={{
+                  width: "100%",
+                  minHeight: "320px",
+                  border: "none",
+                }}
+              />
+            </div>
+
+            <div
+              style={{
+                border: "1px solid var(--color-border)",
+                borderRadius: "16px",
+                background: "var(--color-dark-surface)",
+                padding: "clamp(22px, 4vw, 32px)",
+                display: "grid",
+                gap: "16px",
+              }}
+            >
+              <h2
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: "clamp(24px, 3.2vw, 34px)",
+                  letterSpacing: "-0.03em",
+                  color: "var(--color-text-primary)",
+                }}
+              >
+                Visit Our Office
+              </h2>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "14px",
+                  lineHeight: 1.7,
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                Meet the strategy and academy team at our Kadapa office for an
+                in-person consultation and planning session.
+              </p>
+              <div style={{ display: "grid", gap: "8px" }}>
+                {OFFICE_HOURS.map((item) => (
+                  <p
+                    key={item}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "8px",
+                      fontFamily: "var(--font-body)",
+                      fontSize: "13px",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    <Clock3
+                      size={14}
+                      strokeWidth={1.6}
+                      style={{
+                        color: "var(--color-brand-orange)",
+                        marginTop: "2px",
+                      }}
+                    />
+                    {item}
+                  </p>
+                ))}
+              </div>
+
+              <a
+                href={mapDirectionsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-animated"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  width: "fit-content",
+                  padding: "12px 18px",
+                  borderRadius: "999px",
+                  border: "none",
+                  background: "var(--gradient-brand-premium)",
+                  color: "#fff",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: "12px",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                }}
+              >
+                <MapPin size={14} strokeWidth={1.8} />
+                Get Directions
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="section-shell"
+          style={{
+            padding: "0 24px 24px",
+          }}
+        >
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-surface)",
+              padding: "clamp(22px, 4vw, 30px)",
+              display: "grid",
+              gap: "16px",
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(24px, 3.2vw, 34px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+              }}
+            >
+              What happens after you contact us?
+            </h2>
+            <div className="grid-card-4" style={{ gap: "12px" }}>
+              {RESPONSE_TIMELINE.map((item) => (
+                <div
+                  key={item.title}
+                  style={{
+                    border: "1px solid var(--color-border)",
+                    borderRadius: "12px",
+                    background: "var(--color-dark-elevated)",
+                    padding: "14px",
+                    display: "grid",
+                    gap: "8px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: "15px",
+                      color: "var(--color-text-primary)",
+                    }}
+                  >
+                    {item.title}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "12px",
+                      lineHeight: 1.65,
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    {item.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div
+              style={{
+                borderRadius: "12px",
+                border: "1px solid rgba(239,89,36,0.32)",
+                background: "rgba(239,89,36,0.07)",
+                padding: "14px",
+              }}
+            >
+              {TRUST_SIGNALS.map((item) => (
+                <p
+                  key={item}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "8px",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "13px",
+                    color: "var(--color-text-secondary)",
+                    marginBottom: "8px",
+                  }}
+                >
+                  <ShieldCheck
+                    size={14}
+                    strokeWidth={1.6}
+                    style={{
+                      color: "var(--color-brand-orange)",
+                      marginTop: "2px",
+                    }}
+                  />
+                  {item}
+                </p>
+              ))}
+              <p
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "8px",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "13px",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                <Timer
+                  size={14}
+                  strokeWidth={1.6}
+                  style={{
+                    color: "var(--color-brand-orange)",
+                    marginTop: "2px",
+                  }}
+                />
+                Fast callback windows available if you share preferred timing in
+                the enquiry form.
+              </p>
+            </div>
           </div>
         </section>
 

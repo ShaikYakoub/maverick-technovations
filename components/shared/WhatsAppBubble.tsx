@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageCircle } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { BUSINESS_DATA } from "@/lib/constants";
 
 export default function WhatsAppBubble() {
@@ -31,7 +31,7 @@ export default function WhatsAppBubble() {
         textDecoration: "none",
       }}
     >
-      <MessageCircle size={24} strokeWidth={2} />
+      <FaWhatsapp size={24} />
     </a>
   );
 }

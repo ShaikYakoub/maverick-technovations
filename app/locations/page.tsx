@@ -92,7 +92,7 @@ export default function LocationsPage() {
           >
             South India coverage.
             <br />
-            <span style={{ color: "var(--color-brand-orange)" }}>
+            <span className="text-brand-gradient">
               Local execution at scale.
             </span>
           </h1>
@@ -229,7 +229,7 @@ export default function LocationsPage() {
               alignItems: "center",
               gap: "10px",
               padding: "16px 30px",
-              background: "var(--color-brand-orange)",
+              background: "var(--gradient-brand-premium)",
               color: "#fff",
               textDecoration: "none",
               borderRadius: "8px",

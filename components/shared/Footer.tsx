@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
+import { MapPin, Mail, ArrowUpRight } from "lucide-react";
 import {
   FaFacebookF,
   FaInstagram,
@@ -84,7 +84,7 @@ export default function Footer() {
                 marginBottom: "8px",
               }}
             >
-              Ready to Dominate?
+              Next-Level Growth Engine
             </p>
             <h2
               style={{
@@ -97,12 +97,23 @@ export default function Footer() {
                 maxWidth: "480px",
               }}
             >
-              Let&apos;s build something that
+              Stop Competing.
               <br />
-              <span style={{ color: "var(--color-brand-orange)" }}>
-                prints revenue.
-              </span>
+              Start <span className="text-brand-gradient">Dominating.</span>
             </h2>
+            <p
+              style={{
+                marginTop: "14px",
+                maxWidth: "560px",
+                fontFamily: "var(--font-body)",
+                fontSize: "14px",
+                color: "var(--color-text-secondary)",
+                lineHeight: 1.75,
+              }}
+            >
+              South India&apos;s premier digital growth engine. We build brands,
+              engineer platforms, and train the next generation of tech leaders.
+            </p>
           </div>
 
           <div
@@ -114,26 +125,20 @@ export default function Footer() {
             }}
           >
             <a
-              href={`tel:+91${BUSINESS_DATA.phone}`}
+              href={`mailto:${BUSINESS_DATA.email}`}
+              className="text-brand-gradient"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "14px 28px",
-                background: "var(--color-brand-orange)",
-                color: "#000",
+                display: "inline-block",
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,
-                fontSize: "14px",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                borderRadius: "8px",
+                fontSize: "clamp(32px, 5vw, 56px)",
+                lineHeight: 1,
+                letterSpacing: "-0.04em",
                 textDecoration: "none",
-                whiteSpace: "nowrap",
+                color: "transparent",
               }}
             >
-              <Phone size={16} strokeWidth={1.5} />
-              Call Now: +91 {BUSINESS_DATA.phone}
+              Let&apos;s Talk
             </a>
             <a
               href={`mailto:${BUSINESS_DATA.email}`}
@@ -141,14 +146,14 @@ export default function Footer() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "10px",
-                padding: "14px 28px",
+                padding: "10px 16px",
                 background: "transparent",
                 color: "var(--color-text-secondary)",
                 fontFamily: "var(--font-display)",
                 fontWeight: 600,
-                fontSize: "13px",
+                fontSize: "12px",
                 letterSpacing: "0.04em",
-                borderRadius: "8px",
+                borderRadius: "999px",
                 border: "1px solid var(--color-border)",
                 textDecoration: "none",
                 whiteSpace: "nowrap",
@@ -157,6 +162,26 @@ export default function Footer() {
             >
               <Mail size={15} strokeWidth={1.5} />
               {BUSINESS_DATA.email}
+            </a>
+            <a
+              href={`https://wa.me/91${BUSINESS_DATA.phone}`}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "10px 16px",
+                borderRadius: "999px",
+                border: "1px solid rgba(239,89,36,0.38)",
+                color: "var(--color-text-primary)",
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: "12px",
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+              }}
+            >
+              +91 {BUSINESS_DATA.phone}
             </a>
           </div>
         </div>
@@ -185,7 +210,7 @@ export default function Footer() {
                   width: "8px",
                   height: "8px",
                   borderRadius: "50%",
-                  background: "var(--color-brand-orange)",
+                  background: "var(--gradient-brand-premium)",
                   boxShadow:
                     "0 0 0 3px rgba(239,89,36,0.25), 0 0 12px rgba(239,89,36,0.6)",
                   flexShrink: 0,
@@ -203,9 +228,7 @@ export default function Footer() {
               >
                 Mavericks
                 <br />
-                <span style={{ color: "var(--color-brand-orange)" }}>
-                  Technovations
-                </span>
+                <span className="text-brand-gradient">Technovations</span>
               </span>
             </div>
 
@@ -273,25 +296,25 @@ export default function Footer() {
                   {
                     href: BUSINESS_DATA.socialLinks.instagram,
                     label: "Instagram",
-                    color: "#ef5924",
+                    color: "var(--color-brand-orange)",
                     icon: FaInstagram,
                   },
                   {
                     href: BUSINESS_DATA.socialLinks.facebook,
                     label: "Facebook",
-                    color: "#ef5924",
+                    color: "var(--color-brand-orange)",
                     icon: FaFacebookF,
                   },
                   {
                     href: `https://wa.me/91${BUSINESS_DATA.phone}`,
                     label: "WhatsApp",
-                    color: "#ef5924",
+                    color: "var(--color-brand-orange)",
                     icon: FaWhatsapp,
                   },
                   {
                     href: BUSINESS_DATA.socialLinks.linkedin,
                     label: "LinkedIn",
-                    color: "#ef5924",
+                    color: "var(--color-brand-orange)",
                     icon: FaLinkedinIn,
                   },
                 ] as const
@@ -306,11 +329,11 @@ export default function Footer() {
                     width: "32px",
                     height: "32px",
                     borderRadius: "8px",
-                    border: "1px solid var(--color-border)",
+                    border: "1px solid rgba(239,89,36,0.34)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "var(--color-text-muted)",
+                    color: "var(--color-brand-orange)",
                     textDecoration: "none",
                     transition: "border-color 0.2s, color 0.2s",
                   }}
@@ -322,9 +345,9 @@ export default function Footer() {
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "var(--color-border)";
+                      "rgba(239,89,36,0.34)";
                     (e.currentTarget as HTMLAnchorElement).style.color =
-                      "var(--color-text-muted)";
+                      "var(--color-brand-orange)";
                   }}
                 >
                   <s.icon size={14} />

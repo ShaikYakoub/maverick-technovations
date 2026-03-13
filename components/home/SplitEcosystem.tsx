@@ -285,9 +285,7 @@ export default function SplitEcosystem({ onOpenDrawer }: SplitEcosystemProps) {
         >
           Built for growth,
           <br />
-          <span style={{ color: "var(--color-brand-orange)" }}>
-            in every direction.
-          </span>
+          <span className="text-brand-gradient">in every direction.</span>
         </h2>
       </motion.div>
 

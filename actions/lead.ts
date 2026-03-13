@@ -27,8 +27,18 @@ const LeadSchema = z.object({
       message: "Select whether you need Marketing or Training.",
     }),
   }),
-  sourcePage: z.string().max(200).optional(),
+  sourcePage: z.string().max(600).optional(),
   sourceCity: z.string().max(100).optional(),
+  utmSource: z.string().max(120).optional(),
+  utmMedium: z.string().max(120).optional(),
+  utmCampaign: z.string().max(160).optional(),
+  utmTerm: z.string().max(160).optional(),
+  utmContent: z.string().max(160).optional(),
+  gclid: z.string().max(300).optional(),
+  fbclid: z.string().max(300).optional(),
+  msclkid: z.string().max(300).optional(),
+  landingPath: z.string().max(500).optional(),
+  referrer: z.string().max(500).optional(),
 });
 
 type LeadInput = z.infer<typeof LeadSchema>;
@@ -74,7 +84,25 @@ async function sendWhatsAppNotification(lead: LeadInput): Promise<void> {
 
   const intentLabel =
     lead.intent === "marketing" ? "Digital Marketing" : "Academy Training";
+  const routingLane =
+    lead.intent === "marketing"
+      ? "Performance Growth Desk"
+      : "Academy Counselling Desk";
   const source = lead.sourcePage ?? "website";
+  const attributionLines = [
+    lead.utmSource ? `utm_source: ${lead.utmSource}` : "",
+    lead.utmMedium ? `utm_medium: ${lead.utmMedium}` : "",
+    lead.utmCampaign ? `utm_campaign: ${lead.utmCampaign}` : "",
+    lead.utmTerm ? `utm_term: ${lead.utmTerm}` : "",
+    lead.utmContent ? `utm_content: ${lead.utmContent}` : "",
+    lead.gclid ? `gclid: ${lead.gclid}` : "",
+    lead.fbclid ? `fbclid: ${lead.fbclid}` : "",
+    lead.msclkid ? `msclkid: ${lead.msclkid}` : "",
+    lead.landingPath ? `landing_path: ${lead.landingPath}` : "",
+    lead.referrer ? `referrer: ${lead.referrer}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   await fetch(`https://graph.facebook.com/v20.0/${phoneId}/messages`, {
     method: "POST",
@@ -93,7 +121,9 @@ async function sendWhatsAppNotification(lead: LeadInput): Promise<void> {
           `📱 WhatsApp: ${lead.whatsapp}\n` +
           `📧 Email: ${lead.email}\n` +
           `🎯 Intent: ${intentLabel}\n` +
-          `🔗 Source: ${source}`,
+          `🧭 Routing: ${routingLane}\n` +
+          `🔗 Source: ${source}` +
+          (attributionLines ? `\n\n📊 Attribution\n${attributionLines}` : ""),
       },
     }),
   });
@@ -153,11 +183,15 @@ export async function submitLead(formData: unknown): Promise<LeadActionResult> {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const intentLabel =
         lead.intent === "marketing" ? "Digital Marketing" : "Academy Training";
+      const routingLane =
+        lead.intent === "marketing"
+          ? "Performance Growth Desk"
+          : "Academy Counselling Desk";
 
       await resend.emails.send({
         from: "leads@maverickstechnovations.com",
         to: BUSINESS_DATA.email,
-        subject: `New Lead: ${lead.name} — ${intentLabel}`,
+        subject: `New Lead: ${lead.name} — ${intentLabel} (${routingLane})`,
         html: `
           <div style="font-family:sans-serif;max-width:600px;background:#0a0a0a;color:#f5f5f5;padding:32px;border-radius:8px;border:1px solid #262626;">
             <div style="border-top:3px solid #EF5924;padding-top:20px;margin-bottom:24px;">
@@ -169,7 +203,13 @@ export async function submitLead(formData: unknown): Promise<LeadActionResult> {
               <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">WhatsApp</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.whatsapp}</td></tr>
               <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Email</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.email}</td></tr>
               <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Intent</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;color:#EF5924;font-weight:600;">${intentLabel}</td></tr>
+              <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Routing Lane</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${routingLane}</td></tr>
               <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Source</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.sourcePage ?? "website"}</td></tr>
+              <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">UTM Source</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.utmSource ?? "-"}</td></tr>
+              <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">UTM Medium</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.utmMedium ?? "-"}</td></tr>
+              <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">UTM Campaign</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.utmCampaign ?? "-"}</td></tr>
+              <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Landing Path</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.landingPath ?? "-"}</td></tr>
+              <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Referrer</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.referrer ?? "-"}</td></tr>
               ${lead.sourceCity ? `<tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">City</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${lead.sourceCity}</td></tr>` : ""}
               <tr><td style="padding:10px 12px;border:1px solid #262626;color:#a3a3a3;font-size:13px;">Saved to DB</td><td style="padding:10px 12px;border:1px solid #262626;font-size:14px;">${dbSuccess ? "✓ Yes" : "✗ No (check Supabase)"}</td></tr>
             </table>

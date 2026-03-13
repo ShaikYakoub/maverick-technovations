@@ -75,7 +75,6 @@ function MetricCard({
       }}
       style={{
         padding: "20px",
-        borderRadius: "12px",
         border: "1px solid var(--color-border)",
         background: "var(--color-dark-surface)",
         position: "relative",
@@ -548,9 +547,7 @@ export default function LeadGenDrawer({
                     >
                       Real Businesses.
                       <br />
-                      <span style={{ color: "var(--color-brand-orange)" }}>
-                        Real Numbers.
-                      </span>
+                      <span className="text-brand-gradient">Real Numbers.</span>
                     </h2>
                     <p
                       style={{
@@ -587,7 +584,7 @@ export default function LeadGenDrawer({
                       style={{
                         width: "100%",
                         padding: "16px",
-                        background: "var(--color-brand-orange)",
+                        background: "var(--gradient-brand-premium)",
                         color: "#000",
                         fontFamily: "var(--font-display)",
                         fontWeight: 800,
@@ -800,7 +797,7 @@ export default function LeadGenDrawer({
                     >
                       Unlock Your
                       <br />
-                      <span style={{ color: "var(--color-brand-orange)" }}>
+                      <span className="text-brand-gradient">
                         Custom Strategy
                       </span>
                     </h2>
@@ -1033,7 +1030,7 @@ export default function LeadGenDrawer({
                         }}
                       >
                         You&apos;re in,{" "}
-                        <span style={{ color: "var(--color-brand-orange)" }}>
+                        <span className="text-brand-gradient">
                           {form.name.split(" ")[0]}
                         </span>
                         .

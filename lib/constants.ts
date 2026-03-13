@@ -172,6 +172,42 @@ export const ACADEMY_COURSES = [
     format: "Offline + Online",
     credential: "Digital Marketing Certification",
   },
+  {
+    slug: "ai-ml-engineering",
+    title: "AI & ML Engineering",
+    description:
+      "Applied AI and machine learning program with Python, model deployment, and portfolio-grade capstone projects.",
+    duration: "4 months",
+    format: "Offline + Online",
+    credential: "AI & ML Engineering Certification",
+  },
+  {
+    slug: "ui-ux-design",
+    title: "UI/UX Design",
+    description:
+      "Product design program covering UX research, wireframing, Figma systems, and usability-driven interface design.",
+    duration: "3.5 months",
+    format: "Offline + Online",
+    credential: "UI/UX Design Certification",
+  },
+  {
+    slug: "cloud-devops",
+    title: "Cloud & DevOps",
+    description:
+      "Hands-on cloud operations and DevOps training with AWS foundations, CI/CD, containers, and deployment automation.",
+    duration: "4 months",
+    format: "Offline + Online",
+    credential: "Cloud & DevOps Certification",
+  },
+  {
+    slug: "cybersecurity",
+    title: "Cybersecurity",
+    description:
+      "Practical cybersecurity training in network defense, SOC workflows, vulnerability assessment, and response readiness.",
+    duration: "4 months",
+    format: "Offline + Online",
+    credential: "Cybersecurity Certification",
+  },
 ] as const;
 
 export const PRICING_TIERS = [

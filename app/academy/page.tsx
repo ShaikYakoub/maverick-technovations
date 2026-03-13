@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, Phone, Clock, Wifi, Award } from "lucide-react";
+import { Phone } from "lucide-react";
 import { ACADEMY_COURSES, BUSINESS_DATA } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 import FaqAccordion from "@/components/shared/FaqAccordion";
+import ExpandableAcademyGrid from "@/components/shared/ExpandableAcademyGrid";
 
 export const metadata: Metadata = {
-  title: "Tech Academy — Medical Coding & Digital Marketing Courses",
+  title: "Tech Academy — Career Programs in AI, Design, Cloud, Security",
   description:
-    "Certified Medical Coding and Digital Marketing training in Kadapa. Hands-on curriculum, live projects, and guaranteed placement support.",
+    "Certified career tracks in Medical Coding, Digital Marketing, AI/ML, UI/UX, Cloud/DevOps, and Cybersecurity with practical projects and placement support.",
   alternates: {
     canonical: `${BUSINESS_DATA.url}/academy`,
   },
   openGraph: {
     title: "Mavericks Technovations Academy | Kadapa",
     description:
-      "Certified tech training programs with placement support — Medical Coding and Digital Marketing.",
+      "Certified tech training programs with placement support across six high-demand career tracks.",
     url: `${BUSINESS_DATA.url}/academy`,
     images: [
       {
@@ -46,6 +46,33 @@ const WHY_POINTS = [
   },
 ];
 
+const OUTCOME_TRACKS = [
+  {
+    title: "Clinical and Healthcare",
+    body: "Medical Coding pathway focused on global healthcare process roles.",
+  },
+  {
+    title: "Marketing and Growth",
+    body: "Digital Marketing pathway for agency, brand, and freelance careers.",
+  },
+  {
+    title: "AI and Data Applications",
+    body: "AI/ML pathway for model building, deployment, and product implementation.",
+  },
+  {
+    title: "Design and Product",
+    body: "UI/UX pathway for research-driven interface and product design roles.",
+  },
+  {
+    title: "Cloud and Delivery",
+    body: "Cloud/DevOps pathway for deployment reliability and infrastructure operations.",
+  },
+  {
+    title: "Security and Defense",
+    body: "Cybersecurity pathway for SOC, vulnerability, and incident response readiness.",
+  },
+] as const;
+
 const ACADEMY_FAQ = [
   {
     question: "Do you offer placement support after training?",
@@ -55,7 +82,7 @@ const ACADEMY_FAQ = [
   {
     question: "Can working professionals join these courses?",
     answer:
-      "Yes. Both courses support flexible batches with offline and live online options.",
+      "Yes. All programs support flexible batches with offline and live online options.",
   },
   {
     question: "Are these beginner-friendly programs?",
@@ -162,9 +189,7 @@ export default function AcademyPage() {
           >
             Train like a pro.
             <br />
-            <span style={{ color: "var(--color-brand-red)" }}>
-              Place like one.
-            </span>
+            <span className="text-brand-gradient">Place like one.</span>
           </h1>
           <p
             style={{
@@ -176,9 +201,10 @@ export default function AcademyPage() {
               marginBottom: "36px",
             }}
           >
-            Certified programs in Medical Coding and Digital Marketing. Hands-on
-            curriculum, live projects, and a placement network built on 4 years
-            of agency experience.
+            Six certified career tracks including Medical Coding, Digital
+            Marketing, AI/ML, UI/UX, Cloud/DevOps, and Cybersecurity. Practical
+            curriculum, live projects, and placement support built on real
+            agency execution.
           </p>
           <a
             href={`tel:+91${BUSINESS_DATA.phone}`}
@@ -204,6 +230,67 @@ export default function AcademyPage() {
           </a>
         </section>
 
+        <section className="section-shell" style={{ padding: "0 24px 72px" }}>
+          <div
+            style={{
+              border: "1px solid var(--color-border)",
+              borderRadius: "16px",
+              background: "var(--color-dark-elevated)",
+              padding: "24px",
+              display: "grid",
+              gap: "14px",
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(24px, 3.2vw, 34px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+              }}
+            >
+              Career pathways aligned to
+              <span className="text-brand-gradient"> hiring demand.</span>
+            </h2>
+            <div className="grid-card-4" style={{ gap: "12px" }}>
+              {OUTCOME_TRACKS.map((track) => (
+                <div
+                  key={track.title}
+                  style={{
+                    border: "1px solid var(--color-border)",
+                    borderRadius: "12px",
+                    background: "var(--color-dark-surface)",
+                    padding: "14px",
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: "15px",
+                      color: "var(--color-text-primary)",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    {track.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "12px",
+                      color: "var(--color-text-secondary)",
+                      lineHeight: 1.65,
+                    }}
+                  >
+                    {track.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Course cards */}
         <section
           aria-labelledby="courses-heading"
@@ -226,141 +313,7 @@ export default function AcademyPage() {
             Our Programs
           </h2>
 
-          <div
-            className="grid-card-2"
-            style={{
-              gap: "20px",
-            }}
-          >
-            {ACADEMY_COURSES.map((course) => (
-              <Link
-                key={course.slug}
-                href={`/academy/${course.slug}`}
-                className="server-hover-card-red"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "20px",
-                  padding: "36px",
-                  borderRadius: "18px",
-                  border: "1px solid var(--color-border)",
-                  background: "var(--color-dark-elevated)",
-                  textDecoration: "none",
-                  transition: "border-color 0.2s",
-                }}
-              >
-                <div>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      letterSpacing: "0.15em",
-                      textTransform: "uppercase",
-                      color: "var(--color-brand-red)",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    Certified Program
-                  </p>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 800,
-                      fontSize: "22px",
-                      letterSpacing: "-0.02em",
-                      color: "var(--color-text-primary)",
-                      marginBottom: "12px",
-                    }}
-                  >
-                    {course.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "14px",
-                      lineHeight: 1.65,
-                      color: "var(--color-text-secondary)",
-                    }}
-                  >
-                    {course.description}
-                  </p>
-                </div>
-
-                <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontFamily: "var(--font-body)",
-                      fontSize: "12px",
-                      color: "var(--color-text-muted)",
-                    }}
-                  >
-                    <Clock
-                      size={13}
-                      strokeWidth={1.5}
-                      style={{ color: "var(--color-brand-red)" }}
-                    />
-                    {course.duration}
-                  </span>
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontFamily: "var(--font-body)",
-                      fontSize: "12px",
-                      color: "var(--color-text-muted)",
-                    }}
-                  >
-                    <Wifi
-                      size={13}
-                      strokeWidth={1.5}
-                      style={{ color: "var(--color-brand-red)" }}
-                    />
-                    {course.format}
-                  </span>
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontFamily: "var(--font-body)",
-                      fontSize: "12px",
-                      color: "var(--color-text-muted)",
-                    }}
-                  >
-                    <Award
-                      size={13}
-                      strokeWidth={1.5}
-                      style={{ color: "var(--color-brand-red)" }}
-                    />
-                    {course.credential}
-                  </span>
-                </div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    fontFamily: "var(--font-body)",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
-                    color: "var(--color-brand-red)",
-                    marginTop: "auto",
-                  }}
-                >
-                  View Program
-                  <ArrowRight size={13} strokeWidth={1.5} />
-                </div>
-              </Link>
-            ))}
-          </div>
+          <ExpandableAcademyGrid courses={ACADEMY_COURSES} />
         </section>
 
         {/* Why choose us */}

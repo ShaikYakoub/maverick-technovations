@@ -2,7 +2,13 @@
 
 import type { CSSProperties } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, BookOpen, Building2, MapPin } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeIndianRupee,
+  BookOpen,
+  Building2,
+  MapPin,
+} from "lucide-react";
 import { BUSINESS_DATA } from "@/lib/constants";
 
 const fadeUp = (delay = 0) => ({
@@ -33,6 +39,14 @@ const PATHS = [
     icon: BookOpen,
     tone: "var(--color-brand-red)",
     kind: "link",
+  },
+  {
+    title: "Strategy & Pricing",
+    body: "Download our comprehensive blueprint and unlock the exact tiers we use to scale brands.",
+    action: "Get the blueprint",
+    icon: BadgeIndianRupee,
+    tone: "var(--color-brand-orange)",
+    kind: "drawer",
   },
   {
     title: "Visit or contact us",
@@ -95,7 +109,7 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
           >
             One homepage. Clear paths.
             <br />
-            <span style={{ color: "var(--color-brand-orange)" }}>
+            <span className="text-brand-gradient">
               No clutter between intent and action.
             </span>
           </h2>
@@ -109,7 +123,7 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
             }}
           >
             If you need growth, training, or a direct line to the team, the next
-            step should be obvious. This closes the homepage with the only three
+            step should be obvious. This closes the homepage with the only four
             actions most visitors actually need.
           </p>
         </motion.div>
@@ -254,8 +268,8 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "12px",
-            alignItems: "center",
+            gap: "16px",
+            alignItems: "stretch",
             justifyContent: "space-between",
             padding: "clamp(14px, 3vw, 18px) clamp(14px, 3.2vw, 22px)",
             borderRadius: "16px",
@@ -263,39 +277,71 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
             background: "rgba(18,18,18,0.92)",
           }}
         >
-          <p
+          <div style={{ display: "grid", gap: "8px", flex: "1 1 430px" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(20px, 3.4vw, 30px)",
+                letterSpacing: "-0.03em",
+                color: "var(--color-text-primary)",
+                lineHeight: 1.15,
+              }}
+            >
+              Every engagement runs on one operating rhythm,
+              <span className="text-brand-gradient"> built for momentum.</span>
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "clamp(12px, 2.3vw, 13px)",
+                lineHeight: 1.7,
+                color: "var(--color-text-secondary)",
+                maxWidth: "620px",
+              }}
+            >
+              Strategy maps the priorities, execution ships in weekly sprints,
+              and reporting keeps each move tied to measurable business impact.
+            </p>
+          </div>
+
+          <div
             style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "clamp(12px, 2.3vw, 13px)",
-              lineHeight: 1.7,
-              color: "var(--color-text-secondary)",
-            }}
-          >
-            Based in {BUSINESS_DATA.address.city}. Serving South India with
-            agency execution, academy training, and direct support from the same
-            team.
-          </p>
-          <a
-            href={`tel:+91${BUSINESS_DATA.phone}`}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
+              display: "flex",
+              flexWrap: "wrap",
               gap: "8px",
-              padding: "11px 16px",
-              borderRadius: "999px",
-              border: "1px solid rgba(239,89,36,0.36)",
-              color: "var(--color-text-primary)",
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "11px",
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              textDecoration: "none",
-              whiteSpace: "nowrap",
+              alignContent: "flex-start",
+              justifyContent: "flex-end",
+              flex: "1 1 320px",
             }}
           >
-            Call +91 {BUSINESS_DATA.phone}
-          </a>
+            {[
+              "Weekly Strategy Sprints",
+              "Execution Across Channels",
+              "Live Performance Visibility",
+              "Scale-Ready Playbooks",
+            ].map((item) => (
+              <span
+                key={item}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  padding: "8px 12px",
+                  borderRadius: "999px",
+                  border: "1px solid rgba(239,89,36,0.28)",
+                  background: "rgba(239,89,36,0.08)",
+                  color: "var(--color-text-secondary)",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  letterSpacing: "0.04em",
+                  textTransform: "uppercase",
+                }}
+              >
+                {item}
+              </span>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

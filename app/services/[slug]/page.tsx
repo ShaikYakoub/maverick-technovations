@@ -540,7 +540,7 @@ export default async function ServicePage({
                 alignItems: "center",
                 gap: "10px",
                 padding: "14px 28px",
-                background: "var(--color-brand-orange)",
+                background: "var(--gradient-brand-premium)",
                 color: "#000",
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,
@@ -931,9 +931,7 @@ export default async function ServicePage({
             >
               Ready to start with
               <br />
-              <span style={{ color: "var(--color-brand-orange)" }}>
-                {service.title}?
-              </span>
+              <span className="text-brand-gradient">{service.title}?</span>
             </h2>
             <p
               style={{
@@ -961,7 +959,7 @@ export default async function ServicePage({
                   alignItems: "center",
                   gap: "8px",
                   padding: "14px 28px",
-                  background: "var(--color-brand-orange)",
+                  background: "var(--gradient-brand-premium)",
                   color: "#000",
                   fontFamily: "var(--font-display)",
                   fontWeight: 800,

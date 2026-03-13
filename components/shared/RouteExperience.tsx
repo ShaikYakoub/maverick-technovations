@@ -128,9 +128,7 @@ export default function RouteExperience() {
                 }}
               >
                 Mavericks
-                <span style={{ color: "var(--color-brand-orange)" }}>
-                  Technovations
-                </span>
+                <span className="text-brand-gradient">Technovations</span>
               </p>
               <div
                 style={{
@@ -167,7 +165,7 @@ export default function RouteExperience() {
                   width: "8px",
                   height: "8px",
                   borderRadius: "999px",
-                  background: "var(--color-brand-orange)",
+                  background: "var(--gradient-brand-premium)",
                   boxShadow: "0 0 14px rgba(239,89,36,0.6)",
                 }}
               />

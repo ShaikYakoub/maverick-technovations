@@ -193,7 +193,7 @@ export default function AboutPage() {
           >
             Built in Kadapa.
             <br />
-            <span style={{ color: "var(--color-brand-orange)" }}>
+            <span className="text-brand-gradient">
               Trusted across South India.
             </span>
           </h1>

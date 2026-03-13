@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   motion,
   AnimatePresence,
@@ -13,6 +14,7 @@ import { Menu, X } from "lucide-react";
 import { BUSINESS_DATA } from "@/lib/constants";
 
 const NAV_LINKS = [
+  { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Academy", href: "/academy" },
@@ -64,6 +66,7 @@ export default function FloatingNavbar({
 }: {
   onOpenDrawer: () => void;
 }) {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -106,6 +109,11 @@ export default function FloatingNavbar({
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [mobileOpen]);
+
+  const isActiveLink = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <>
@@ -166,16 +174,14 @@ export default function FloatingNavbar({
                 width: "8px",
                 height: "8px",
                 borderRadius: "50%",
-                background: "var(--color-brand-orange)",
+                background: "var(--gradient-brand-premium)",
                 boxShadow:
                   "0 0 0 3px rgba(239,89,36,0.25), 0 0 12px rgba(239,89,36,0.6)",
                 flexShrink: 0,
               }}
             />
             Mavericks
-            <span style={{ color: "var(--color-brand-orange)" }}>
-              Technovations
-            </span>
+            <span className="text-brand-gradient">Technovations</span>
           </Link>
 
           {/* ── Desktop Links ──────────────────────────────────── */}
@@ -195,24 +201,33 @@ export default function FloatingNavbar({
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  className={
+                    isActiveLink(link.href) ? "text-brand-gradient" : undefined
+                  }
                   style={{
                     fontFamily: "var(--font-display)",
                     fontWeight: 500,
                     fontSize: "14px",
                     letterSpacing: "0.04em",
-                    color: "var(--color-text-secondary)",
+                    color: isActiveLink(link.href)
+                      ? "transparent"
+                      : "var(--color-text-secondary)",
                     textDecoration: "none",
                     transition: "color 0.2s ease",
                     position: "relative",
                   }}
-                  onMouseEnter={(e) =>
-                    ((e.target as HTMLAnchorElement).style.color =
-                      "var(--color-text-primary)")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.target as HTMLAnchorElement).style.color =
-                      "var(--color-text-secondary)")
-                  }
+                  onMouseEnter={(e) => {
+                    if (!isActiveLink(link.href)) {
+                      (e.currentTarget as HTMLAnchorElement).style.color =
+                        "var(--color-text-primary)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActiveLink(link.href)) {
+                      (e.currentTarget as HTMLAnchorElement).style.color =
+                        "var(--color-text-secondary)";
+                    }
+                  }}
                 >
                   {link.label}
                 </Link>
@@ -319,6 +334,11 @@ export default function FloatingNavbar({
                   <Link
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
+                    className={
+                      isActiveLink(link.href)
+                        ? "text-brand-gradient"
+                        : undefined
+                    }
                     style={{
                       display: "block",
                       padding: "14px 8px",
@@ -326,7 +346,9 @@ export default function FloatingNavbar({
                       fontWeight: 700,
                       fontSize: "22px",
                       letterSpacing: "-0.02em",
-                      color: "var(--color-text-primary)",
+                      color: isActiveLink(link.href)
+                        ? "transparent"
+                        : "var(--color-text-primary)",
                       textDecoration: "none",
                     }}
                   >
@@ -345,8 +367,9 @@ export default function FloatingNavbar({
                 style={{
                   width: "100%",
                   padding: "16px",
-                  background: "var(--color-brand-orange)",
-                  color: "#000",
+                  background:
+                    "linear-gradient(135deg, #F9A01B 0%, #EF5924 50%, #D32027 100%)",
+                  color: "#fff",
                   fontFamily: "var(--font-display)",
                   fontWeight: 800,
                   fontSize: "15px",

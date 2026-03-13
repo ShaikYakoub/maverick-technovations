@@ -260,8 +260,7 @@ export default async function LocationPage({
           >
             #1 Digital Marketing
             <br />
-            Agency in{" "}
-            <span style={{ color: "var(--color-brand-orange)" }}>{label}</span>
+            Agency in <span className="text-brand-gradient">{label}</span>
           </h1>
           <p
             style={{
@@ -295,7 +294,7 @@ export default async function LocationPage({
               alignItems: "center",
               gap: "10px",
               padding: "16px 32px",
-              background: "var(--color-brand-orange)",
+              background: "var(--gradient-brand-premium)",
               color: "#fff",
               fontFamily: "var(--font-display)",
               fontWeight: 800,
@@ -534,7 +533,7 @@ export default async function LocationPage({
                 alignItems: "center",
                 gap: "10px",
                 padding: "16px 32px",
-                background: "var(--color-brand-orange)",
+                background: "var(--gradient-brand-premium)",
                 color: "#fff",
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,

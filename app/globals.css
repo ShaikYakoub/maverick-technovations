@@ -159,6 +159,17 @@ a {
     0 0 40px rgba(211, 32, 39, 0.4);
 }
 
+.text-brand-gradient {
+  background: linear-gradient(90deg, #f9a01b 0%, #ef5924 50%, #d32027 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-brand-gradient {
+  background: linear-gradient(135deg, #f9a01b 0%, #ef5924 50%, #d32027 100%);
+}
+
 /* ── Utility: Border Glow ─────────────────────────────────── */
 .border-glow-orange {
   box-shadow:
@@ -246,6 +257,13 @@ button:hover {
   gap: 14px;
 }
 
+.service-grid-responsive {
+  display: grid;
+  align-items: stretch;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
 .grid-detail-hero {
   display: grid;
   grid-template-columns: 1fr;
@@ -306,12 +324,22 @@ button:hover {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 24px;
   }
+
+  .service-grid-responsive {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 1024px) {
   .grid-detail-hero {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 40px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .service-grid-responsive {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

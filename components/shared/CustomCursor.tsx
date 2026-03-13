@@ -153,7 +153,7 @@ export default function CustomCursor() {
             width: "32px",
             height: "32px",
             borderRadius: "50%",
-            border: "1px solid rgba(239,89,36,0.5)",
+            background: "var(--gradient-brand-premium)",
             opacity: 0.7,
             transition:
               "width 0.25s ease, height 0.25s ease, border-color 0.25s ease, opacity 0.25s ease",
@@ -182,7 +182,7 @@ export default function CustomCursor() {
             width: "8px",
             height: "8px",
             borderRadius: "50%",
-            background: "var(--color-brand-orange)",
+            background: "var(--gradient-brand-premium)",
             boxShadow:
               "0 0 0 3px rgba(239,89,36,0.2), 0 0 12px rgba(239,89,36,0.5)",
             transition:

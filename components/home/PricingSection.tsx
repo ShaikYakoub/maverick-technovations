@@ -102,7 +102,7 @@ function PricingCard({
             gap: "4px",
             padding: "4px 10px",
             borderRadius: "100px",
-            background: "var(--color-brand-orange)",
+            background: "var(--gradient-brand-premium)",
             fontFamily: "var(--font-body)",
             fontWeight: 700,
             fontSize: "10px",
@@ -248,7 +248,7 @@ function PricingCard({
           padding: "14px 24px",
           borderRadius: "8px",
           background: isFeatured
-            ? "var(--color-brand-orange)"
+            ? "var(--gradient-brand-premium)"
             : isLocked
               ? "rgba(211,32,39,0.12)"
               : "transparent",
@@ -330,9 +330,7 @@ export default function PricingSection({ onOpenDrawer }: PricingSectionProps) {
         >
           Investment in growth.
           <br />
-          <span style={{ color: "var(--color-brand-orange)" }}>
-            Not just a line item.
-          </span>
+          <span className="text-brand-gradient">Not just a line item.</span>
         </h2>
         <p
           style={{

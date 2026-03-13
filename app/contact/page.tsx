@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
 import ContactLeadForm from "@/components/contact/ContactLeadForm";
 import { BUSINESS_DATA } from "@/lib/constants";
+import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 
 export const metadata: Metadata = {
   title: "Contact Mavericks Technovations | Strategy Call",
@@ -75,7 +76,9 @@ export default function ContactPage() {
             style={{
               border: "1px solid var(--color-border)",
               borderRadius: "16px",
-              background: "var(--color-dark-surface)",
+              backgroundImage: `linear-gradient(120deg, rgba(10,10,10,0.92), rgba(10,10,10,0.75)), url(${MEDIA_ASSETS.contact.heroImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
               padding: "32px",
               height: "fit-content",
             }}

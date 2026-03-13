@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Phone, Clock, Wifi, Award } from "lucide-react";
 import { ACADEMY_COURSES, BUSINESS_DATA } from "@/lib/constants";
+import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 
 export const metadata: Metadata = {
   title: "Tech Academy — Medical Coding & Digital Marketing Courses",
@@ -78,6 +79,10 @@ export default function AcademyPage() {
             margin: "0 auto",
             padding: "60px 24px 80px",
             borderBottom: "1px solid var(--color-border)",
+            backgroundImage: `linear-gradient(120deg, rgba(10,10,10,0.9), rgba(10,10,10,0.72)), url(${MEDIA_ASSETS.academy.heroImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            borderRadius: "14px",
           }}
         >
           <p

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
 import { BUSINESS_DATA, CITIES, CITY_LABELS } from "@/lib/constants";
+import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 
 export const metadata: Metadata = {
   title: "Locations We Serve | Mavericks Technovations",
@@ -58,6 +59,10 @@ export default function LocationsPage() {
             margin: "0 auto",
             padding: "60px 24px 80px",
             borderBottom: "1px solid var(--color-border)",
+            backgroundImage: `linear-gradient(120deg, rgba(10,10,10,0.9), rgba(10,10,10,0.74)), url(${MEDIA_ASSETS.locations.heroImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            borderRadius: "14px",
           }}
         >
           <p

@@ -16,6 +16,7 @@ import {
   Video,
 } from "lucide-react";
 import { SERVICES, BUSINESS_DATA } from "@/lib/constants";
+import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 
 export const metadata: Metadata = {
   title: "Digital Marketing Services",
@@ -98,6 +99,10 @@ export default function ServicesPage() {
             margin: "0 auto",
             padding: "60px 24px 80px",
             borderBottom: "1px solid var(--color-border)",
+            backgroundImage: `linear-gradient(120deg, rgba(10,10,10,0.9), rgba(10,10,10,0.72)), url(${MEDIA_ASSETS.services.heroImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            borderRadius: "14px",
           }}
         >
           <p

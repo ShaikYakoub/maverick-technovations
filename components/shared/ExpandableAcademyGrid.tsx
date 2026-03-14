@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, LayoutGroup, motion } from "motion/react";
-import Link from "next/link";
+import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Award, Clock, Wifi } from "lucide-react";
+import { ArrowRight, Award, Clock, Sparkles, Wifi } from "lucide-react";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 
 interface AcademyCourseItem {
@@ -23,21 +22,23 @@ interface ExpandableAcademyGridProps {
 const PLACEHOLDER_WEBM =
   "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm";
 const HOVER_OPEN_DELAY_MS = 1200;
-const VIDEO_START_DELAY_MS = 2000;
+const VIDEO_START_DELAY_MS = 1000;
+const DESKTOP_COLLAPSED_HEIGHT = "clamp(264px, 31vw, 312px)";
+const DESKTOP_EXPANDED_HEIGHT = "clamp(388px, 38vw, 450px)";
 
 export default function ExpandableAcademyGrid({
   courses,
 }: ExpandableAcademyGridProps) {
   const router = useRouter();
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
+  const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   const [touchMode, setTouchMode] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const hoverIntentRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const videoDelayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const timersRef = useRef<
-    Record<string, ReturnType<typeof setTimeout> | undefined>
-  >({});
+  const activeMediaSlugRef = useRef<string | null>(null);
 
   useEffect(() => {
     const query = window.matchMedia(
@@ -59,43 +60,26 @@ export default function ExpandableAcademyGrid({
   }, [expandedSlug, touchMode]);
 
   useEffect(() => {
-    if (!expandedSlug) {
-      setVideoReady(false);
-      setShouldLoadVideo(false);
-      return;
-    }
-    setVideoReady(false);
-    setShouldLoadVideo(false);
-    if (videoDelayRef.current) clearTimeout(videoDelayRef.current);
-    videoDelayRef.current = setTimeout(() => {
-      setShouldLoadVideo(true);
-    }, VIDEO_START_DELAY_MS);
-
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setExpandedSlug(null);
+        setShouldLoadVideo(false);
+        setVideoReady(false);
       }
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      if (videoDelayRef.current) {
-        clearTimeout(videoDelayRef.current);
-        videoDelayRef.current = null;
-      }
-    };
-  }, [expandedSlug]);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   useEffect(() => {
     if (!shouldLoadVideo || !videoRef.current) return;
     void videoRef.current.play().catch(() => undefined);
-  }, [shouldLoadVideo]);
+  }, [shouldLoadVideo, expandedSlug]);
 
   useEffect(() => {
     return () => {
-      Object.values(timersRef.current).forEach((timer) => {
-        if (timer) clearTimeout(timer);
-      });
+      if (hoverIntentRef.current) clearTimeout(hoverIntentRef.current);
+      if (videoDelayRef.current) clearTimeout(videoDelayRef.current);
     };
   }, []);
 
@@ -104,227 +88,459 @@ export default function ExpandableAcademyGrid({
     [courses, expandedSlug],
   );
 
+  const resetMediaState = () => {
+    setShouldLoadVideo(false);
+    setVideoReady(false);
+    if (videoDelayRef.current) {
+      clearTimeout(videoDelayRef.current);
+      videoDelayRef.current = null;
+    }
+  };
+
+  const startMediaDelay = (slug: string) => {
+    activeMediaSlugRef.current = slug;
+    setShouldLoadVideo(false);
+    setVideoReady(false);
+    if (videoDelayRef.current) clearTimeout(videoDelayRef.current);
+    videoDelayRef.current = setTimeout(() => {
+      if (activeMediaSlugRef.current === slug) {
+        setShouldLoadVideo(true);
+      }
+    }, VIDEO_START_DELAY_MS);
+  };
+
   const beginHoverIntent = (slug: string) => {
     if (touchMode) return;
-    if (timersRef.current[slug]) clearTimeout(timersRef.current[slug]);
-    timersRef.current[slug] = setTimeout(() => {
+    setHoveredSlug(slug);
+    if (hoverIntentRef.current) clearTimeout(hoverIntentRef.current);
+    startMediaDelay(slug);
+    hoverIntentRef.current = setTimeout(() => {
       setExpandedSlug(slug);
     }, HOVER_OPEN_DELAY_MS);
   };
 
   const cancelHoverIntent = (slug: string) => {
-    const timer = timersRef.current[slug];
-    if (timer) {
-      clearTimeout(timer);
-      timersRef.current[slug] = undefined;
+    if (touchMode) return;
+    setHoveredSlug(null);
+    if (hoverIntentRef.current) {
+      clearTimeout(hoverIntentRef.current);
+      hoverIntentRef.current = null;
+    }
+    if (activeMediaSlugRef.current === slug) {
+      activeMediaSlugRef.current = null;
+    }
+    resetMediaState();
+    if (expandedSlug === slug) {
+      setExpandedSlug(null);
     }
   };
 
+  const openTouchCard = (slug: string) => {
+    setHoveredSlug(null);
+    setExpandedSlug(slug);
+    startMediaDelay(slug);
+  };
+
   const navigateToCourse = (slug: string) => {
+    setHoveredSlug(null);
     setExpandedSlug(null);
+    activeMediaSlugRef.current = null;
+    resetMediaState();
     router.push(`/academy/${slug}`);
   };
 
-  return (
-    <LayoutGroup>
-      <div className="grid-card-2" style={{ gap: "20px" }}>
-        {courses.map((course) => {
-          const isExpanded = expandedSlug === course.slug;
+  const renderCard = (
+    course: AcademyCourseItem,
+    isExpanded: boolean,
+    forceExpanded = false,
+  ) => {
+    const showExpandedState = forceExpanded || (!touchMode && isExpanded);
+    const showVideo =
+      shouldLoadVideo && activeMediaSlugRef.current === course.slug;
+    const showHoverLift =
+      !touchMode && !showExpandedState && hoveredSlug === course.slug;
 
-          return (
-            <motion.button
-              key={course.slug}
-              type="button"
-              layoutId={`academy-card-${course.slug}`}
-              onHoverStart={() => beginHoverIntent(course.slug)}
-              onHoverEnd={() => cancelHoverIntent(course.slug)}
-              onClick={() => {
-                if (touchMode) {
-                  setExpandedSlug(course.slug);
-                }
-              }}
-              whileHover={touchMode ? undefined : { y: -10 }}
-              transition={{
-                y: { type: "spring", stiffness: 320, damping: 28 },
-              }}
+    return (
+      <motion.div
+        animate={
+          showExpandedState
+            ? {
+                y: -10,
+                scale: 1.035,
+                height: touchMode ? "auto" : DESKTOP_EXPANDED_HEIGHT,
+                boxShadow: "0 34px 90px rgba(0,0,0,0.56)",
+                borderColor: "rgba(239,89,36,0.42)",
+              }
+            : {
+                y: showHoverLift ? -6 : 0,
+                scale: showHoverLift ? 1.015 : 1,
+                height: touchMode ? "auto" : DESKTOP_COLLAPSED_HEIGHT,
+                boxShadow: "0 18px 44px rgba(0,0,0,0.18)",
+                borderColor: "var(--color-border)",
+              }
+        }
+        transition={{
+          type: "spring",
+          stiffness: 240,
+          damping: 26,
+          mass: 0.92,
+        }}
+        onClick={() => {
+          if (touchMode) {
+            openTouchCard(course.slug);
+            return;
+          }
+          if (showExpandedState) {
+            navigateToCourse(course.slug);
+          }
+        }}
+        style={{
+          position: touchMode ? "relative" : "absolute",
+          inset: touchMode ? undefined : 0,
+          display: "grid",
+          gridTemplateRows: showExpandedState
+            ? "auto auto 1fr auto"
+            : "1fr auto",
+          width: "100%",
+          borderRadius: showExpandedState ? "22px" : "18px",
+          border: "1px solid var(--color-border)",
+          background:
+            "linear-gradient(180deg, rgba(24,24,24,0.98) 0%, rgba(14,14,14,0.98) 100%)",
+          overflow: "hidden",
+          cursor: touchMode ? "pointer" : "none",
+          backdropFilter: "blur(18px)",
+          WebkitBackdropFilter: "blur(18px)",
+        }}
+      >
+        {showExpandedState ? (
+          <div
+            style={{
+              position: "relative",
+              height: "clamp(172px, 18vw, 218px)",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src={MEDIA_ASSETS.academy.heroImage}
+              alt={course.title}
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
-                padding: "clamp(24px, 5vw, 36px)",
-                borderRadius: "18px",
-                border: "1px solid var(--color-border)",
-                background: "var(--color-dark-elevated)",
-                textDecoration: "none",
-                transition: "border-color 0.2s",
-                textAlign: "left",
-                cursor: "none",
-                minHeight: "100%",
-                visibility: isExpanded ? "hidden" : "visible",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                opacity: videoReady ? 0 : 1,
+                transition: "opacity 0.3s ease",
               }}
-            >
-              <div>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    letterSpacing: "0.15em",
-                    textTransform: "uppercase",
-                    color: "var(--color-brand-red)",
-                    marginBottom: "10px",
-                  }}
-                >
-                  Certified Program
-                </p>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 800,
-                    fontSize: "clamp(20px, 4vw, 22px)",
-                    letterSpacing: "-0.02em",
-                    color: "var(--color-text-primary)",
-                    marginBottom: "12px",
-                  }}
-                >
-                  {course.title}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "14px",
-                    lineHeight: 1.65,
-                    color: "var(--color-text-secondary)",
-                  }}
-                >
-                  {course.description}
-                </p>
-              </div>
+            />
+            {showVideo ? (
+              <video
+                ref={videoRef}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                onCanPlay={() => setVideoReady(true)}
+                poster={MEDIA_ASSETS.academy.heroImage}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  opacity: videoReady ? 1 : 0,
+                  transition: "opacity 0.3s ease",
+                }}
+              >
+                <source src={PLACEHOLDER_WEBM} type="video/webm" />
+              </video>
+            ) : null}
+          </div>
+        ) : null}
 
-              <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    fontFamily: "var(--font-body)",
-                    fontSize: "12px",
-                    color: "var(--color-text-muted)",
-                  }}
-                >
-                  <Clock
-                    size={13}
-                    strokeWidth={1.5}
-                    style={{ color: "var(--color-brand-red)" }}
-                  />
-                  {course.duration}
-                </span>
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    fontFamily: "var(--font-body)",
-                    fontSize: "12px",
-                    color: "var(--color-text-muted)",
-                  }}
-                >
-                  <Wifi
-                    size={13}
-                    strokeWidth={1.5}
-                    style={{ color: "var(--color-brand-red)" }}
-                  />
-                  {course.format}
-                </span>
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    fontFamily: "var(--font-body)",
-                    fontSize: "12px",
-                    color: "var(--color-text-muted)",
-                  }}
-                >
-                  <Award
-                    size={13}
-                    strokeWidth={1.5}
-                    style={{ color: "var(--color-brand-red)" }}
-                  />
-                  {course.credential}
-                </span>
-              </div>
+        {showExpandedState ? (
+          <div
+            style={{
+              height: "1px",
+              background:
+                "linear-gradient(90deg, rgba(239,89,36,0) 0%, rgba(239,89,36,0.46) 48%, rgba(239,89,36,0) 100%)",
+            }}
+          />
+        ) : null}
 
+        <div
+          style={{
+            display: "grid",
+            gap: showExpandedState ? "12px" : "18px",
+            padding: showExpandedState ? "18px" : "clamp(24px, 5vw, 36px)",
+            alignContent: "start",
+          }}
+        >
+          <div style={{ display: "grid", gap: "10px" }}>
+            {!showExpandedState ? (
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  color: "var(--color-brand-red)",
+                }}
+              >
+                Certified Program
+              </p>
+            ) : null}
+            <div style={{ display: "grid", gap: "10px", flex: 1 }}>
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: "10px",
+                }}
+              >
+                <h3
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 800,
+                    fontSize: showExpandedState
+                      ? "clamp(20px, 2.5vw, 26px)"
+                      : "clamp(20px, 4vw, 22px)",
+                    letterSpacing: "-0.03em",
+                    color: "var(--color-text-primary)",
+                  }}
+                >
+                  {course.title}
+                </h3>
+                {showExpandedState ? (
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "999px",
+                      border: "1px solid rgba(239,89,36,0.28)",
+                      background: "var(--gradient-brand-premium)",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                      boxShadow: "0 2px 8px 0 rgba(239,89,36,0.10)",
+                    }}
+                  >
+                    <ArrowRight
+                      size={13}
+                      strokeWidth={1.8}
+                      style={{ color: "#fff" }}
+                    />
+                  </span>
+                ) : null}
+              </div>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: showExpandedState ? "13px" : "14px",
+                  lineHeight: 1.7,
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                {course.description}
+              </p>
+            </div>
+          </div>
+
+          {!showExpandedState ? (
+            <div
+              style={{
+                display: "flex",
+                gap: "16px",
+                flexWrap: "wrap",
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
                   gap: "6px",
                   fontFamily: "var(--font-body)",
                   fontSize: "12px",
-                  fontWeight: 600,
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  color: "var(--color-brand-red)",
-                  marginTop: "auto",
+                  color: "var(--color-text-muted)",
                 }}
               >
-                View Program
-                <ArrowRight size={13} strokeWidth={1.5} />
-              </div>
-            </motion.button>
+                <Clock
+                  size={13}
+                  strokeWidth={1.5}
+                  style={{ color: "var(--color-brand-red)" }}
+                />
+                {course.duration}
+              </span>
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "12px",
+                  color: "var(--color-text-muted)",
+                }}
+              >
+                <Wifi
+                  size={13}
+                  strokeWidth={1.5}
+                  style={{ color: "var(--color-brand-red)" }}
+                />
+                {course.format}
+              </span>
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "12px",
+                  color: "var(--color-text-muted)",
+                }}
+              >
+                <Award
+                  size={13}
+                  strokeWidth={1.5}
+                  style={{ color: "var(--color-brand-red)" }}
+                />
+                {course.credential}
+              </span>
+            </div>
+          ) : null}
+
+          {showExpandedState ? (
+            <div
+              style={{
+                borderRadius: "14px",
+                border: "1px solid rgba(239,89,36,0.24)",
+                background: "rgba(239,89,36,0.08)",
+                padding: "12px",
+                display: "grid",
+                gap: "6px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "var(--color-brand-orange)",
+                }}
+              >
+                Outcome Focus
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "12px",
+                  lineHeight: 1.6,
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                Portfolio proof, interview confidence, and role-ready execution
+                habits.
+              </p>
+            </div>
+          ) : null}
+        </div>
+
+        <div
+          style={{
+            padding: showExpandedState
+              ? "0 18px 18px"
+              : "0 clamp(24px, 5vw, 36px) clamp(24px, 5vw, 36px)",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              fontFamily: "var(--font-body)",
+              fontSize: "12px",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: showExpandedState
+                ? "var(--color-text-primary)"
+                : "var(--color-brand-red)",
+            }}
+          >
+            {showExpandedState ? "Open Program" : "View Program"}
+            <ArrowRight size={13} strokeWidth={1.5} />
+          </div>
+        </div>
+      </motion.div>
+    );
+  };
+
+  return (
+    <>
+      <div className="grid-card-2" style={{ gap: "20px", overflow: "visible" }}>
+        {courses.map((course) => {
+          const isExpanded = expandedSlug === course.slug;
+
+          return (
+            <div
+              key={course.slug}
+              onMouseEnter={() => beginHoverIntent(course.slug)}
+              onMouseLeave={() => cancelHoverIntent(course.slug)}
+              style={{
+                position: "relative",
+                minHeight: touchMode ? "auto" : DESKTOP_COLLAPSED_HEIGHT,
+                zIndex: !touchMode && isExpanded ? 30 : 1,
+              }}
+            >
+              {renderCard(course, isExpanded)}
+            </div>
           );
         })}
       </div>
 
       <AnimatePresence>
-        {expandedCourse ? (
+        {touchMode && expandedCourse ? (
           <motion.div
             key={`${expandedCourse.slug}-overlay`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            onClick={() => setExpandedSlug(null)}
-            className={touchMode ? "backdrop-blur-md bg-black/80" : undefined}
+            onClick={() => {
+              setExpandedSlug(null);
+              activeMediaSlugRef.current = null;
+              resetMediaState();
+            }}
             style={{
               position: "fixed",
               inset: 0,
-              zIndex: touchMode ? 100 : 50,
-              background: touchMode ? "rgba(0,0,0,0.8)" : "rgba(0,0,0,0.42)",
-              backdropFilter: touchMode ? "blur(12px)" : "blur(2px)",
-              WebkitBackdropFilter: touchMode ? "blur(12px)" : "blur(2px)",
-              padding: touchMode ? "20px" : "36px",
+              zIndex: 100,
+              background: "rgba(0,0,0,0.82)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              padding: "20px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <motion.div
-              layoutId={`academy-card-${expandedCourse.slug}`}
-              onMouseLeave={() => {
-                if (!touchMode) setExpandedSlug(null);
-              }}
-              onClick={(event) => {
-                event.stopPropagation();
-                navigateToCourse(expandedCourse.slug);
-              }}
+            <div
+              onClick={(event) => event.stopPropagation()}
               style={{
-                width: "min(860px, 100%)",
-                borderRadius: "20px",
-                border: "1px solid rgba(239,89,36,0.4)",
-                background: "var(--color-dark-elevated)",
-                overflow: "hidden",
+                width: "min(540px, 100%)",
                 position: "relative",
-                boxShadow: "0 30px 80px rgba(0,0,0,0.58)",
               }}
             >
               <button
                 type="button"
                 aria-label="Close expanded card"
-                onClick={(event) => {
-                  event.stopPropagation();
+                onClick={() => {
                   setExpandedSlug(null);
+                  activeMediaSlugRef.current = null;
+                  resetMediaState();
                 }}
                 style={{
                   position: "absolute",
@@ -336,143 +552,16 @@ export default function ExpandableAcademyGrid({
                   border: "1px solid rgba(239,89,36,0.42)",
                   background: "rgba(10,10,10,0.72)",
                   color: "var(--color-text-primary)",
-                  cursor: "none",
                   zIndex: 3,
                 }}
               >
                 x
               </button>
-
-              <div
-                style={{
-                  position: "relative",
-                  height: touchMode ? "200px" : "290px",
-                }}
-              >
-                <img
-                  src={MEDIA_ASSETS.academy.heroImage}
-                  alt={expandedCourse.title}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    opacity: videoReady ? 0 : 1,
-                    transition: "opacity 0.3s ease",
-                  }}
-                />
-                {shouldLoadVideo ? (
-                  <video
-                    ref={videoRef}
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    onCanPlay={() => setVideoReady(true)}
-                    poster={MEDIA_ASSETS.academy.heroImage}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      opacity: videoReady ? 1 : 0,
-                      transition: "opacity 0.3s ease",
-                    }}
-                  >
-                    <source src={PLACEHOLDER_WEBM} type="video/webm" />
-                  </video>
-                ) : null}
-              </div>
-
-              <div
-                style={{
-                  borderTop: "1px solid rgba(239,89,36,0.26)",
-                  background: "rgba(6,6,6,0.76)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  padding: "clamp(16px, 4vw, 22px)",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    justifyContent: "space-between",
-                    gap: "16px",
-                    flexWrap: "wrap",
-                    marginBottom: "12px",
-                  }}
-                >
-                  <div style={{ maxWidth: "620px" }}>
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 800,
-                        fontSize: "clamp(20px, 4vw, 30px)",
-                        letterSpacing: "-0.03em",
-                        color: "var(--color-text-primary)",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      {expandedCourse.title}
-                    </h3>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "clamp(13px, 2.8vw, 15px)",
-                        lineHeight: 1.65,
-                        color: "var(--color-text-secondary)",
-                      }}
-                    >
-                      {expandedCourse.description}
-                    </p>
-                  </div>
-
-                  <Link
-                    href={`/academy/${expandedCourse.slug}`}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      navigateToCourse(expandedCourse.slug);
-                    }}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      padding: "12px 16px",
-                      borderRadius: "999px",
-                      background:
-                        "linear-gradient(135deg, #F9A01B 0%, #EF5924 50%, #D32027 100%)",
-                      color: "#fff",
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 800,
-                      fontSize: "12px",
-                      letterSpacing: "0.07em",
-                      textTransform: "uppercase",
-                      textDecoration: "none",
-                    }}
-                  >
-                    View Program
-                    <ArrowRight size={14} strokeWidth={1.8} />
-                  </Link>
-                </div>
-
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "clamp(12px, 2.6vw, 14px)",
-                    lineHeight: 1.8,
-                    color: "var(--color-text-secondary)",
-                  }}
-                >
-                  Structured modules, mentor checkpoints, practical assignments,
-                  and portfolio-ready projects designed to move you from learner
-                  to operator with placement-grade confidence.
-                </p>
-              </div>
-            </motion.div>
+              {renderCard(expandedCourse, true, true)}
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </LayoutGroup>
+    </>
   );
 }

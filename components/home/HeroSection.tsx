@@ -156,12 +156,19 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
             South India&apos;s Growth Engine —{" "}
             <span
               style={{
-                display: "inline-block",
-                transition: "opacity 0.3s",
-                opacity: cityVisible ? 1 : 0,
+                display: "inline-grid",
+                minWidth: "13ch",
+                textAlign: "left",
               }}
             >
-              {CITIES[cityIdx]}
+              <span
+                style={{
+                  transition: "opacity 0.3s",
+                  opacity: cityVisible ? 1 : 0,
+                }}
+              >
+                {CITIES[cityIdx]}
+              </span>
             </span>
           </span>
         </motion.div>
@@ -263,21 +270,22 @@ export default function HeroSection({ onOpenDrawer }: HeroSectionProps) {
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
-              padding: "15px 32px",
-              background: "transparent",
-              color: "var(--color-text-primary)",
+              padding: "15px 26px",
+              background: "rgba(255,255,255,0.02)",
+              color: "var(--color-brand-orange-light)",
               fontFamily: "var(--font-display)",
-              fontWeight: 700,
+              fontWeight: 800,
               fontSize: "14px",
               letterSpacing: "0.06em",
               textTransform: "uppercase",
-              borderRadius: "8px",
-              border: "1px solid var(--color-border-bright)",
+              borderRadius: "999px",
+              border: "1px solid rgba(239,89,36,0.36)",
               cursor: "none",
               textDecoration: "none",
             }}
           >
-            See Services
+            See All Services
+            <ArrowRight size={16} strokeWidth={2} />
           </a>
         </motion.div>
 

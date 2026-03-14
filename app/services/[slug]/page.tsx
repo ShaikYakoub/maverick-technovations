@@ -863,7 +863,7 @@ export default async function ServicePage({
             >
               Service FAQ
             </h2>
-            <FaqAccordion items={serviceFaq} defaultOpenIndex={0} />
+            <FaqAccordion items={serviceFaq} />
           </div>
         </section>
 

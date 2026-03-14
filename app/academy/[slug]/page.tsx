@@ -1565,7 +1565,7 @@ export default async function AcademyCoursePage({
             >
               Program FAQ
             </h2>
-            <FaqAccordion items={courseFaq} defaultOpenIndex={0} />
+            <FaqAccordion items={courseFaq} />
           </div>
         </section>
 

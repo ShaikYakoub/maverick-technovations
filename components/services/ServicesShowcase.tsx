@@ -33,6 +33,17 @@ interface ServicePlan {
   featured?: boolean;
 }
 
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 26 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: {
+    duration: 0.62,
+    delay,
+    ease: [0.22, 1, 0.36, 1] as const,
+  },
+});
+
 const SERVICE_CATEGORIES = [
   {
     title: "Acquisition Engine",
@@ -137,18 +148,25 @@ const TEAM_PODS = [
 const VALUE_TILES = [
   {
     title: "Weekly optimisation cycles",
+    detail: "No dead months. Strategy gets re-scoped every single week.",
     icon: Gauge,
   },
   {
     title: "Transparent performance reporting",
+    detail:
+      "Spend, lead quality, and conversion movement stay visible to leadership.",
     icon: Layers,
   },
   {
     title: "South India market intelligence",
+    detail:
+      "Local buyer behavior shapes messaging, timing, and channel mix decisions.",
     icon: Radar,
   },
   {
     title: "Agency + Academy capability",
+    detail:
+      "Execution capacity and talent enablement live under one operating roof.",
     icon: Users,
   },
 ] as const;
@@ -174,82 +192,176 @@ export default function ServicesShowcase() {
 
   return (
     <>
-      <section className="section-shell" style={{ padding: "0 24px 72px" }}>
-        <div style={{ display: "grid", gap: "18px" }}>
-          <h2
+      <section className="section-shell" style={{ padding: "0 24px 80px" }}>
+        <motion.div
+          {...fadeUp()}
+          style={{
+            border: "1px solid rgba(239,89,36,0.18)",
+            borderRadius: "24px",
+            background:
+              "radial-gradient(circle at top right, rgba(239,89,36,0.18) 0%, rgba(18,18,18,0.98) 34%, rgba(10,10,10,1) 100%)",
+            padding: "clamp(22px, 4vw, 34px)",
+            display: "grid",
+            gap: "22px",
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <div
+            aria-hidden="true"
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(24px, 3.2vw, 34px)",
-              letterSpacing: "-0.03em",
-              color: "var(--color-text-primary)",
+              position: "absolute",
+              top: "-120px",
+              right: "-40px",
+              width: "320px",
+              height: "320px",
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle, rgba(249,160,27,0.18) 0%, transparent 72%)",
+              filter: "blur(8px)",
+            }}
+          />
+          <div
+            style={{
+              display: "grid",
+              gap: "12px",
+              position: "relative",
+              zIndex: 1,
             }}
           >
-            Service categories built to
-            <span className="text-brand-gradient"> compound together.</span>
-          </h2>
-          <div className="grid-card-4" style={{ gap: "14px" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "var(--color-brand-orange)",
+              }}
+            >
+              Growth Architecture
+            </p>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(26px, 4.2vw, 42px)",
+                letterSpacing: "-0.04em",
+                color: "var(--color-text-primary)",
+                maxWidth: "760px",
+                lineHeight: 1.05,
+              }}
+            >
+              Service categories built to
+              <span className="text-brand-gradient"> compound together.</span>
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "14px",
+                lineHeight: 1.72,
+                color: "var(--color-text-secondary)",
+                maxWidth: "620px",
+              }}
+            >
+              Strong growth does not come from one channel in isolation. These
+              pods are designed to stack, feed each other, and keep your revenue
+              system resilient.
+            </p>
+          </div>
+
+          <div
+            className="grid-card-4"
+            style={{ gap: "14px", position: "relative", zIndex: 1 }}
+          >
             {SERVICE_CATEGORIES.map((category, idx) => {
               const Icon = category.icon;
               return (
                 <motion.div
                   key={category.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: idx * 0.08, duration: 0.45 }}
+                  {...fadeUp(idx * 0.08)}
+                  whileHover={{ y: -10, scale: 1.02 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   style={{
-                    borderRadius: "14px",
-                    border: "1px solid var(--color-border)",
-                    background: "var(--color-dark-elevated)",
-                    padding: "16px",
+                    borderRadius: "18px",
+                    border: "1px solid rgba(239,89,36,0.18)",
+                    background:
+                      "linear-gradient(180deg, rgba(24,24,24,0.98) 0%, rgba(14,14,14,0.98) 100%)",
+                    padding: "18px",
                     display: "grid",
-                    gap: "10px",
+                    gap: "12px",
+                    position: "relative",
+                    overflow: "hidden",
                   }}
                 >
+                  <div
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      inset: "auto -50px -80px auto",
+                      width: "160px",
+                      height: "160px",
+                      borderRadius: "50%",
+                      background:
+                        "radial-gradient(circle, rgba(239,89,36,0.12) 0%, transparent 72%)",
+                    }}
+                  />
                   <span
                     style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "10px",
+                      width: "46px",
+                      height: "46px",
+                      borderRadius: "14px",
                       border: "1px solid rgba(239,89,36,0.28)",
                       background: "rgba(239,89,36,0.1)",
                       display: "inline-flex",
                       alignItems: "center",
                       justifyContent: "center",
+                      position: "relative",
+                      zIndex: 1,
                     }}
                   >
                     <Icon
-                      size={18}
-                      strokeWidth={1.6}
+                      size={20}
+                      strokeWidth={1.8}
                       style={{ color: "var(--color-brand-orange)" }}
                     />
                   </span>
-                  <h3
+                  <div
                     style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 700,
-                      fontSize: "16px",
-                      color: "var(--color-text-primary)",
+                      display: "grid",
+                      gap: "8px",
+                      position: "relative",
+                      zIndex: 1,
                     }}
                   >
-                    {category.title}
-                  </h3>
-                  <p
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 800,
+                        fontSize: "18px",
+                        color: "var(--color-text-primary)",
+                      }}
+                    >
+                      {category.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "13px",
+                        lineHeight: 1.68,
+                        color: "var(--color-text-secondary)",
+                      }}
+                    >
+                      {category.body}
+                    </p>
+                  </div>
+                  <div
                     style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "12px",
-                      lineHeight: 1.65,
-                      color: "var(--color-text-secondary)",
-                    }}
-                  >
-                    {category.body}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "11px",
-                      color: "var(--color-text-muted)",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "8px",
+                      position: "relative",
+                      zIndex: 1,
                     }}
                   >
                     {category.slugs
@@ -259,276 +371,369 @@ export default function ServicesShowcase() {
                             ?.shortTitle,
                       )
                       .filter(Boolean)
-                      .join(" • ")}
-                  </p>
+                      .map((service) => (
+                        <span
+                          key={service}
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            padding: "8px 10px",
+                            borderRadius: "999px",
+                            border: "1px solid rgba(255,255,255,0.08)",
+                            background: "rgba(255,255,255,0.03)",
+                            color: "var(--color-text-secondary)",
+                            fontFamily: "var(--font-body)",
+                            fontSize: "11px",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {service}
+                        </span>
+                      ))}
+                  </div>
                 </motion.div>
               );
             })}
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      <section className="section-shell" style={{ padding: "0 24px 72px" }}>
+      <section className="section-shell" style={{ padding: "0 24px 80px" }}>
         <div
           style={{
-            border: "1px solid var(--color-border)",
-            borderRadius: "16px",
-            background: "var(--color-dark-elevated)",
-            padding: "28px",
+            border: "1px solid rgba(239,89,36,0.18)",
+            borderRadius: "24px",
+            background:
+              "linear-gradient(180deg, rgba(24,24,24,0.98) 0%, rgba(12,12,12,0.98) 100%)",
+            padding: "clamp(22px, 4vw, 34px)",
             display: "grid",
-            gap: "18px",
+            gap: "22px",
           }}
         >
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(24px, 3.2vw, 34px)",
-              letterSpacing: "-0.03em",
-              color: "var(--color-text-primary)",
-            }}
-          >
-            Service Packages designed to move you toward
-            <span className="text-brand-gradient"> Market Dominance.</span>
-          </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "14px",
-              color: "var(--color-text-secondary)",
-            }}
-          >
-            Pick your operating level. Lower tiers are valid, but they
-            intentionally leave growth multipliers on the table.
-          </p>
+          <div style={{ display: "grid", gap: "10px" }}>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(24px, 3.4vw, 38px)",
+                letterSpacing: "-0.04em",
+                color: "var(--color-text-primary)",
+                lineHeight: 1.06,
+              }}
+            >
+              Service packages designed to move you toward
+              <span className="text-brand-gradient"> market dominance.</span>
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "14px",
+                color: "var(--color-text-secondary)",
+                lineHeight: 1.72,
+                maxWidth: "700px",
+              }}
+            >
+              Featured means the best balance for most brands. Selected means
+              the plan you are comparing right now. Those signals should never
+              look the same.
+            </p>
+          </div>
 
           <div className="grid-card-4" style={{ gap: "14px" }}>
-            {PACKAGE_STACK.map((plan) => {
+            {PACKAGE_STACK.map((plan, index) => {
               const Icon = plan.icon;
               const active = selectedPlan === plan.name;
+              const featured = Boolean(plan.featured);
               return (
                 <motion.button
                   key={plan.name}
                   type="button"
+                  {...fadeUp(index * 0.06)}
                   onClick={() => setSelectedPlan(plan.name)}
-                  whileHover={{ y: -5 }}
+                  whileHover={{ y: -8 }}
                   style={{
                     textAlign: "left",
-                    borderRadius: "14px",
+                    borderRadius: "18px",
                     border: active
-                      ? "1px solid rgba(239,89,36,0.52)"
-                      : "1px solid var(--color-border)",
-                    background:
-                      active || plan.featured
-                        ? "linear-gradient(160deg, rgba(249,160,27,0.16), rgba(211,32,39,0.1))"
+                      ? "1px solid rgba(249,160,27,0.72)"
+                      : featured
+                        ? "1px solid rgba(239,89,36,0.4)"
+                        : "1px solid var(--color-border)",
+                    background: active
+                      ? "linear-gradient(160deg, rgba(249,160,27,0.18), rgba(239,89,36,0.12))"
+                      : featured
+                        ? "linear-gradient(160deg, rgba(239,89,36,0.14), rgba(211,32,39,0.08))"
                         : "var(--color-dark-surface)",
-                    padding: "16px",
+                    padding: "18px",
                     display: "grid",
-                    gap: "10px",
+                    gap: "12px",
                     position: "relative",
+                    overflow: "hidden",
+                    boxShadow: active
+                      ? "0 22px 60px rgba(239,89,36,0.18)"
+                      : "none",
                   }}
                 >
-                  {plan.featured ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: "10px",
+                      alignItems: "flex-start",
+                    }}
+                  >
                     <span
                       style={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "10px",
+                        width: "44px",
+                        height: "44px",
+                        borderRadius: "12px",
+                        border: "1px solid rgba(239,89,36,0.28)",
+                        background: "rgba(239,89,36,0.1)",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Icon
+                        size={18}
+                        strokeWidth={1.7}
+                        style={{ color: "var(--color-brand-orange)" }}
+                      />
+                    </span>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "8px",
+                        justifyContent: "flex-end",
+                      }}
+                    >
+                      {featured ? (
+                        <span
+                          style={{
+                            padding: "7px 10px",
+                            borderRadius: "999px",
+                            border: "1px solid rgba(239,89,36,0.3)",
+                            background: "transparent",
+                            color: "var(--color-text-primary)",
+                            fontFamily: "var(--font-body)",
+                            fontSize: "10px",
+                            fontWeight: 700,
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          Most Chosen
+                        </span>
+                      ) : null}
+                      {active ? (
+                        <span
+                          style={{
+                            padding: "7px 10px",
+                            borderRadius: "999px",
+                            border: "1px solid rgba(249,160,27,0.42)",
+                            background: "rgba(249,160,27,0.14)",
+                            color: "var(--color-brand-orange-light)",
+                            fontFamily: "var(--font-body)",
+                            fontSize: "10px",
+                            fontWeight: 700,
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          Selected
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div style={{ display: "grid", gap: "8px" }}>
+                    <p
+                      style={{
                         fontFamily: "var(--font-body)",
                         fontSize: "10px",
                         fontWeight: 700,
-                        letterSpacing: "0.1em",
+                        letterSpacing: "0.16em",
                         textTransform: "uppercase",
+                        color: active
+                          ? "var(--color-brand-orange-light)"
+                          : "var(--color-brand-orange)",
+                      }}
+                    >
+                      {plan.name}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 800,
+                        fontSize: "clamp(20px, 3vw, 28px)",
                         color: "var(--color-text-primary)",
                       }}
                     >
-                      Most Chosen
-                    </span>
-                  ) : null}
-                  <span
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "10px",
-                      border: "1px solid rgba(239,89,36,0.28)",
-                      background: "rgba(239,89,36,0.1)",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Icon
-                      size={18}
-                      strokeWidth={1.6}
-                      style={{ color: "var(--color-brand-orange)" }}
-                    />
-                  </span>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      letterSpacing: "0.16em",
-                      textTransform: "uppercase",
-                      color: "var(--color-brand-orange)",
-                    }}
-                  >
-                    {plan.name}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 800,
-                      fontSize: "clamp(20px, 3vw, 28px)",
-                      color: "var(--color-text-primary)",
-                    }}
-                  >
-                    {plan.price}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "12px",
-                      lineHeight: 1.6,
-                      color: "var(--color-text-secondary)",
-                    }}
-                  >
-                    {plan.promise}
-                  </p>
+                      {plan.price}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "12px",
+                        lineHeight: 1.65,
+                        color: "var(--color-text-secondary)",
+                      }}
+                    >
+                      {plan.promise}
+                    </p>
+                  </div>
                 </motion.button>
               );
             })}
           </div>
 
-          <div
+          <div className="grid-balance-2" style={{ gap: "14px" }}>
+            <div
+              style={{
+                borderRadius: "18px",
+                border: "1px solid rgba(249,160,27,0.28)",
+                background: "rgba(249,160,27,0.06)",
+                padding: "18px",
+                display: "grid",
+                gap: "12px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: "18px",
+                  color: "var(--color-text-primary)",
+                }}
+              >
+                Selected plan: {selected.name}
+              </p>
+              <ul
+                style={{
+                  listStyle: "none",
+                  margin: 0,
+                  padding: 0,
+                  display: "grid",
+                  gap: "7px",
+                }}
+              >
+                {selected.includes.map((benefit) => (
+                  <li
+                    key={benefit}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "12px",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    • {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div
+              style={{
+                borderRadius: "18px",
+                border: "1px solid rgba(211,32,39,0.22)",
+                background: "rgba(211,32,39,0.06)",
+                padding: "18px",
+                display: "grid",
+                gap: "12px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: "18px",
+                  color: "var(--color-text-primary)",
+                }}
+              >
+                What you leave on the table
+              </p>
+              <ul
+                style={{
+                  listStyle: "none",
+                  margin: 0,
+                  padding: 0,
+                  display: "grid",
+                  gap: "7px",
+                }}
+              >
+                {(selected.name === "Market Dominance"
+                  ? ["None. This unlocks the full growth stack."]
+                  : missedCapabilities
+                ).map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "12px",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    • {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <a
+            href="/contact"
             style={{
-              borderRadius: "14px",
-              border: "1px solid rgba(239,89,36,0.4)",
-              background: "rgba(239,89,36,0.07)",
-              padding: "16px",
-              display: "grid",
-              gap: "12px",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              padding: "13px 18px",
+              borderRadius: "999px",
+              border: "none",
+              background: "var(--gradient-brand-premium)",
+              color: "#fff",
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "12px",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              width: "fit-content",
+              textDecoration: "none",
             }}
           >
-            <p
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 800,
-                fontSize: "18px",
-                color: "var(--color-text-primary)",
-              }}
-            >
-              Selected plan: {selected.name}
-            </p>
-            <div className="grid-card-2" style={{ gap: "12px" }}>
-              <div>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "var(--color-brand-orange)",
-                    marginBottom: "8px",
-                  }}
-                >
-                  You Get
-                </p>
-                <ul
-                  style={{
-                    listStyle: "none",
-                    margin: 0,
-                    padding: 0,
-                    display: "grid",
-                    gap: "6px",
-                  }}
-                >
-                  {selected.includes.map((benefit) => (
-                    <li
-                      key={benefit}
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "12px",
-                        color: "var(--color-text-secondary)",
-                      }}
-                    >
-                      • {benefit}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "var(--color-brand-red)",
-                    marginBottom: "8px",
-                  }}
-                >
-                  If you stay on {selected.name}, you miss
-                </p>
-                <ul
-                  style={{
-                    listStyle: "none",
-                    margin: 0,
-                    padding: 0,
-                    display: "grid",
-                    gap: "6px",
-                  }}
-                >
-                  {(selected.name === "Market Dominance"
-                    ? ["None. You unlock the full growth stack."]
-                    : missedCapabilities
-                  ).map((item) => (
-                    <li
-                      key={item}
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "12px",
-                        color: "var(--color-text-secondary)",
-                      }}
-                    >
-                      • {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <button
-              type="button"
-              style={{
-                marginTop: "4px",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                padding: "12px 18px",
-                borderRadius: "999px",
-                border: "none",
-                background: "var(--gradient-brand-premium)",
-                color: "#fff",
-                fontFamily: "var(--font-display)",
-                fontWeight: 800,
-                fontSize: "12px",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                width: "fit-content",
-              }}
-            >
-              Lock {selected.name}
-              <ArrowRight size={14} strokeWidth={1.8} />
-            </button>
-          </div>
+            Lock {selected.name}
+            <ArrowRight size={14} strokeWidth={1.8} />
+          </a>
         </div>
       </section>
 
-      <section className="section-shell" style={{ padding: "0 24px 72px" }}>
-        <div style={{ display: "grid", gap: "14px" }}>
+      <section className="section-shell" style={{ padding: "0 24px 80px" }}>
+        <div
+          style={{
+            border: "1px solid rgba(239,89,36,0.16)",
+            borderRadius: "24px",
+            background:
+              "linear-gradient(180deg, rgba(20,20,20,0.96) 0%, rgba(10,10,10,0.98) 100%)",
+            padding: "clamp(20px, 4vw, 30px)",
+            display: "grid",
+            gap: "16px",
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              top: "-90px",
+              left: "-70px",
+              width: "260px",
+              height: "260px",
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle, rgba(239,89,36,0.2) 0%, transparent 72%)",
+              filter: "blur(6px)",
+            }}
+          />
           <h2
             style={{
               fontFamily: "var(--font-display)",
@@ -536,22 +741,151 @@ export default function ServicesShowcase() {
               fontSize: "clamp(24px, 3.2vw, 34px)",
               letterSpacing: "-0.03em",
               color: "var(--color-text-primary)",
+              position: "relative",
+              zIndex: 1,
             }}
           >
             How we operate with
             <span className="text-brand-gradient"> execution intensity.</span>
           </h2>
-          <div className="grid-card-4" style={{ gap: "12px" }}>
+
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "13px",
+              lineHeight: 1.72,
+              color: "var(--color-text-secondary)",
+              maxWidth: "760px",
+              position: "relative",
+              zIndex: 1,
+            }}
+          >
+            Every campaign runs inside one execution rhythm: diagnose fast,
+            launch with discipline, optimise weekly, and convert learning into
+            repeatable scale decisions.
+          </p>
+
+          <div
+            className="grid-balance-2"
+            style={{ gap: "14px", position: "relative", zIndex: 1 }}
+          >
+            <div
+              style={{
+                borderRadius: "18px",
+                border: "1px solid rgba(239,89,36,0.16)",
+                background: "rgba(255,255,255,0.02)",
+                padding: "16px",
+                display: "grid",
+                gap: "10px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "var(--color-brand-orange)",
+                }}
+              >
+                Operating Tempo
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: "clamp(22px, 3vw, 30px)",
+                  lineHeight: 1.08,
+                  color: "var(--color-text-primary)",
+                }}
+              >
+                Weekly execution loops.
+                <span className="text-brand-gradient">
+                  {" "}
+                  Monthly strategic reset.
+                </span>
+              </p>
+              <div
+                style={{
+                  borderRadius: "999px",
+                  border: "1px solid rgba(239,89,36,0.22)",
+                  background: "rgba(239,89,36,0.08)",
+                  padding: "8px 12px",
+                  display: "inline-flex",
+                  width: "fit-content",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "11px",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                Signal -&gt; Decision -&gt; Action -&gt; Learning
+              </div>
+            </div>
+
+            <div
+              style={{
+                borderRadius: "18px",
+                border: "1px solid rgba(249,160,27,0.22)",
+                background: "rgba(249,160,27,0.06)",
+                padding: "16px",
+                display: "grid",
+                gap: "10px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "var(--color-brand-orange)",
+                }}
+              >
+                Governance Layer
+              </p>
+              <ul
+                style={{
+                  listStyle: "none",
+                  margin: 0,
+                  padding: 0,
+                  display: "grid",
+                  gap: "8px",
+                }}
+              >
+                {[
+                  "Leadership dashboard for spend, lead quality, and conversion health",
+                  "Weekly creative and funnel review with clear next actions",
+                  "Role-based pod ownership so no growth lever is unmanaged",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "12px",
+                      lineHeight: 1.62,
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    • {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div
+            className="grid-card-4"
+            style={{ gap: "12px", position: "relative", zIndex: 1 }}
+          >
             {OPERATE_STEPS.map((step, index) => {
               const Icon = step.icon;
               return (
                 <motion.div
                   key={step.title}
+                  {...fadeUp(index * 0.06)}
                   whileHover={{ y: -6 }}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: index * 0.06, duration: 0.4 }}
                   style={{
                     borderRadius: "14px",
                     border: "1px solid var(--color-border)",
@@ -607,7 +941,7 @@ export default function ServicesShowcase() {
         </div>
       </section>
 
-      <section className="section-shell" style={{ padding: "0 24px 72px" }}>
+      <section className="section-shell" style={{ padding: "0 24px 80px" }}>
         <div style={{ display: "grid", gap: "14px" }}>
           <h2
             style={{
@@ -625,10 +959,7 @@ export default function ServicesShowcase() {
             {TEAM_PODS.map((pod, idx) => (
               <motion.div
                 key={pod}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: idx * 0.05, duration: 0.35 }}
+                {...fadeUp(idx * 0.05)}
                 style={{
                   borderRadius: "14px",
                   border: "1px solid var(--color-border)",
@@ -665,62 +996,100 @@ export default function ServicesShowcase() {
       </section>
 
       <section className="section-shell" style={{ padding: "0 24px 72px" }}>
-        <div
+        <motion.div
+          {...fadeUp()}
           style={{
-            border: "1px solid var(--color-border)",
-            borderRadius: "16px",
-            background: "var(--color-dark-elevated)",
-            padding: "24px",
+            border: "1px solid rgba(239,89,36,0.22)",
+            borderRadius: "26px",
+            background:
+              "radial-gradient(circle at top left, rgba(249,160,27,0.16) 0%, rgba(18,18,18,0.98) 32%, rgba(10,10,10,1) 100%)",
+            padding: "clamp(24px, 4vw, 34px)",
             display: "grid",
-            gap: "16px",
+            gap: "18px",
+            overflow: "hidden",
+            position: "relative",
           }}
         >
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              right: "-80px",
+              bottom: "-110px",
+              width: "280px",
+              height: "280px",
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle, rgba(211,32,39,0.18) 0%, transparent 72%)",
+            }}
+          />
+          <p
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-body)",
+              fontSize: "11px",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "var(--color-brand-orange)",
+              position: "relative",
+              zIndex: 1,
+            }}
+          >
+            <Sparkles size={14} />
+            Ready to work together?
+          </p>
           <h2
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 800,
-              fontSize: "clamp(24px, 3.2vw, 34px)",
-              letterSpacing: "-0.03em",
+              fontSize: "clamp(28px, 4vw, 46px)",
+              letterSpacing: "-0.04em",
               color: "var(--color-text-primary)",
+              maxWidth: "780px",
+              lineHeight: 1.05,
+              position: "relative",
+              zIndex: 1,
             }}
           >
-            Ready to work together?
-            <span className="text-brand-gradient">
-              {" "}
-              Build a predictable revenue system.
-            </span>
+            Build a revenue system that can handle
+            <span className="text-brand-gradient"> real growth pressure.</span>
           </h2>
           <p
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "14px",
-              lineHeight: 1.75,
+              lineHeight: 1.74,
               color: "var(--color-text-secondary)",
-              maxWidth: "760px",
+              maxWidth: "700px",
+              position: "relative",
+              zIndex: 1,
             }}
           >
-            Strategy, execution, and reporting under one operating roof. We help
-            you scale faster without wasting budget on guesswork.
+            Strategy, execution, reporting, and talent enablement stay
+            connected. That is how brands stop patching channels and start
+            compounding outcomes.
           </p>
-          <div className="grid-card-4" style={{ gap: "10px" }}>
+          <div
+            className="grid-card-4"
+            style={{ gap: "10px", position: "relative", zIndex: 1 }}
+          >
             {VALUE_TILES.map((tile, index) => {
               const Icon = tile.icon;
               return (
                 <motion.div
                   key={tile.title}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ delay: index * 0.06, duration: 0.35 }}
+                  {...fadeUp(index * 0.05)}
                   whileHover={{ y: -4 }}
                   style={{
-                    borderRadius: "12px",
-                    border: "1px solid rgba(239,89,36,0.28)",
-                    background: "rgba(239,89,36,0.08)",
-                    padding: "12px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
+                    borderRadius: "14px",
+                    border: "1px solid rgba(239,89,36,0.22)",
+                    background: "rgba(255,255,255,0.03)",
+                    padding: "14px",
+                    display: "grid",
+                    gap: "8px",
                   }}
                 >
                   <Icon
@@ -730,18 +1099,76 @@ export default function ServicesShowcase() {
                   />
                   <span
                     style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "12px",
-                      color: "var(--color-text-secondary)",
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: "14px",
+                      color: "var(--color-text-primary)",
                     }}
                   >
                     {tile.title}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "12px",
+                      lineHeight: 1.6,
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    {tile.detail}
                   </span>
                 </motion.div>
               );
             })}
           </div>
-        </div>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "12px",
+              position: "relative",
+              zIndex: 1,
+            }}
+          >
+            <a
+              href="/contact"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "13px 18px",
+                borderRadius: "999px",
+                border: "none",
+                background: "var(--gradient-brand-premium)",
+                color: "#fff",
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "12px",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+              }}
+            >
+              Book Strategy Call
+              <ArrowRight size={14} strokeWidth={1.8} />
+            </a>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                padding: "13px 16px",
+                borderRadius: "999px",
+                border: "1px solid rgba(255,255,255,0.08)",
+                color: "var(--color-text-secondary)",
+                fontFamily: "var(--font-body)",
+                fontSize: "12px",
+                fontWeight: 600,
+              }}
+            >
+              Weekly operating rhythm. Clear ROI visibility. No fluff layer.
+            </span>
+          </div>
+        </motion.div>
       </section>
     </>
   );

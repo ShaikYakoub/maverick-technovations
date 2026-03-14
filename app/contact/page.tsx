@@ -8,16 +8,16 @@ import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 
 const RESPONSE_TIMELINE = [
   {
-    title: "Step 1: Enquiry Review",
-    body: "We review your business context, market, and current bottlenecks.",
+    title: "Context review",
+    body: "We read the business stage, intent, and current bottlenecks before anyone calls you back.",
   },
   {
-    title: "Step 2: Strategy Call",
-    body: "You get a practical call focused on lead flow, positioning, and next actions.",
+    title: "Practical response",
+    body: "You get a conversation focused on what to do next, not a generic sales script.",
   },
   {
-    title: "Step 3: Execution Blueprint",
-    body: "We share a channel mix and rollout sequence tailored to your stage.",
+    title: "Right-fit path",
+    body: "Services, academy, or both. We map the shortest useful route and the order it should happen in.",
   },
 ] as const;
 
@@ -47,7 +47,7 @@ const CONTACT_FAQ = [
   {
     question: "Can I enquire for both services and training?",
     answer:
-      "Yes. Select your primary intent in the form and our team can guide you through both options if needed.",
+      "Yes. Tell us your primary need in the form and our team can guide you through both options if needed.",
   },
   {
     question: "Do you support startups and small businesses?",
@@ -89,10 +89,10 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const mapEmbedSrc = `https://maps.google.com/maps?q=${BUSINESS_DATA.geo.latitude},${BUSINESS_DATA.geo.longitude}&z=15&output=embed`;
-  const mapDirectionsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    `${BUSINESS_DATA.geo.latitude},${BUSINESS_DATA.geo.longitude}`,
-  )}`;
+  const addressQuery = `${BUSINESS_DATA.address.street}, ${BUSINESS_DATA.address.city}, ${BUSINESS_DATA.address.state} ${BUSINESS_DATA.address.postalCode}`;
+  const coordinateQuery = `${BUSINESS_DATA.geo.latitude},${BUSINESS_DATA.geo.longitude}`;
+  const mapEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(coordinateQuery)}&z=16&output=embed`;
+  const mapDirectionsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(coordinateQuery)}`;
 
   const contactSchema = {
     "@context": "https://schema.org",
@@ -149,178 +149,236 @@ export default function ContactPage() {
         <section
           className="section-shell grid-balance-2"
           style={{
-            padding: "44px 24px 44px",
+            padding: "24px 24px 44px",
             gap: "clamp(20px, 4vw, 32px)",
+            alignItems: "stretch",
           }}
         >
           <div
             style={{
-              border: "1px solid var(--color-border)",
-              borderRadius: "16px",
-              backgroundImage: `linear-gradient(120deg, rgba(10,10,10,0.92), rgba(10,10,10,0.75)), url(${MEDIA_ASSETS.contact.heroImage})`,
+              border: "1px solid rgba(239,89,36,0.16)",
+              borderRadius: "24px",
+              backgroundImage: `linear-gradient(120deg, rgba(10,10,10,0.92), rgba(10,10,10,0.74)), url(${MEDIA_ASSETS.contact.heroImage})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              padding: "clamp(22px, 4vw, 32px)",
-              height: "fit-content",
+              padding: "clamp(22px, 4vw, 34px)",
+              minHeight: "100%",
+              display: "grid",
+              gap: "18px",
+              alignContent: "space-between",
+              position: "relative",
+              overflow: "hidden",
             }}
           >
-            <p
+            <div
+              aria-hidden="true"
               style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "11px",
-                fontWeight: 600,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--color-brand-orange)",
-                marginBottom: "14px",
+                position: "absolute",
+                top: "-80px",
+                right: "-40px",
+                width: "240px",
+                height: "240px",
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle, rgba(249,160,27,0.18) 0%, transparent 72%)",
+                animation: "float-orb 8s ease-in-out infinite",
+              }}
+            />
+            <div
+              style={{
+                display: "grid",
+                gap: "14px",
+                position: "relative",
+                zIndex: 1,
               }}
             >
-              Get In Touch
-            </p>
-            <h1
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 800,
-                fontSize: "clamp(34px, 6vw, 52px)",
-                letterSpacing: "-0.04em",
-                lineHeight: 1.05,
-                color: "var(--color-text-primary)",
-                marginBottom: "14px",
-              }}
-            >
-              Let&apos;s Build Your Growth Engine
-            </h1>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "15px",
-                lineHeight: 1.7,
-                color: "var(--color-text-secondary)",
-                marginBottom: "24px",
-              }}
-            >
-              Tell us what you need and we will share a practical next-step
-              plan. Typical response time: under 30 minutes during business
-              hours.
-            </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "var(--color-brand-orange)",
+                }}
+              >
+                Get In Touch
+              </p>
+              <h1
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: "clamp(34px, 6vw, 58px)",
+                  letterSpacing: "-0.05em",
+                  lineHeight: 1.02,
+                  color: "var(--color-text-primary)",
+                }}
+              >
+                Let&apos;s build the
+                <span className="text-brand-gradient"> next useful move.</span>
+              </h1>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "15px",
+                  lineHeight: 1.74,
+                  color: "var(--color-text-secondary)",
+                  maxWidth: "540px",
+                }}
+              >
+                Tell us what you need and we will respond with a practical route
+                forward. Typical response time stays under 30 minutes during
+                business hours.
+              </p>
+            </div>
 
-            <div className="cta-row-mobile" style={{ width: "100%" }}>
-              <a
-                href={`tel:+91${BUSINESS_DATA.phone}`}
-                className="btn-animated"
-                style={contactItemStyle}
+            <div
+              style={{
+                display: "grid",
+                gap: "12px",
+                position: "relative",
+                zIndex: 1,
+              }}
+            >
+              <div
+                className="cta-row-mobile"
+                style={{ width: "100%", justifyContent: "flex-start" }}
               >
-                <Phone size={15} strokeWidth={1.5} />
-                <span className="mobile-contact-text">
-                  +91 {BUSINESS_DATA.phone}
-                </span>
-              </a>
-              <a
-                href={`mailto:${BUSINESS_DATA.email}`}
-                style={contactItemStyle}
+                <a
+                  href={`tel:+91${BUSINESS_DATA.phone}`}
+                  className="btn-animated"
+                  style={contactItemStyle}
+                >
+                  <Phone size={15} strokeWidth={1.5} />
+                  <span className="mobile-contact-text">
+                    +91 {BUSINESS_DATA.phone}
+                  </span>
+                </a>
+                <a
+                  href={`mailto:${BUSINESS_DATA.email}`}
+                  style={contactItemStyle}
+                >
+                  <Mail size={15} strokeWidth={1.5} />
+                  <span className="mobile-contact-text">
+                    {BUSINESS_DATA.email}
+                  </span>
+                </a>
+              </div>
+              <div
+                style={{
+                  borderRadius: "18px",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "rgba(10,10,10,0.48)",
+                  padding: "16px",
+                  display: "grid",
+                  gap: "10px",
+                }}
               >
-                <Mail size={15} strokeWidth={1.5} />
-                <span className="mobile-contact-text">
-                  {BUSINESS_DATA.email}
-                </span>
-              </a>
-              <div style={{ ...contactItemStyle, margin: 0 }}>
-                <MapPin size={15} strokeWidth={1.5} />
-                <span className="mobile-contact-text">
-                  {BUSINESS_DATA.address.street}, {BUSINESS_DATA.address.city},{" "}
-                  {BUSINESS_DATA.address.state}
-                </span>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "var(--color-brand-orange)",
+                  }}
+                >
+                  What you can expect
+                </p>
+                {TRUST_SIGNALS.map((item) => (
+                  <p
+                    key={item}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "8px",
+                      fontFamily: "var(--font-body)",
+                      fontSize: "13px",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    <ShieldCheck
+                      size={14}
+                      strokeWidth={1.6}
+                      style={{
+                        color: "var(--color-brand-orange)",
+                        marginTop: "2px",
+                      }}
+                    />
+                    {item}
+                  </p>
+                ))}
               </div>
             </div>
           </div>
 
           <div
             style={{
-              border: "1px solid var(--color-border)",
-              borderRadius: "16px",
-              background: "var(--color-dark-surface)",
-              padding: "clamp(22px, 4vw, 32px)",
+              border: "1px solid rgba(239,89,36,0.16)",
+              borderRadius: "24px",
+              background:
+                "linear-gradient(180deg, rgba(24,24,24,0.98) 0%, rgba(12,12,12,0.98) 100%)",
+              padding: "clamp(22px, 4vw, 34px)",
+              display: "grid",
+              gap: "18px",
+              minHeight: "100%",
+              alignContent: "start",
             }}
           >
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                fontSize: "26px",
-                letterSpacing: "-0.02em",
-                color: "var(--color-text-primary)",
-                marginBottom: "18px",
-              }}
-            >
-              Quick Enquiry Form
-            </h2>
-            <div
-              style={{
-                display: "flex",
-                gap: "8px",
-                flexWrap: "wrap",
-                marginBottom: "14px",
-              }}
-            >
-              <a
-                href="/contact?intent=marketing"
+            <div style={{ display: "grid", gap: "8px" }}>
+              <p
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  padding: "8px 12px",
-                  borderRadius: "999px",
-                  border: "1px solid var(--color-border)",
-                  background: "transparent",
-                  color: "var(--color-text-secondary)",
                   fontFamily: "var(--font-body)",
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  letterSpacing: "0.06em",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.16em",
                   textTransform: "uppercase",
-                  textDecoration: "none",
+                  color: "var(--color-brand-orange)",
                 }}
               >
-                Service Enquiry
-              </a>
-              <a
-                href="/contact?intent=training"
+                Quick enquiry form
+              </p>
+              <h2
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  padding: "8px 12px",
-                  borderRadius: "999px",
-                  border: "1px solid var(--color-border)",
-                  background: "transparent",
-                  color: "var(--color-text-secondary)",
-                  fontFamily: "var(--font-body)",
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  textDecoration: "none",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: "clamp(24px, 3vw, 30px)",
+                  letterSpacing: "-0.03em",
+                  color: "var(--color-text-primary)",
                 }}
               >
-                Academy Enquiry
-              </a>
+                Share the problem. We&apos;ll route the response properly.
+              </h2>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "13px",
+                  lineHeight: 1.72,
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                No enquiry tabs, no dead-end fork. Just tell us what you need
+                and the team will handle the path from there.
+              </p>
             </div>
             <ContactLeadForm />
           </div>
         </section>
 
-        <section
-          className="section-shell"
-          style={{
-            padding: "0 24px 24px",
-          }}
-        >
-          <div className="grid-balance-2" style={{ gap: "14px" }}>
+        <section className="section-shell" style={{ padding: "0 24px 24px" }}>
+          <div
+            className="grid-balance-2"
+            style={{ gap: "14px", alignItems: "stretch" }}
+          >
             <div
               style={{
-                border: "1px solid var(--color-border)",
-                borderRadius: "16px",
+                border: "1px solid rgba(239,89,36,0.14)",
+                borderRadius: "20px",
                 background: "var(--color-dark-surface)",
                 overflow: "hidden",
-                minHeight: "320px",
+                minHeight: "360px",
+                position: "relative",
               }}
             >
               <iframe
@@ -330,16 +388,42 @@ export default function ContactPage() {
                 referrerPolicy="no-referrer-when-downgrade"
                 style={{
                   width: "100%",
-                  minHeight: "320px",
+                  minHeight: "360px",
                   border: "none",
                 }}
               />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: "auto 14px 14px auto",
+                  borderRadius: "999px",
+                  border: "1px solid rgba(239,89,36,0.26)",
+                  background: "rgba(10,10,10,0.8)",
+                  padding: "8px 12px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  color: "var(--color-text-primary)",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                }}
+              >
+                <MapPin
+                  size={12}
+                  strokeWidth={1.8}
+                  style={{ color: "var(--color-brand-orange)" }}
+                />
+                Pin Locked to Office Coordinates
+              </div>
             </div>
 
             <div
               style={{
-                border: "1px solid var(--color-border)",
-                borderRadius: "16px",
+                border: "1px solid rgba(239,89,36,0.14)",
+                borderRadius: "20px",
                 background: "var(--color-dark-surface)",
                 padding: "clamp(22px, 4vw, 32px)",
                 display: "grid",
@@ -355,18 +439,18 @@ export default function ContactPage() {
                   color: "var(--color-text-primary)",
                 }}
               >
-                Visit Our Office
+                Visit our Kadapa office.
               </h2>
               <p
                 style={{
                   fontFamily: "var(--font-body)",
                   fontSize: "14px",
-                  lineHeight: 1.7,
+                  lineHeight: 1.72,
                   color: "var(--color-text-secondary)",
                 }}
               >
-                Meet the strategy and academy team at our Kadapa office for an
-                in-person consultation and planning session.
+                Meet the strategy and academy team in person for planning
+                sessions, onboarding conversations, and admissions guidance.
               </p>
               <div style={{ display: "grid", gap: "8px" }}>
                 {OFFICE_HOURS.map((item) => (
@@ -393,52 +477,81 @@ export default function ContactPage() {
                   </p>
                 ))}
               </div>
-
-              <a
-                href={mapDirectionsLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-animated"
+              <div
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  borderRadius: "16px",
+                  border: "1px solid rgba(239,89,36,0.18)",
+                  background: "rgba(239,89,36,0.06)",
+                  padding: "14px",
+                  display: "grid",
                   gap: "8px",
-                  width: "fit-content",
-                  padding: "12px 18px",
-                  borderRadius: "999px",
-                  border: "none",
-                  background: "var(--gradient-brand-premium)",
-                  color: "#fff",
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 800,
-                  fontSize: "12px",
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  textDecoration: "none",
                 }}
               >
-                <MapPin size={14} strokeWidth={1.8} />
-                Get Directions
-              </a>
+                <p
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "8px",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "13px",
+                    color: "var(--color-text-secondary)",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  <MapPin
+                    size={14}
+                    strokeWidth={1.6}
+                    style={{
+                      color: "var(--color-brand-orange)",
+                      marginTop: "2px",
+                    }}
+                  />
+                  {BUSINESS_DATA.address.street}, {BUSINESS_DATA.address.city},{" "}
+                  {BUSINESS_DATA.address.state}{" "}
+                  {BUSINESS_DATA.address.postalCode}
+                </p>
+                <a
+                  href={mapDirectionsLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-animated"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                    width: "fit-content",
+                    padding: "12px 18px",
+                    borderRadius: "999px",
+                    border: "none",
+                    background: "var(--gradient-brand-premium)",
+                    color: "#fff",
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 800,
+                    fontSize: "12px",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                  }}
+                >
+                  <MapPin size={14} strokeWidth={1.8} />
+                  Get Directions
+                </a>
+              </div>
             </div>
           </div>
         </section>
 
-        <section
-          className="section-shell"
-          style={{
-            padding: "0 24px 24px",
-          }}
-        >
+        <section className="section-shell" style={{ padding: "0 24px 24px" }}>
           <div
             style={{
-              border: "1px solid var(--color-border)",
-              borderRadius: "16px",
-              background: "var(--color-dark-surface)",
-              padding: "clamp(22px, 4vw, 30px)",
+              border: "1px solid rgba(239,89,36,0.14)",
+              borderRadius: "24px",
+              background:
+                "radial-gradient(circle at top left, rgba(249,160,27,0.16) 0%, rgba(18,18,18,0.98) 32%, rgba(10,10,10,1) 100%)",
+              padding: "clamp(22px, 4vw, 32px)",
               display: "grid",
-              gap: "16px",
+              gap: "18px",
             }}
           >
             <h2
@@ -452,24 +565,55 @@ export default function ContactPage() {
             >
               What happens after you contact us?
             </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "14px",
+                lineHeight: 1.74,
+                color: "var(--color-text-secondary)",
+                maxWidth: "700px",
+              }}
+            >
+              We keep the response simple: understand context fast, reply with
+              something useful, and move you toward the right engagement path
+              without friction.
+            </p>
             <div className="grid-card-4" style={{ gap: "12px" }}>
-              {RESPONSE_TIMELINE.map((item) => (
+              {RESPONSE_TIMELINE.map((item, index) => (
                 <div
                   key={item.title}
                   style={{
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "12px",
-                    background: "var(--color-dark-elevated)",
-                    padding: "14px",
+                    border: "1px solid rgba(239,89,36,0.16)",
+                    borderRadius: "18px",
+                    background: "rgba(255,255,255,0.03)",
+                    padding: "18px",
                     display: "grid",
-                    gap: "8px",
+                    gap: "10px",
                   }}
                 >
+                  <span
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "12px",
+                      border: "1px solid rgba(239,89,36,0.22)",
+                      background: "rgba(239,89,36,0.08)",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "var(--color-brand-orange)",
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 800,
+                      fontSize: "14px",
+                    }}
+                  >
+                    0{index + 1}
+                  </span>
                   <p
                     style={{
                       fontFamily: "var(--font-display)",
                       fontWeight: 700,
-                      fontSize: "15px",
+                      fontSize: "16px",
                       color: "var(--color-text-primary)",
                     }}
                   >
@@ -478,8 +622,8 @@ export default function ContactPage() {
                   <p
                     style={{
                       fontFamily: "var(--font-body)",
-                      fontSize: "12px",
-                      lineHeight: 1.65,
+                      fontSize: "13px",
+                      lineHeight: 1.7,
                       color: "var(--color-text-secondary)",
                     }}
                   >
@@ -491,10 +635,12 @@ export default function ContactPage() {
 
             <div
               style={{
-                borderRadius: "12px",
-                border: "1px solid rgba(239,89,36,0.32)",
-                background: "rgba(239,89,36,0.07)",
-                padding: "14px",
+                borderRadius: "18px",
+                border: "1px solid rgba(239,89,36,0.22)",
+                background: "rgba(255,255,255,0.03)",
+                padding: "16px",
+                display: "grid",
+                gap: "8px",
               }}
             >
               {TRUST_SIGNALS.map((item) => (
@@ -507,7 +653,6 @@ export default function ContactPage() {
                     fontFamily: "var(--font-body)",
                     fontSize: "13px",
                     color: "var(--color-text-secondary)",
-                    marginBottom: "8px",
                   }}
                 >
                   <ShieldCheck
@@ -539,8 +684,8 @@ export default function ContactPage() {
                     marginTop: "2px",
                   }}
                 />
-                Fast callback windows available if you share preferred timing in
-                the enquiry form.
+                Fast callback windows are available if you share preferred
+                timing in the enquiry form.
               </p>
             </div>
           </div>
@@ -555,8 +700,8 @@ export default function ContactPage() {
         >
           <div
             style={{
-              border: "1px solid var(--color-border)",
-              borderRadius: "16px",
+              border: "1px solid rgba(239,89,36,0.14)",
+              borderRadius: "20px",
               background: "var(--color-dark-surface)",
               padding: "clamp(22px, 4vw, 32px)",
             }}
@@ -574,7 +719,7 @@ export default function ContactPage() {
             >
               FAQ
             </h2>
-            <FaqAccordion items={CONTACT_FAQ} defaultOpenIndex={0} />
+            <FaqAccordion items={CONTACT_FAQ} />
           </div>
         </section>
       </div>
@@ -583,13 +728,17 @@ export default function ContactPage() {
 }
 
 const contactItemStyle: CSSProperties = {
-  display: "flex",
-  alignItems: "flex-start",
+  display: "inline-flex",
+  alignItems: "center",
   gap: "10px",
   minWidth: 0,
   fontFamily: "var(--font-body)",
   fontSize: "clamp(12px, 2.8vw, 14px)",
-  color: "var(--color-text-muted)",
+  color: "var(--color-text-primary)",
   textDecoration: "none",
   lineHeight: 1.6,
+  padding: "12px 14px",
+  borderRadius: "999px",
+  border: "1px solid rgba(255,255,255,0.08)",
+  background: "rgba(10,10,10,0.42)",
 };

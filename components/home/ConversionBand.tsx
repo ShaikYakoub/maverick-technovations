@@ -12,13 +12,13 @@ import {
 import { BUSINESS_DATA } from "@/lib/constants";
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-80px" },
   transition: {
-    duration: 0.6,
+    duration: 0.62,
     delay,
-    ease: [0.25, 0.46, 0.45, 0.94] as const,
+    ease: [0.22, 1, 0.36, 1] as const,
   },
 });
 
@@ -68,7 +68,7 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
     <section
       aria-labelledby="conversion-band-heading"
       style={{
-        padding: "clamp(72px, 10vw, 96px) 24px clamp(88px, 11vw, 120px)",
+        padding: "clamp(72px, 10vw, 98px) 24px clamp(88px, 11vw, 124px)",
         background:
           "linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(18,18,18,0.95) 18%, rgba(10,10,10,1) 100%)",
       }}
@@ -100,11 +100,11 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 800,
-              fontSize: "clamp(28px, 5vw, 52px)",
-              letterSpacing: "-0.04em",
-              lineHeight: 1.04,
+              fontSize: "clamp(28px, 5vw, 54px)",
+              letterSpacing: "-0.05em",
+              lineHeight: 1.02,
               color: "var(--color-text-primary)",
-              maxWidth: "760px",
+              maxWidth: "780px",
             }}
           >
             One homepage. Clear paths.
@@ -119,12 +119,12 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
               fontSize: "clamp(13px, 2.5vw, 15px)",
               lineHeight: 1.75,
               color: "var(--color-text-secondary)",
-              maxWidth: "620px",
+              maxWidth: "640px",
             }}
           >
             If you need growth, training, or a direct line to the team, the next
-            step should be obvious. This closes the homepage with the only four
-            actions most visitors actually need.
+            step should be obvious. This section closes the homepage with the
+            only actions most visitors actually need.
           </p>
         </motion.div>
 
@@ -143,14 +143,16 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
               gap: "clamp(14px, 2.8vw, 18px)",
               minHeight: "100%",
               width: "100%",
-              padding: "clamp(18px, 4.2vw, 24px)",
-              borderRadius: "18px",
-              border: "1px solid var(--color-border)",
-              background: "var(--color-dark-elevated)",
+              padding: "clamp(20px, 4.4vw, 26px)",
+              borderRadius: "20px",
+              border: "1px solid rgba(239,89,36,0.16)",
+              background:
+                "linear-gradient(180deg, rgba(24,24,24,0.98) 0%, rgba(14,14,14,0.98) 100%)",
               textDecoration: "none",
-              position: "relative" as const,
+              position: "relative",
               overflow: "hidden",
-              textAlign: "left" as const,
+              textAlign: "left",
+              boxShadow: "0 18px 40px rgba(0,0,0,0.16)",
             };
 
             const content = (
@@ -159,25 +161,38 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
                   aria-hidden="true"
                   style={{
                     position: "absolute",
-                    inset: "auto -40px -90px auto",
+                    inset: "auto -20px -70px auto",
                     width: "180px",
                     height: "180px",
                     borderRadius: "50%",
-                    background: `radial-gradient(circle, ${item.tone}24 0%, transparent 70%)`,
+                    background: `radial-gradient(circle, ${item.tone}26 0%, transparent 70%)`,
                     pointerEvents: "none",
+                  }}
+                />
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    inset: "14px 14px auto auto",
+                    width: "72px",
+                    height: "1px",
+                    background: `linear-gradient(90deg, transparent 0%, ${item.tone} 100%)`,
+                    opacity: 0.8,
                   }}
                 />
 
                 <div
                   style={{
-                    width: "46px",
-                    height: "46px",
-                    borderRadius: "12px",
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "14px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    border: `1px solid ${item.tone}55`,
+                    border: `1px solid color-mix(in srgb, ${item.tone} 34%, transparent)`,
                     background: `color-mix(in srgb, ${item.tone} 14%, transparent)`,
+                    position: "relative",
+                    zIndex: 1,
                   }}
                 >
                   <Icon
@@ -187,12 +202,19 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
                   />
                 </div>
 
-                <div style={{ display: "grid", gap: "10px" }}>
+                <div
+                  style={{
+                    display: "grid",
+                    gap: "10px",
+                    position: "relative",
+                    zIndex: 1,
+                  }}
+                >
                   <h3
                     style={{
                       fontFamily: "var(--font-display)",
                       fontWeight: 800,
-                      fontSize: "clamp(17px, 3vw, 24px)",
+                      fontSize: "clamp(18px, 3vw, 24px)",
                       letterSpacing: "-0.03em",
                       color: "var(--color-text-primary)",
                     }}
@@ -223,6 +245,8 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
                     color: item.tone,
+                    position: "relative",
+                    zIndex: 1,
                   }}
                 >
                   {item.action}
@@ -237,6 +261,7 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
                   key={item.title}
                   type="button"
                   {...fadeUp(index * 0.08)}
+                  whileHover={{ y: -10, scale: 1.02 }}
                   className="btn-animated"
                   onClick={onOpenDrawer}
                   style={cardStyle}
@@ -250,6 +275,7 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
               <motion.a
                 key={item.title}
                 {...fadeUp(index * 0.08)}
+                whileHover={{ y: -10, scale: 1.02 }}
                 href={item.href}
                 className="btn-animated"
                 style={{
@@ -264,17 +290,18 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
         </div>
 
         <motion.div
-          {...fadeUp(0.18)}
+          {...fadeUp(0.16)}
           style={{
             display: "flex",
             flexWrap: "wrap",
             gap: "16px",
             alignItems: "stretch",
             justifyContent: "space-between",
-            padding: "clamp(14px, 3vw, 18px) clamp(14px, 3.2vw, 22px)",
-            borderRadius: "16px",
-            border: "1px solid var(--color-border)",
-            background: "rgba(18,18,18,0.92)",
+            padding: "clamp(16px, 3vw, 20px) clamp(16px, 3.2vw, 24px)",
+            borderRadius: "18px",
+            border: "1px solid rgba(239,89,36,0.16)",
+            background:
+              "linear-gradient(180deg, rgba(20,20,20,0.96) 0%, rgba(14,14,14,0.96) 100%)",
           }}
         >
           <div style={{ display: "grid", gap: "8px", flex: "1 1 430px" }}>
@@ -285,7 +312,7 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
                 fontSize: "clamp(20px, 3.4vw, 30px)",
                 letterSpacing: "-0.03em",
                 color: "var(--color-text-primary)",
-                lineHeight: 1.15,
+                lineHeight: 1.12,
               }}
             >
               Every engagement runs on one operating rhythm,
@@ -316,17 +343,20 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
             }}
           >
             {[
-              "Weekly Strategy Sprints",
-              "Execution Across Channels",
-              "Live Performance Visibility",
-              "Scale-Ready Playbooks",
-            ].map((item) => (
-              <span
+              "Weekly Review Cadence",
+              "Creative Delivery Loop",
+              "Decision Dashboard Access",
+            ].map((item, index) => (
+              <motion.span
                 key={item}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.32, delay: 0.18 + index * 0.05 }}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  padding: "8px 12px",
+                  padding: "9px 12px",
                   borderRadius: "999px",
                   border: "1px solid rgba(239,89,36,0.28)",
                   background: "rgba(239,89,36,0.08)",
@@ -339,7 +369,7 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
                 }}
               >
                 {item}
-              </span>
+              </motion.span>
             ))}
           </div>
         </motion.div>

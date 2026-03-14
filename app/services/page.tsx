@@ -282,7 +282,7 @@ export default function ServicesPage() {
             >
               Frequently Asked Questions
             </h2>
-            <FaqAccordion items={SERVICES_FAQ} defaultOpenIndex={0} />
+            <FaqAccordion items={SERVICES_FAQ} />
           </div>
         </section>
       </div>

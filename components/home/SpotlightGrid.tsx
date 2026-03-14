@@ -63,6 +63,38 @@ export default function SpotlightGrid() {
           gap="clamp(12px, 2.8vw, 20px)"
           cardPadding="clamp(18px, 4.6vw, 28px)"
         />
+
+        <motion.div
+          {...fadeUp(0.08)}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "clamp(22px, 4vw, 30px)",
+          }}
+        >
+          <a
+            href="/services"
+            className="btn-animated"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "13px 22px",
+              borderRadius: "999px",
+              border: "1px solid rgba(239,89,36,0.32)",
+              background: "rgba(239,89,36,0.08)",
+              color: "var(--color-brand-orange-light)",
+              textDecoration: "none",
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "12px",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+            }}
+          >
+            View All Services
+          </a>
+        </motion.div>
       </div>
     </section>
   );

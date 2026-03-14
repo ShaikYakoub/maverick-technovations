@@ -11,14 +11,18 @@ interface FaqItem {
 
 export default function FaqAccordion({
   items,
-  defaultOpenIndex = 0,
+  defaultOpenIndex,
 }: {
   items: ReadonlyArray<FaqItem>;
   defaultOpenIndex?: number;
 }) {
-  const [openIndex, setOpenIndex] = useState(
-    Math.min(Math.max(defaultOpenIndex, 0), Math.max(items.length - 1, 0)),
-  );
+  const [openIndex, setOpenIndex] = useState<number | null>(() => {
+    if (defaultOpenIndex === undefined) return null;
+    return Math.min(
+      Math.max(defaultOpenIndex, 0),
+      Math.max(items.length - 1, 0),
+    );
+  });
 
   return (
     <div style={{ display: "grid", gap: "12px" }}>
@@ -43,7 +47,9 @@ export default function FaqAccordion({
               type="button"
               aria-expanded={isOpen}
               aria-controls={panelId}
-              onClick={() => setOpenIndex(idx)}
+              onClick={() =>
+                setOpenIndex((current) => (current === idx ? null : idx))
+              }
               style={{
                 width: "100%",
                 padding: "16px 18px",

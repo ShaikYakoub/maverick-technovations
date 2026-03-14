@@ -85,6 +85,27 @@
   }
 }
 
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-orb {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-12px, 16px, 0) scale(1.04);
+  }
+}
+
 /* ── Base Reset ───────────────────────────────────────────── */
 *,
 *::before,
@@ -253,14 +274,14 @@ button:hover {
 
 .grid-card-2,
 .grid-card-4 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 14px;
 }
 
 .service-grid-responsive {
   display: grid;
   align-items: stretch;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 14px;
 }
 
@@ -280,7 +301,7 @@ button:hover {
 
 .about-stats-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 16px;
 }
 
@@ -308,6 +329,11 @@ button:hover {
 }
 
 @media (min-width: 768px) {
+  .grid-card-2,
+  .grid-card-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .grid-balance-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -321,8 +347,27 @@ button:hover {
   }
 
   .about-stats-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
+  }
+
+  .service-grid-responsive {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-card-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .about-stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .grid-detail-hero {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 40px;
   }
 
   .service-grid-responsive {
@@ -330,16 +375,15 @@ button:hover {
   }
 }
 
-@media (min-width: 1024px) {
-  .grid-detail-hero {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 40px;
-  }
-}
-
 @media (min-width: 1200px) {
   .service-grid-responsive {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 560px) {
+  .about-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

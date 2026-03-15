@@ -34,7 +34,12 @@ function LogoPill({ src, index }: { src: string; index: number }) {
         alt={`Client ${index + 1}`}
         width={120}
         height={48}
-        style={{ objectFit: "contain", maxHeight: "48px", width: "auto", filter: "brightness(0.85) grayscale(0.3)" }}
+        style={{
+          objectFit: "contain",
+          maxHeight: "48px",
+          width: "auto",
+          filter: "brightness(0.85) grayscale(0.3)",
+        }}
       />
     </div>
   );
@@ -83,7 +88,11 @@ export default function ClientLogoMarquee() {
           }
         >
           {row.map((src, idx) => (
-            <LogoPill key={`${src}-${idx}`} src={src} index={idx % CLIENT_IMAGES.length} />
+            <LogoPill
+              key={`${src}-${idx}`}
+              src={src}
+              index={idx % CLIENT_IMAGES.length}
+            />
           ))}
         </div>
       </div>

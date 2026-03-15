@@ -209,7 +209,12 @@ export default function Footer() {
                 alt="Mavericks Technovations"
                 width={180}
                 height={50}
-                style={{ display: "block", height: "50px", width: "auto", objectFit: "contain" }}
+                style={{
+                  display: "block",
+                  height: "50px",
+                  width: "auto",
+                  objectFit: "contain",
+                }}
               />
             </div>
 
@@ -321,12 +326,15 @@ export default function Footer() {
                     boxShadow: "0 2px 10px rgba(239,89,36,0.28)",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.opacity = "0.85";
-                    (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+                    (e.currentTarget as HTMLAnchorElement).style.opacity =
+                      "0.85";
+                    (e.currentTarget as HTMLAnchorElement).style.transform =
+                      "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
-                    (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+                    (e.currentTarget as HTMLAnchorElement).style.transform =
+                      "translateY(0)";
                   }}
                 >
                   <s.icon size={17} />

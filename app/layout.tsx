@@ -81,9 +81,7 @@ export const metadata: Metadata = {
     images: ["/og?title=Dominate+the+Algorithm&type=home"],
   },
   icons: {
-    icon: [
-      { url: "/media/images/maverick-favicon.avif", type: "image/avif" },
-    ],
+    icon: [{ url: "/media/images/maverick-favicon.avif", type: "image/avif" }],
     apple: "/media/images/maverick-favicon.avif",
   },
   alternates: {

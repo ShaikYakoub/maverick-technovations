@@ -207,7 +207,9 @@ function Panel({ side, onOpenDrawer }: PanelProps) {
               borderRadius: "8px",
               border: "none",
               cursor: "none",
-              boxShadow: isAgency ? "0 4px 18px rgba(239,89,36,0.32)" : undefined,
+              boxShadow: isAgency
+                ? "0 4px 18px rgba(239,89,36,0.32)"
+                : undefined,
             }}
           >
             {ctaLabel}

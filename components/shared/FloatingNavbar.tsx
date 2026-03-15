@@ -168,7 +168,12 @@ export default function FloatingNavbar({
               width={160}
               height={44}
               priority
-              style={{ display: "block", height: "44px", width: "auto", objectFit: "contain" }}
+              style={{
+                display: "block",
+                height: "44px",
+                width: "auto",
+                objectFit: "contain",
+              }}
             />
           </Link>
 

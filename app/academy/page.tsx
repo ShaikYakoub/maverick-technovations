@@ -534,13 +534,16 @@ export default function AcademyPage() {
                     marginBottom: "40px",
                   }}
                 >
-                  Every student goes through a structured pathway — from the moment they enquire to the day they land their first role or client. No guesswork, no drop-off.
+                  Every student goes through a structured pathway — from the
+                  moment they enquire to the day they land their first role or
+                  client. No guesswork, no drop-off.
                 </p>
 
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+                    gridTemplateColumns:
+                      "repeat(auto-fill, minmax(260px, 1fr))",
                     gap: "16px",
                   }}
                 >
@@ -743,7 +746,9 @@ export default function AcademyPage() {
                     maxWidth: "720px",
                   }}
                 >
-                  Because students need more than syllabus hours. They need a system that makes them legible to employers, confident in real work environments, and ready from Day 1.
+                  Because students need more than syllabus hours. They need a
+                  system that makes them legible to employers, confident in real
+                  work environments, and ready from Day 1.
                 </p>
               </div>
               <div className="grid-card-4" style={{ gap: "16px" }}>

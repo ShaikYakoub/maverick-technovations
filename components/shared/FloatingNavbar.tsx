@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import {
   motion,
   AnimatePresence,
@@ -156,32 +157,19 @@ export default function FloatingNavbar({
             href="/"
             aria-label="Mavericks Technovations — Home"
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "18px",
-              letterSpacing: "-0.02em",
-              color: "var(--color-text-primary)",
               textDecoration: "none",
               display: "flex",
               alignItems: "center",
-              gap: "10px",
             }}
           >
-            <span
-              aria-hidden="true"
-              style={{
-                display: "inline-block",
-                width: "8px",
-                height: "8px",
-                borderRadius: "50%",
-                background: "var(--gradient-brand-premium)",
-                boxShadow:
-                  "0 0 0 3px rgba(239,89,36,0.25), 0 0 12px rgba(239,89,36,0.6)",
-                flexShrink: 0,
-              }}
+            <Image
+              src="/media/images/maverick-logo.avif"
+              alt="Mavericks Technovations"
+              width={160}
+              height={44}
+              priority
+              style={{ display: "block", height: "44px", width: "auto", objectFit: "contain" }}
             />
-            Mavericks
-            <span className="text-brand-gradient">Technovations</span>
           </Link>
 
           {/* ── Desktop Links ──────────────────────────────────── */}
@@ -432,12 +420,13 @@ export default function FloatingNavbar({
       <style>{`
         .magnetic-cta {
           position: relative;
-          background: transparent;
-          border: 1px solid var(--color-brand-orange);
-          border-radius: 6px;
+          background: var(--gradient-brand-premium);
+          border: none;
+          border-radius: 8px;
           padding: 10px 22px;
           cursor: none;
           overflow: hidden;
+          box-shadow: 0 3px 14px rgba(239,89,36,0.32);
         }
         .magnetic-cta__inner {
           position: relative;
@@ -447,20 +436,20 @@ export default function FloatingNavbar({
           font-size: 13px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: var(--color-brand-orange);
+          color: #fff;
           pointer-events: none;
           transition: color 0.25s ease;
         }
         .magnetic-cta__glow {
           position: absolute;
           inset: 0;
-          background: var(--gradient-brand-premium);
+          background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
           opacity: 0;
           transition: opacity 0.3s ease;
           pointer-events: none;
         }
         .magnetic-cta:hover .magnetic-cta__glow { opacity: 1; }
-        .magnetic-cta:hover .magnetic-cta__inner { color: #000; }
+        .magnetic-cta:hover .magnetic-cta__inner { color: #fff; }
 
         /* Hide desktop links on mobile */
         @media (max-width: 768px) {

@@ -197,8 +197,8 @@ function Panel({ side, onOpenDrawer }: PanelProps) {
               alignItems: "center",
               gap: "8px",
               padding: "13px 26px",
-              background: accent,
-              color: isAgency ? "#000" : "#fff",
+              background: isAgency ? "var(--gradient-brand-premium)" : accent,
+              color: "#fff",
               fontFamily: "var(--font-display)",
               fontWeight: 800,
               fontSize: "13px",
@@ -207,6 +207,7 @@ function Panel({ side, onOpenDrawer }: PanelProps) {
               borderRadius: "8px",
               border: "none",
               cursor: "none",
+              boxShadow: isAgency ? "0 4px 18px rgba(239,89,36,0.32)" : undefined,
             }}
           >
             {ctaLabel}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Mail, ArrowUpRight } from "lucide-react";
 import {
   FaFacebookF,
@@ -200,36 +201,16 @@ export default function Footer() {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "10px",
                 marginBottom: "16px",
               }}
             >
-              <span
-                aria-hidden="true"
-                style={{
-                  width: "8px",
-                  height: "8px",
-                  borderRadius: "50%",
-                  background: "var(--gradient-brand-premium)",
-                  boxShadow:
-                    "0 0 0 3px rgba(239,89,36,0.25), 0 0 12px rgba(239,89,36,0.6)",
-                  flexShrink: 0,
-                  display: "inline-block",
-                }}
+              <Image
+                src="/media/images/maverick-logo.avif"
+                alt="Mavericks Technovations"
+                width={180}
+                height={50}
+                style={{ display: "block", height: "50px", width: "auto", objectFit: "contain" }}
               />
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 800,
-                  fontSize: "16px",
-                  letterSpacing: "-0.02em",
-                  color: "var(--color-text-primary)",
-                }}
-              >
-                Mavericks
-                <br />
-                <span className="text-brand-gradient">Technovations</span>
-              </span>
             </div>
 
             <p
@@ -326,31 +307,29 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    width: "32px",
-                    height: "32px",
-                    borderRadius: "8px",
-                    border: "1px solid rgba(239,89,36,0.34)",
+                    width: "38px",
+                    height: "38px",
+                    borderRadius: "10px",
+                    border: "none",
+                    background: "var(--gradient-brand-premium)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "var(--color-brand-orange)",
+                    color: "#fff",
                     textDecoration: "none",
-                    transition: "border-color 0.2s, color 0.2s",
+                    transition: "opacity 0.2s, transform 0.2s",
+                    boxShadow: "0 2px 10px rgba(239,89,36,0.28)",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      s.color;
-                    (e.currentTarget as HTMLAnchorElement).style.color =
-                      s.color;
+                    (e.currentTarget as HTMLAnchorElement).style.opacity = "0.85";
+                    (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "rgba(239,89,36,0.34)";
-                    (e.currentTarget as HTMLAnchorElement).style.color =
-                      "var(--color-brand-orange)";
+                    (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
+                    (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
                   }}
                 >
-                  <s.icon size={14} />
+                  <s.icon size={17} />
                 </a>
               ))}
             </div>

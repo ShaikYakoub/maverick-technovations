@@ -80,6 +80,12 @@ export const metadata: Metadata = {
       "South India's premier digital marketing agency and tech academy based in Kadapa, Andhra Pradesh.",
     images: ["/og?title=Dominate+the+Algorithm&type=home"],
   },
+  icons: {
+    icon: [
+      { url: "/media/images/maverick-favicon.avif", type: "image/avif" },
+    ],
+    apple: "/media/images/maverick-favicon.avif",
+  },
   alternates: {
     canonical: BUSINESS_DATA.url,
   },

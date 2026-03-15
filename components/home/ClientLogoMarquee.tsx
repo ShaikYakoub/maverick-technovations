@@ -1,17 +1,19 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
 
-const PLACEHOLDER_LOGOS = [
-  "Client One",
-  "Client Two",
-  "Client Three",
-  "Client Four",
-  "Client Five",
-  "Client Six",
-  "Client Seven",
-  "Client Eight",
+const CLIENT_IMAGES = [
+  "/media/images/clients/1.avif",
+  "/media/images/clients/2.avif",
+  "/media/images/clients/3.avif",
+  "/media/images/clients/4.avif",
+  "/media/images/clients/5.avif",
+  "/media/images/clients/6.avif",
+  "/media/images/clients/7.avif",
+  "/media/images/clients/8.avif",
+  "/media/images/clients/9.avif",
 ];
 
-function LogoPill({ label }: { label: string }) {
+function LogoPill({ src, index }: { src: string; index: number }) {
   return (
     <div
       style={{
@@ -19,32 +21,27 @@ function LogoPill({ label }: { label: string }) {
         alignItems: "center",
         justifyContent: "center",
         minWidth: "160px",
-        height: "56px",
-        padding: "0 20px",
+        height: "72px",
+        padding: "0 16px",
         borderRadius: "12px",
         border: "1px solid var(--color-border)",
         background: "var(--color-dark-elevated)",
+        flexShrink: 0,
       }}
     >
-      <span
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "13px",
-          fontWeight: 700,
-          letterSpacing: "0.06em",
-          textTransform: "uppercase",
-          color: "var(--color-text-muted)",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {label}
-      </span>
+      <Image
+        src={src}
+        alt={`Client ${index + 1}`}
+        width={120}
+        height={48}
+        style={{ objectFit: "contain", maxHeight: "48px", width: "auto", filter: "brightness(0.85) grayscale(0.3)" }}
+      />
     </div>
   );
 }
 
 export default function ClientLogoMarquee() {
-  const row = [...PLACEHOLDER_LOGOS, ...PLACEHOLDER_LOGOS];
+  const row = [...CLIENT_IMAGES, ...CLIENT_IMAGES];
 
   return (
     <section
@@ -85,8 +82,8 @@ export default function ClientLogoMarquee() {
             } as CSSProperties
           }
         >
-          {row.map((logo, idx) => (
-            <LogoPill key={`${logo}-${idx}`} label={logo} />
+          {row.map((src, idx) => (
+            <LogoPill key={`${src}-${idx}`} src={src} index={idx % CLIENT_IMAGES.length} />
           ))}
         </div>
       </div>

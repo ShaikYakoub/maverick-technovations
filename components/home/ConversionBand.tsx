@@ -304,7 +304,13 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
               "linear-gradient(180deg, rgba(20,20,20,0.96) 0%, rgba(14,14,14,0.96) 100%)",
           }}
         >
-          <div style={{ display: "grid", gap: "8px", flex: "1 1 430px" }}>
+          <div
+            style={{
+              display: "grid",
+              gap: "8px",
+              flex: "1 1 430px",
+            }}
+          >
             <p
               style={{
                 fontFamily: "var(--font-display)",
@@ -330,47 +336,6 @@ export default function ConversionBand({ onOpenDrawer }: ConversionBandProps) {
               Strategy maps the priorities, execution ships in weekly sprints,
               and reporting keeps each move tied to measurable business impact.
             </p>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "8px",
-              alignContent: "flex-start",
-              justifyContent: "flex-end",
-              flex: "1 1 320px",
-            }}
-          >
-            {[
-              "Weekly Review Cadence",
-              "Creative Delivery Loop",
-              "Decision Dashboard Access",
-            ].map((item, index) => (
-              <motion.span
-                key={item}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.32, delay: 0.18 + index * 0.05 }}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  padding: "9px 12px",
-                  borderRadius: "999px",
-                  border: "1px solid rgba(239,89,36,0.28)",
-                  background: "rgba(239,89,36,0.08)",
-                  color: "var(--color-text-secondary)",
-                  fontFamily: "var(--font-body)",
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  letterSpacing: "0.04em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {item}
-              </motion.span>
-            ))}
           </div>
         </motion.div>
       </div>

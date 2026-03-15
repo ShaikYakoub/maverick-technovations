@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Mail, ArrowUpRight } from "lucide-react";
 import {
+  ArrowUpRight,
   FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
   FaWhatsapp,
-} from "react-icons/fa";
+  Mail,
+  MapPin,
+} from "@/lib/icons";
 import { BUSINESS_DATA, SERVICES, ACADEMY_COURSES } from "@/lib/constants";
 
 const SERVICE_COLS = [
@@ -337,7 +339,7 @@ export default function Footer() {
                       "translateY(0)";
                   }}
                 >
-                  <s.icon size={17} />
+                  <s.icon size={19} />
                 </a>
               ))}
             </div>

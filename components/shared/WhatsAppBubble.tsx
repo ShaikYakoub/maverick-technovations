@@ -1,6 +1,6 @@
 "use client";
 
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "@/lib/icons";
 import { BUSINESS_DATA } from "@/lib/constants";
 
 export default function WhatsAppBubble() {
@@ -31,7 +31,7 @@ export default function WhatsAppBubble() {
         textDecoration: "none",
       }}
     >
-      <FaWhatsapp size={24} />
+      <FaWhatsapp size={28} />
     </a>
   );
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
-import { Clock3, Mail, MapPin, Phone, ShieldCheck, Timer } from "lucide-react";
+import { Clock3, Mail, MapPin, Phone, ShieldCheck, Timer } from "@/lib/icons";
 import ContactLeadForm from "@/components/contact/ContactLeadForm";
 import FaqAccordion from "@/components/shared/FaqAccordion";
 import { BUSINESS_DATA } from "@/lib/constants";
@@ -92,8 +92,7 @@ export default function ContactPage() {
   const addressQuery = `${BUSINESS_DATA.address.street}, ${BUSINESS_DATA.address.city}, ${BUSINESS_DATA.address.state} ${BUSINESS_DATA.address.postalCode}`;
   const coordinateQuery = `${BUSINESS_DATA.geo.latitude},${BUSINESS_DATA.geo.longitude}`;
   const mapDirectionsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(coordinateQuery)}`;
-  const mapEmbedSrc =
-    "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6140.654107035749!2d78.83100033377337!3d14.462596189570512!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb373488fc7f385%3A0xed0bda71426fa962!2sKrazy%20coders!5e0!3m2!1sen!2sin!4v1773560584186!5m2!1sen!2sin";
+  const mapEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(coordinateQuery)}&z=17&output=embed`;
 
   const contactSchema = {
     "@context": "https://schema.org",

@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, useMotionValue, useSpring } from "motion/react";
-import { ArrowRight, ChevronDown, MapPin } from "lucide-react";
+import { ArrowRight, ChevronDown, MapPin } from "@/lib/icons";
 
 // R3F canvas must be dynamically imported (no SSR)
 const HeroThreeCanvas = dynamic(() => import("./HeroThreeCanvas"), {

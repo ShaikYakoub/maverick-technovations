@@ -7,13 +7,7 @@ import {
   useSpring,
   useMotionValue,
 } from "motion/react";
-import {
-  X,
-  ArrowRight,
-  CheckCircle,
-  Loader2,
-  ChevronRight,
-} from "lucide-react";
+import { X, ArrowRight, CheckCircle, Loader2, ChevronRight } from "@/lib/icons";
 import { submitLead, trackEvent } from "@/actions/lead";
 import type { LeadActionResult } from "@/actions/lead";
 import { useLenisScroll } from "@/components/shared/LenisProvider";

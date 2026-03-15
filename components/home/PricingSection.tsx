@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Check, Lock, ArrowRight, Star } from "lucide-react";
+import { Check, Lock, ArrowRight, Star } from "@/lib/icons";
 import { PRICING_TIERS } from "@/lib/constants";
 
 const SILVER_FEATURES = [

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Phone, CheckCircle, ArrowLeft } from "lucide-react";
+import { Phone, CheckCircle, ArrowLeft } from "@/lib/icons";
 import FaqAccordion from "@/components/shared/FaqAccordion";
 import CourseFeeSelector from "@/components/academy/CourseFeeSelector";
 import { ACADEMY_COURSES, BUSINESS_DATA } from "@/lib/constants";

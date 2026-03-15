@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Award, Clock, Sparkles, Wifi } from "lucide-react";
+import { ArrowRight, Award, Clock, Sparkles, Wifi } from "@/lib/icons";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 
 interface AcademyCourseItem {
@@ -162,6 +162,7 @@ export default function ExpandableAcademyGrid({
 
     return (
       <motion.div
+        className="academy-card-hover"
         animate={
           showExpandedState
             ? {
@@ -169,7 +170,7 @@ export default function ExpandableAcademyGrid({
                 scale: 1.035,
                 height: touchMode ? "auto" : DESKTOP_EXPANDED_HEIGHT,
                 boxShadow: "0 34px 90px rgba(0,0,0,0.56)",
-                borderColor: "rgba(239,89,36,0.42)",
+                borderColor: "rgba(255,75,75,0.42)",
               }
             : {
                 y: showHoverLift ? -6 : 0,
@@ -261,7 +262,7 @@ export default function ExpandableAcademyGrid({
             style={{
               height: "1px",
               background:
-                "linear-gradient(90deg, rgba(239,89,36,0) 0%, rgba(239,89,36,0.46) 48%, rgba(239,89,36,0) 100%)",
+                "linear-gradient(90deg, rgba(255,75,75,0) 0%, rgba(211,32,39,0.52) 48%, rgba(122,0,0,0) 100%)",
             }}
           />
         ) : null}
@@ -318,13 +319,13 @@ export default function ExpandableAcademyGrid({
                       width: "30px",
                       height: "30px",
                       borderRadius: "999px",
-                      border: "1px solid rgba(239,89,36,0.28)",
-                      background: "var(--gradient-brand-premium)",
+                      border: "1px solid rgba(255,75,75,0.28)",
+                      background: "var(--gradient-brand-red)",
                       display: "inline-flex",
                       alignItems: "center",
                       justifyContent: "center",
                       flexShrink: 0,
-                      boxShadow: "0 2px 8px 0 rgba(239,89,36,0.10)",
+                      boxShadow: "0 2px 8px 0 rgba(211,32,39,0.16)",
                     }}
                   >
                     <ArrowRight
@@ -414,8 +415,8 @@ export default function ExpandableAcademyGrid({
             <div
               style={{
                 borderRadius: "14px",
-                border: "1px solid rgba(239,89,36,0.24)",
-                background: "rgba(239,89,36,0.08)",
+                border: "1px solid rgba(255,75,75,0.24)",
+                background: "rgba(211,32,39,0.10)",
                 padding: "12px",
                 display: "grid",
                 gap: "6px",
@@ -428,7 +429,7 @@ export default function ExpandableAcademyGrid({
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "var(--color-brand-orange)",
+                  color: "var(--color-brand-red-light)",
                 }}
               >
                 Outcome Focus
@@ -549,7 +550,7 @@ export default function ExpandableAcademyGrid({
                   width: "36px",
                   height: "36px",
                   borderRadius: "999px",
-                  border: "1px solid rgba(239,89,36,0.42)",
+                  border: "1px solid rgba(255,75,75,0.42)",
                   background: "rgba(10,10,10,0.72)",
                   color: "var(--color-text-primary)",
                   zIndex: 3,

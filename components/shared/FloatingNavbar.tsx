@@ -11,7 +11,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Menu, X } from "@/lib/icons";
 import { BUSINESS_DATA } from "@/lib/constants";
 
 const NAV_LINKS = [

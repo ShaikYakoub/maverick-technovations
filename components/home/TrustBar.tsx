@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import type { ComponentType, CSSProperties } from "react";
 import { TRUST_PILLARS } from "@/lib/constants";
-import { Award, Eye, BarChart2, Shield } from "lucide-react";
+import { Award, Eye, BarChart2, Shield } from "@/lib/icons";
 
 const ICON_MAP: Record<
   string,
@@ -35,17 +36,18 @@ const MARQUEE_STATS = [
 
 // Duplicate for seamless loop
 const TRACK_ITEMS = [...MARQUEE_STATS, ...MARQUEE_STATS, ...MARQUEE_STATS];
-const LOGO_ITEMS = [
-  "Apollo Fintech",
-  "Nexa Retail",
-  "Urban Spine",
-  "CodeVista Labs",
-  "SouthPeak Clinics",
-  "Nova Homes",
-  "Pulse Foods",
-  "Sapphire Infra",
+const CLIENT_IMAGES = [
+  "/media/images/clients/1.avif",
+  "/media/images/clients/2.avif",
+  "/media/images/clients/3.avif",
+  "/media/images/clients/4.avif",
+  "/media/images/clients/5.avif",
+  "/media/images/clients/6.avif",
+  "/media/images/clients/7.avif",
+  "/media/images/clients/8.avif",
+  "/media/images/clients/9.avif",
 ];
-const LOGO_TRACK_ITEMS = [...LOGO_ITEMS, ...LOGO_ITEMS, ...LOGO_ITEMS];
+const LOGO_TRACK_ITEMS = [...CLIENT_IMAGES, ...CLIENT_IMAGES, ...CLIENT_IMAGES];
 
 function MarqueeTrack({ reverse = false }: { reverse?: boolean }) {
   return (
@@ -123,39 +125,40 @@ function LogoMarqueeTrack({ reverse = false }: { reverse?: boolean }) {
           display: "flex",
           width: "max-content",
           animation: `${reverse ? "marquee-reverse" : "marquee"} 32s linear infinite`,
-          gap: "24px",
+          gap: "18px",
           alignItems: "center",
         }}
       >
-        {LOGO_TRACK_ITEMS.map((brand, i) => (
+        {LOGO_TRACK_ITEMS.map((src, i) => (
           <span
-            key={`${brand}-${i}`}
+            key={`${src}-${i}`}
             className="logo-marquee-item"
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "10px",
-              padding: "8px 14px",
-              borderRadius: "999px",
+              justifyContent: "center",
+              minWidth: "168px",
+              height: "78px",
+              padding: "0 18px",
+              borderRadius: "16px",
               border: "1px solid var(--color-border)",
               background: "rgba(26,26,26,0.9)",
-              color: "var(--color-text-secondary)",
-              fontFamily: "var(--font-display)",
-              fontSize: "11px",
-              fontWeight: 700,
-              letterSpacing: "0.09em",
-              textTransform: "uppercase",
-              filter: "grayscale(1)",
-              opacity: 0.7,
+              opacity: 0.92,
               transition:
-                "filter 0.25s ease, opacity 0.25s ease, border-color 0.25s ease",
+                "transform 0.25s ease, opacity 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease",
             }}
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <circle cx="7" cy="7" r="6" fill="currentColor" opacity="0.45" />
-              <circle cx="7" cy="7" r="2.6" fill="currentColor" />
-            </svg>
-            {brand}
+            <Image
+              src={src}
+              alt="Client brand"
+              width={124}
+              height={52}
+              style={{
+                objectFit: "contain",
+                maxHeight: "52px",
+                width: "auto",
+              }}
+            />
           </span>
         ))}
       </div>
@@ -229,9 +232,10 @@ export default function TrustBar() {
 
       <style>{`
         .logo-marquee-item:hover {
-          filter: grayscale(0);
           opacity: 1;
           border-color: rgba(239,89,36,0.4);
+          transform: translateY(-2px);
+          box-shadow: 0 12px 28px rgba(0,0,0,0.24);
         }
       `}</style>
     </section>

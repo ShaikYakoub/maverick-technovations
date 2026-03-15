@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, MapPin, Phone } from "lucide-react";
+import { ArrowRight, MapPin, Phone } from "@/lib/icons";
 import { BUSINESS_DATA, CITIES, CITY_LABELS } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 

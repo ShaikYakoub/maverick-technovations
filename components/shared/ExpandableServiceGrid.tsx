@@ -18,7 +18,7 @@ import {
   Users,
   Video,
   Zap,
-} from "lucide-react";
+} from "@/lib/icons";
 import type { ServiceSlug } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 

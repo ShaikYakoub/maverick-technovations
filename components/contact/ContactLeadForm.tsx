@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle } from "@/lib/icons";
 import { submitLead, trackEvent } from "@/actions/lead";
 
 type Intent = "marketing" | "training";

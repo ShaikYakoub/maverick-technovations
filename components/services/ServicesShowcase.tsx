@@ -17,7 +17,7 @@ import {
   Sparkles,
   TrendingUp,
   Users,
-} from "lucide-react";
+} from "@/lib/icons";
 import { SERVICES } from "@/lib/constants";
 
 interface ServicePlan {

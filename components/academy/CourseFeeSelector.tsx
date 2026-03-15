@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "@/lib/icons";
 
 interface FeeTier {
   name: string;

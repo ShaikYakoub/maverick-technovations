@@ -8,7 +8,7 @@ import {
   BookOpen,
   Building2,
   MapPin,
-} from "lucide-react";
+} from "@/lib/icons";
 import { BUSINESS_DATA } from "@/lib/constants";
 
 const fadeUp = (delay = 0) => ({

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Phone } from "@/lib/icons";
 import { ACADEMY_COURSES, BUSINESS_DATA } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 import FaqAccordion from "@/components/shared/FaqAccordion";
@@ -299,7 +299,7 @@ export default function AcademyPage() {
                 >
                   Train like a pro.
                   <br />
-                  <span className="text-brand-gradient">Place like one.</span>
+                  <span className="text-academy-gradient">Place like one.</span>
                 </h1>
                 <p
                   style={{
@@ -317,13 +317,12 @@ export default function AcademyPage() {
                 </p>
                 <a
                   href={`tel:+91${BUSINESS_DATA.phone}`}
-                  className="btn-animated"
+                  className="btn-animated bg-academy-gradient"
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "10px",
                     padding: "14px 28px",
-                    background: "var(--gradient-brand-premium)",
                     color: "#fff",
                     fontFamily: "var(--font-display)",
                     fontWeight: 800,
@@ -366,7 +365,7 @@ export default function AcademyPage() {
               }}
             >
               Career pathways aligned to
-              <span className="text-brand-gradient"> hiring demand.</span>
+              <span className="text-academy-gradient"> hiring demand.</span>
             </h2>
             <p
               style={{
@@ -384,6 +383,7 @@ export default function AcademyPage() {
               {OUTCOME_TRACKS.map((track, index) => (
                 <div
                   key={track.title}
+                  className="academy-card-hover"
                   style={{
                     border: "1px solid rgba(239,89,36,0.14)",
                     borderRadius: "18px",
@@ -399,12 +399,12 @@ export default function AcademyPage() {
                       width: "42px",
                       height: "42px",
                       borderRadius: "12px",
-                      border: "1px solid rgba(239,89,36,0.22)",
-                      background: "rgba(239,89,36,0.08)",
+                      border: "1px solid rgba(255,75,75,0.22)",
+                      background: "rgba(211,32,39,0.10)",
                       display: "inline-flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "var(--color-brand-orange)",
+                      color: "var(--color-brand-red-light)",
                       fontFamily: "var(--font-display)",
                       fontWeight: 800,
                       fontSize: "14px",
@@ -522,7 +522,7 @@ export default function AcademyPage() {
                   }}
                 >
                   From first call to
-                  <span className="text-brand-gradient"> career launch.</span>
+                  <span className="text-academy-gradient"> career launch.</span>
                 </h2>
                 <p
                   style={{
@@ -550,6 +550,7 @@ export default function AcademyPage() {
                   {STUDENT_PATHWAY.map((item, index) => (
                     <div
                       key={item.step}
+                      className="academy-card-hover"
                       style={{
                         padding: "20px",
                         borderRadius: "18px",
@@ -656,13 +657,12 @@ export default function AcademyPage() {
                 >
                   <a
                     href={`tel:+91${BUSINESS_DATA.phone}`}
-                    className="btn-animated"
+                    className="btn-animated bg-academy-gradient"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "8px",
                       padding: "13px 24px",
-                      background: "var(--gradient-brand-premium)",
                       color: "#fff",
                       fontFamily: "var(--font-display)",
                       fontWeight: 800,
@@ -755,6 +755,7 @@ export default function AcademyPage() {
                 {WHY_POINTS.map((point) => (
                   <div
                     key={point.title}
+                    className="academy-card-hover"
                     style={{
                       display: "grid",
                       gap: "12px",
@@ -769,7 +770,7 @@ export default function AcademyPage() {
                         width: "44px",
                         height: "44px",
                         borderRadius: "12px",
-                        background: "var(--gradient-brand-premium)",
+                        background: "var(--gradient-brand-red)",
                         display: "inline-flex",
                         alignItems: "center",
                         justifyContent: "center",

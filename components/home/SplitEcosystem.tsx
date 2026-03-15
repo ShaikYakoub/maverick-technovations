@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
-import { ArrowRight, Award, BookOpen } from "lucide-react";
+import { ArrowRight, Award, BookOpen } from "@/lib/icons";
 
 const AGENCY_FEATURES = [
   "SEO & Content Strategy",
@@ -50,10 +50,12 @@ function Panel({ side, onOpenDrawer }: PanelProps) {
   const features = isAgency ? AGENCY_FEATURES : ACADEMY_FEATURES;
   const ctaLabel = isAgency ? "Scale My Business" : "Enroll Now";
   const ctaHref = isAgency ? undefined : "/academy";
+  const academyGlow = "0 4px 18px rgba(211,32,39,0.34)";
 
   return (
     <motion.div
       {...fadeUp(isAgency ? 0 : 0.15)}
+      className={isAgency ? undefined : "academy-card-hover"}
       style={{
         flex: "1 1 440px",
         minWidth: 0,
@@ -218,12 +220,12 @@ function Panel({ side, onOpenDrawer }: PanelProps) {
         ) : (
           <a
             href={ctaHref}
+            className="bg-academy-gradient"
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
               padding: "13px 26px",
-              background: accent,
               color: "#fff",
               fontFamily: "var(--font-display)",
               fontWeight: 800,
@@ -233,6 +235,7 @@ function Panel({ side, onOpenDrawer }: PanelProps) {
               borderRadius: "8px",
               textDecoration: "none",
               cursor: "none",
+              boxShadow: academyGlow,
             }}
           >
             {ctaLabel}

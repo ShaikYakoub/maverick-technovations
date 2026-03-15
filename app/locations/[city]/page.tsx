@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Phone, ArrowRight, CheckCircle } from "lucide-react";
+import { Phone, ArrowRight, CheckCircle } from "@/lib/icons";
 import { CITIES, CITY_LABELS, SERVICES, BUSINESS_DATA } from "@/lib/constants";
 import type { City } from "@/lib/constants";
 

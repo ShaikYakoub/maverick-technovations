@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Phone, Sparkles } from "lucide-react";
+import { ArrowRight, Phone, Sparkles } from "@/lib/icons";
 import { BUSINESS_DATA } from "@/lib/constants";
 import { MEDIA_ASSETS } from "@/lib/mediaManifest";
 import FaqAccordion from "@/components/shared/FaqAccordion";

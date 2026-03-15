@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown } from "@/lib/icons";
 
 interface FaqItem {
   question: string;
